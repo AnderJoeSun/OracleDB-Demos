@@ -1,0 +1,130 @@
+
+C:\>exp sysman/dashi@test
+
+Export: Release 10.2.0.1.0 - Production on 星期五 3月 23 08:38:06 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+连接到: Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+输入数组提取缓冲区大小: 4096 > 5000
+
+ 导出文件: EXPDAT.DMP > c:\mybak.dmp
+
+(1)E(完整的数据库), (2)U(用户) 或 (3)T(表): (2)U > e
+
+导出权限 (yes/no): yes > y
+
+EXP-00013: 请按 'Y', 'N', RETURN 或 '.' 退出
+导出权限 (yes/no): yes > yes
+
+导出表数据 (yes/no): yes > yes
+
+压缩区 (yes/no): yes > yes
+
+已导出 ZHS16GBK 字符集和 AL16UTF16 NCHAR 字符集
+
+即将导出整个数据库...
+. 正在导出表空间定义
+. 正在导出概要文件
+. 正在导出用户定义
+. 正在导出角色
+. 正在导出资源成本
+. 正在导出回退段定义
+. 正在导出数据库链接
+. 正在导出序号
+. 正在导出目录别名
+. 正在导出上下文名称空间
+. 正在导出外部函数库名
+. 导出 PUBLIC 类型同义词
+. 正在导出专用类型同义词
+. 正在导出对象类型定义
+. 正在导出系统过程对象和操作^C
+C:\>exp sysman/dashi@ora
+
+Export: Release 10.2.0.1.0 - Production on 星期五 3月 23 08:42:15 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+EXP-00056: 遇到 ORACLE 错误 12154
+ORA-12154: TNS: 无法解析指定的连接标识符
+EXP-00000: 导出终止失败
+
+C:\>exp sysman/dashi@test
+
+Export: Release 10.2.0.1.0 - Production on 星期五 3月 23 08:42:44 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+连接到: Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+输入数组提取缓冲区大小: 4096 > 5000
+
+ 导出文件: EXPDAT.DMP > c:\mybak.dmp
+
+(1)E(完整的数据库), (2)U(用户) 或 (3)T(表): (2)U > t
+
+导出表数据 (yes/no): yes > yes
+
+压缩区 (yes/no): yes > yes
+
+已导出 ZHS16GBK 字符集和 AL16UTF16 NCHAR 字符集
+
+即将导出指定的表通过常规路径...
+要导出的表 (T) 或分区 (T: P): (按 RETURN 退出) > d
+
+. . 正在导出表                               D导出了          14 行
+要导出的表 (T) 或分区 (T: P): (按 RETURN 退出) >
+
+成功终止导出, 没有出现警告。
+
+C:\>见另一个窗口，其内容保存于oralce44.txt
+'见另一个窗口，其内容保存于oralce44.txt' 不是内部或外部命令，也不是可运行的程序
+或批处理文件。
+
+C:\>再见此窗口
+'再见此窗口' 不是内部或外部命令，也不是可运行的程序
+或批处理文件。
+
+C:\>imp sysman/dashi
+
+Import: Release 10.2.0.1.0 - Production on 星期五 3月 23 08:51:55 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+连接到: Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+导入文件: EXPDAT.DMP> c:\mybad.dmp
+
+IMP-00002: 无法打开 c:\mybad.dmp 进行读取
+导入文件: EXPDAT.DMP> c:\mybak.dmp
+
+输入插入缓冲区大小 (最小为 8192) 30720>
+
+经由常规路径由 EXPORT:V10.02.01 创建的导出文件
+已经完成 ZHS16GBK 字符集和 AL16UTF16 NCHAR 字符集中的导入
+只列出导入文件的内容 (yes/no): no >
+
+由于对象已存在, 忽略创建错误 (yes/no): no > yes
+
+导入权限 (yes/no): yes >
+
+导入表数据 (yes/no): yes >
+
+导入整个导出文件 (yes/no): no > yes
+
+. 正在将 SYSMAN 的对象导入到 SYSMAN
+. 正在将 SYSMAN 的对象导入到 SYSMAN
+. . 正在导入表                             "D"导入了          14 行
+成功终止导入, 但出现警告。
+
+C:\>此时去oralce44.txt那个窗口！
+'此时去oralce44.txt那个窗口！' 不是内部或外部命令，也不是可运行的程序
+或批处理文件。
+
+C:\>

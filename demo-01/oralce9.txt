@@ -1,0 +1,846 @@
+Microsoft Windows XP [版本 5.1.2600]
+(C) 版权所有 1985-2001 Microsoft Corp.
+
+C:\Documents and Settings\user>sqlplus sys/dashi as sysdba
+
+SQL*Plus: Release 10.2.0.1.0 - Production on 星期四 3月 22 16:14:48 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+连接到:
+Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> conn sysman/dashi
+已连接。
+SQL> select user from dual;
+
+USER
+------------------------------
+SYSMAN
+
+SQL> conn /dashi as dba
+SP2-0306: 选项无效。
+用法: CONN[ECT] [logon] [AS {SYSDBA|SYSOPER}]
+其中 <logon>  ::= <username>[/<password>][@<connect_identifier>] | /
+SQL> conn /dashi as sysdba
+SP2-0306: 选项无效。
+用法: CONN[ECT] [logon] [AS {SYSDBA|SYSOPER}]
+其中 <logon>  ::= <username>[/<password>][@<connect_identifier>] | /
+SQL> conn sys/dashi as sysdba
+已连接。
+SQL> create tablespace tabs
+  2  datafile 'C:\oracle\product\10.2.0\oradata\test\tabs.dbf' size 10M;
+
+表空间已创建。
+
+SQL> alter user test default tablespace tabs;
+
+用户已更改。
+
+SQL> conn test/qiaoyu
+已连接。
+SQL> create table tre(t char(10),re number);
+create table tre(t char(10),re number)
+*
+第 1 行出现错误:
+ORA-01031: 权限不足
+
+
+SQL> conn sys/dashi as sysdba
+已连接。
+SQL> grant unlimited tablespace,dba to test;
+
+授权成功。
+
+SQL> cnoo test/qiaoyu
+SP2-0734: 未知的命令开头 "cnoo test/..." - 忽略了剩余的行。
+SQL> conn test/qiaoyu
+已连接。
+SQL> create talbe tre(t char(10),re number);
+create talbe tre(t char(10),re number)
+       *
+第 1 行出现错误:
+ORA-00901: 无效 CREATE 命令
+
+
+SQL> create table tre(t char(10),re number);
+
+表已创建。
+
+SQL> create table ty(t char(20),y varchar2(10)) tablespace example;
+
+表已创建。
+
+SQL> 在OEM中tre是保存在tabs表空间里的，因为它是用户test的默认表空间，ty是保存在e
+xample中的
+SP2-0734: 未知的命令开头 "在OEM中tre..." - 忽略了剩余的行。
+SQL> desc d
+ERROR:
+ORA-04043: 对象 d 不存在
+
+
+SQL> conn sysman/dashi
+已连接。
+SQL> desc d
+ 名称                                      是否为空? 类型
+ ----------------------------------------- -------- ----------------------------
+
+ EID                                                VARCHAR2(10)
+ ENAME                                              VARCHAR2(10)
+ SEX                                                VARCHAR2(10)
+ ID                                                 VARCHAR2(10)
+
+SQL> select * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         32233
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+121        sdkjfls               22
+0111       abc        man        22
+01         A部门
+02         B部门
+03         C部门
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+04         D部门
+05         E部门
+
+已选择13行。
+
+SQL> insert into d(eid,ename) values('001','test22');
+
+已创建 1 行。
+
+SQL> select * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         32233
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+121        sdkjfls               22
+0111       abc        man        22
+001        test22
+01         A部门
+02         B部门
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+03         C部门
+04         D部门
+05         E部门
+
+已选择14行。
+
+SQL> dsce e
+SP2-0042: 未知命令 "dsce e" - 其余行忽略。
+SQL> desc e
+ 名称                                      是否为空? 类型
+ ----------------------------------------- -------- ----------------------------
+
+ ID                                                 VARCHAR2(10)
+ NAME                                               VARCHAR2(10)
+
+SQL> desc a
+ 名称                                      是否为空? 类型
+ ----------------------------------------- -------- ----------------------------
+
+ A                                                  VARCHAR2(10)
+ B                                                  CHAR(10)
+
+SQL> desc b
+ 名称                                      是否为空? 类型
+ ----------------------------------------- -------- ----------------------------
+
+ A1                                                 VARCHAR2(10)
+ A2                                                 VARCHAR2(10)
+ A3                                                 CHAR(10)
+
+SQL> desc c
+ 名称                                      是否为空? 类型
+ ----------------------------------------- -------- ----------------------------
+
+ BOOKS_ID                                           VARCHAR2(10)
+ BOOKS_NAME                                         VARCHAR2(10)
+ PRICE                                              VARCHAR2(10)
+ QTY                                                NUMBER
+ PUB                                                VARCHAR2(10)
+
+SQL> desc f
+ 名称                                      是否为空? 类型
+ ----------------------------------------- -------- ----------------------------
+
+ DEPTNO                                             VARCHAR2(10)
+ DNAME                                              VARCHAR2(10)
+ LOC                                                VARCHAR2(10)
+
+SQL> desc g
+ERROR:
+ORA-04043: 对象 g 不存在
+
+
+SQL> alter d add cloumn joyu varchar2(10) not null;
+alter d add cloumn joyu varchar2(10) not null
+      *
+第 1 行出现错误:
+ORA-00940: 无效的 ALTER 命令
+
+
+SQL> alter table d add column joyu not null;
+alter table d add column joyu not null
+                  *
+第 1 行出现错误:
+ORA-00904: : 标识符无效
+
+
+SQL> alter table d add column joyu;
+alter table d add column joyu
+                  *
+第 1 行出现错误:
+ORA-00904: : 标识符无效
+
+
+SQL> alter table d add joyu varchar2(10) not null;
+alter table d add joyu varchar2(10) not null
+            *
+第 1 行出现错误:
+ORA-01758: 要添加必需的 (NOT NULL) 列, 则表必须为空
+
+
+SQL> conn sysman/dashi |输入命令号码:              |
+SP2-0306: 选项无效。
+用法: CONN[ECT] [logon] [AS {SYSDBA|SYSOPER}]
+其中 <logon>  ::= <username>[/<password>][@<connect_identifier>] | /
+SQL>  +---------------------------+ +---------------------------+
+SP2-0734: 未知的命令开头 "+---------..." - 忽略了剩余的行。
+SQL>  |输入命令号码:              |
+SP2-0734: 未知的命令开头 "|输入命令..." - 忽略了剩余的行。
+SQL>  +---------------------------+546548l;ak;ldfk;lask
+SP2-0734: 未知的命令开头 "+---------..." - 忽略了剩余的行。
+SQL> conn sysman/dashi
+已连接。
+SQL> create table emp(eid varchar2(10),ename varchar2(10),sex varchar2(10),id nu
+mber,eeid varchar2(10) not null);
+
+表已创建。
+
+SQL> insert into emp values('001','赵1','f',1,'1');
+
+已创建 1 行。
+
+SQL> insert into emp values('002','钱2','w',2,'2');
+
+已创建 1 行。
+
+SQL> insert into emp values('003','孙3','man',787,'3');
+
+已创建 1 行。
+
+SQL> select * from emp
+  2  ;
+
+EID        ENAME      SEX                ID EEID
+---------- ---------- ---------- ---------- ----------
+001        赵1        f                   1 1
+002        钱2        w                   2 2
+003        孙3        man               787 3
+
+SQL> desc emp
+ 名称                                      是否为空? 类型
+ ----------------------------------------- -------- ----------------------------
+
+ EID                                                VARCHAR2(10)
+ ENAME                                              VARCHAR2(10)
+ SEX                                                VARCHAR2(10)
+ ID                                                 NUMBER
+ EEID                                      NOT NULL VARCHAR2(10)
+
+SQL> insert into emp(eeid) values('2');
+
+已创建 1 行。
+
+SQL> select * from emp
+  2  ;
+
+EID        ENAME      SEX                ID EEID
+---------- ---------- ---------- ---------- ----------
+001        赵1        f                   1 1
+002        钱2        w                   2 2
+003        孙3        man               787 3
+                                            2
+
+SQL> alter talbe d add column eeid varchar2(10) primary key;
+alter talbe d add column eeid varchar2(10) primary key
+      *
+第 1 行出现错误:
+ORA-00940: 无效的 ALTER 命令
+
+
+SQL> alter table d add column eeid varchar2(10) primary key;
+alter table d add column eeid varchar2(10) primary key
+                  *
+第 1 行出现错误:
+ORA-00904: : 标识符无效
+
+
+SQL> alter table d add eeid varchar2(10) primary key;
+alter table d add eeid varchar2(10) primary key
+            *
+第 1 行出现错误:
+ORA-01758: 要添加必需的 (NOT NULL) 列, 则表必须为空
+
+
+SQL> drop table emp;
+
+表已删除。
+
+SQL> create table emp(eid varchar2(10) primary key,ename varchar2(10));
+
+表已创建。
+
+SQL> insert into emp values('001','赵1');
+
+已创建 1 行。
+
+SQL> insert into emp values('002','钱2');
+
+已创建 1 行。
+
+SQL> insert into emp values('003','孙3');
+
+已创建 1 行。
+
+SQL> select * from emp;
+
+EID        ENAME
+---------- ----------
+001        赵1
+002        钱2
+003        孙3
+
+SQL> insert into emp values('002','李4');
+insert into emp values('002','李4')
+*
+第 1 行出现错误:
+ORA-00001: 违反唯一约束条件 (SYSMAN.SYS_C005436)
+
+
+SQL> create table nn(n1 varchar2(10) not null primary key,n2 char(10));
+
+表已创建。
+
+SQL> insert into nn values('abc','def');
+
+已创建 1 行。
+
+SQL> drop table nn;
+
+表已删除。
+
+SQL>  create table nn(n1 varchar2(10) not null,n2 char(10));
+
+表已创建。
+
+SQL> ins
+SP2-0042: 未知命令 "ins" - 其余行忽略。
+SQL>  insert into nn values('abc','def');
+
+已创建 1 行。
+
+SQL>
+SQL>  insert into nn values('abc','ddd');
+
+已创建 1 行。
+
+SQL> alter table nn add constraint zhu primary key(n1);
+alter table nn add constraint zhu primary key(n1)
+                              *
+第 1 行出现错误:
+ORA-02437: 无法验证 (SYSMAN.ZHU) - 违反主键
+
+
+SQL> delete from nn where n2='ddd';
+
+已删除 1 行。
+
+SQL>  alter table nn add constraint zhu primary key(n1);
+
+表已更改。
+
+SQL>  insert into nn values('abc','ddd');
+ insert into nn values('abc','ddd')
+*
+第 1 行出现错误:
+ORA-00001: 违反唯一约束条件 (SYSMAN.ZHU)
+
+
+SQL> select * from nn;
+
+N1         N2
+---------- ----------
+abc        def
+
+SQL> create table mm(m1 char(10),m2 varchar2(10),n1 varchar2(10));
+
+表已创建。
+
+Microsoft Windows XP [版本 5.1.2600]
+(C) 版权所有 1985-2001 Microsoft Corp.
+
+C:\Documents and Settings\user>sqlplus sys/dashi as sysdba
+
+SQL*Plus: Release 10.2.0.1.0 - Production on 星期四 3月 22 23:30:26 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+连接到:
+Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> select * from nn;
+select * from nn
+              *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+SQL> create table nn(n1 varchar2(10) not null,n2 char(10));
+
+表已创建。
+
+SQL>  insert into nn values('abc','ddd');
+
+已创建 1 行。
+
+SQL> alter table nn add constraint zhu primary key(n1);
+
+表已更改。
+
+SQL> select * from nn;
+
+N1         N2
+---------- ----------
+abc        ddd
+
+SQL> commit
+  2  ;
+
+提交完成。
+
+SQL>  insert into nn values('abc','ddd');
+ insert into nn values('abc','ddd')
+*
+第 1 行出现错误:
+ORA-00001: 违反唯一约束条件 (SYS.ZHU)
+
+
+SQL>  create table mm(m1 char(10),m2 varchar2(10),n1 varchar2(10));
+
+表已创建。
+
+SQL>  insert into values('avd','dd','djk');
+ insert into values('avd','dd','djk')
+             *
+第 1 行出现错误:
+ORA-00903: 表名无效
+
+
+SQL> insert into mm values('avd','dd','gg');
+
+已创建 1 行。
+
+SQL> rollback;
+
+回退已完成。
+
+SQL> select * from mm;
+
+未选定行
+
+SQL> alter table mm add constraint fk_mn foreign key(n1) references nn(n1);
+
+表已更改。
+
+SQL> insert into mm values('acd','dd','gg');
+insert into mm values('acd','dd','gg')
+*
+第 1 行出现错误:
+ORA-02291: 违反完整约束条件 (SYS.FK_MN) - 未找到父项关键字
+
+
+SQL> insert into mm values('avd','dd','abc');
+
+已创建 1 行。
+
+SQL> commit
+  2  ;
+
+提交完成。
+
+SQL> select * from nn;
+
+N1         N2
+---------- ----------
+abc        ddd
+
+SQL> update nn set n1='tt';
+update nn set n1='tt'
+*
+第 1 行出现错误:
+ORA-02292: 违反完整约束条件 (SYS.FK_MN) - 已找到子记录
+
+
+SQL> selete from nn;
+SP2-0734: 未知的命令开头 "selete fro..." - 忽略了剩余的行。
+SQL> delete from nn;
+delete from nn
+*
+第 1 行出现错误:
+ORA-02292: 违反完整约束条件 (SYS.FK_MN) - 已找到子记录
+
+
+SQL> select * from mm;
+
+M1         M2         N1
+---------- ---------- ----------
+avd        dd         abc
+
+SQL> insert into nn values('aaa','dldkf');
+
+已创建 1 行。
+
+SQL> insert into mm values('dkjs','dkfj','dkfls');
+insert into mm values('dkjs','dkfj','dkfls')
+*
+第 1 行出现错误:
+ORA-02291: 违反完整约束条件 (SYS.FK_MN) - 未找到父项关键字
+
+
+SQL> insert into mm values('dkjfsl','k;sdlkjf','aaa');
+
+已创建 1 行。
+
+SQL> commit;
+
+提交完成。
+
+SQL> select * from emp;
+select * from emp
+              *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+SQL>  create table emp(eid varchar2(10) primary key,ename varchar2(10));
+
+表已创建。
+
+SQL> insert into emp values('001','赵1');
+
+已创建 1 行。
+
+SQL> insert into emp values('002','钱2');
+
+已创建 1 行。
+
+SQL> insert into emp values('003','孙3');
+
+已创建 1 行。
+
+SQL> select * from emp;
+
+EID        ENAME
+---------- ----------
+001        赵1
+002        钱2
+003        孙3
+
+SQL> insert into emp values('002','李4');
+insert into emp values('002','李4')
+*
+第 1 行出现错误:
+ORA-00001: 违反唯一约束条件 (SYS.SYS_C005458)
+
+
+SQL> commit;
+
+提交完成。
+
+SQL> desc emp
+ 名称                                      是否为空? 类型
+ ----------------------------------------- -------- ----------------------------
+
+ EID                                       NOT NULL VARCHAR2(10)
+ ENAME                                              VARCHAR2(10)
+
+SQL> alter table emp add sex varchar2(10),id varchar2(10);
+alter table emp add sex varchar2(10),id varchar2(10)
+                                    *
+第 1 行出现错误:
+ORA-01735: 无效的 ALTER TABLE 选项
+
+
+SQL>  alter table emp add sex varchar2(10);
+
+表已更改。
+
+SQL> alter table emp add id varchar2(10);
+
+表已更改。
+
+SQL> update emp set sex='男' where eid='002';
+
+已更新 1 行。
+
+SQL>  update emp set sex='男' where eid='003';
+
+已更新 1 行。
+
+SQL>   update emp set sex='女' where eid='004';
+
+已更新0行。
+
+SQL>   update emp set sex='dsdf' where eid='001';
+
+已更新 1 行。
+
+SQL> update emp set sex='女' where eid='003';
+
+已更新 1 行。
+
+SQL> select * from emp;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        dsdf
+002        钱2        男
+003        孙3        女
+
+SQL>  update emp set id='yy' where eid='001';
+
+已更新 1 行。
+
+SQL> update emp set id='02' where eid='001';
+
+已更新 1 行。
+
+SQL> update emp set id='02' where eid='002';
+
+已更新 1 行。
+
+SQL>  update emp set id='yy' where eid='001';
+
+已更新 1 行。
+
+SQL>  update emp set id='03' where eid='003';
+
+已更新 1 行。
+
+SQL>  update emp set id='04' where eid='004';
+
+已更新0行。
+
+SQL> select * from emp;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        dsdf       yy
+002        钱2        男         02
+003        孙3        女         03
+
+SQL> update emp set sex='男' where eid='001';
+
+已更新 1 行。
+
+SQL> select * from emp;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         yy
+002        钱2        男         02
+003        孙3        女         03
+
+SQL> alter table emp add constraint ck check(sex='男' or set='女');
+alter table emp add constraint ck check(sex='男' or set='女')
+                                                    *
+第 1 行出现错误:
+ORA-00904: : 标识符无效
+
+
+SQL>  alter table emp add constraint ck check(sex='男' or sex='女');
+
+表已更改。
+
+SQL> update emp set sex='m' where eid='001';
+update emp set sex='m' where eid='001'
+*
+第 1 行出现错误:
+ORA-02290: 违反检查约束条件 (SYS.CK)
+
+
+SQL>  desc dba_constraints
+ 名称                                      是否为空? 类型
+ ----------------------------------------- -------- ----------------------------
+
+ OWNER                                     NOT NULL VARCHAR2(30)
+ CONSTRAINT_NAME                           NOT NULL VARCHAR2(30)
+ CONSTRAINT_TYPE                                    VARCHAR2(1)
+ TABLE_NAME                                NOT NULL VARCHAR2(30)
+ SEARCH_CONDITION                                   LONG
+ R_OWNER                                            VARCHAR2(30)
+ R_CONSTRAINT_NAME                                  VARCHAR2(30)
+ DELETE_RULE                                        VARCHAR2(9)
+ STATUS                                             VARCHAR2(8)
+ DEFERRABLE                                         VARCHAR2(14)
+ DEFERRED                                           VARCHAR2(9)
+ VALIDATED                                          VARCHAR2(13)
+ GENERATED                                          VARCHAR2(14)
+ BAD                                                VARCHAR2(3)
+ RELY                                               VARCHAR2(4)
+ LAST_CHANGE                                        DATE
+ INDEX_OWNER                                        VARCHAR2(30)
+ INDEX_NAME                                         VARCHAR2(30)
+ INVALID                                            VARCHAR2(7)
+ VIEW_RELATED                                       VARCHAR2(14)
+
+SQL> desc all_constraints
+ 名称                                      是否为空? 类型
+ ----------------------------------------- -------- ----------------------------
+
+ OWNER                                     NOT NULL VARCHAR2(30)
+ CONSTRAINT_NAME                           NOT NULL VARCHAR2(30)
+ CONSTRAINT_TYPE                                    VARCHAR2(1)
+ TABLE_NAME                                NOT NULL VARCHAR2(30)
+ SEARCH_CONDITION                                   LONG
+ R_OWNER                                            VARCHAR2(30)
+ R_CONSTRAINT_NAME                                  VARCHAR2(30)
+ DELETE_RULE                                        VARCHAR2(9)
+ STATUS                                             VARCHAR2(8)
+ DEFERRABLE                                         VARCHAR2(14)
+ DEFERRED                                           VARCHAR2(9)
+ VALIDATED                                          VARCHAR2(13)
+ GENERATED                                          VARCHAR2(14)
+ BAD                                                VARCHAR2(3)
+ RELY                                               VARCHAR2(4)
+ LAST_CHANGE                                        DATE
+ INDEX_OWNER                                        VARCHAR2(30)
+ INDEX_NAME                                         VARCHAR2(30)
+ INVALID                                            VARCHAR2(7)
+ VIEW_RELATED                                       VARCHAR2(14)
+
+SQL> desc user_constraints
+ 名称                                      是否为空? 类型
+ ----------------------------------------- -------- ----------------------------
+
+ OWNER                                     NOT NULL VARCHAR2(30)
+ CONSTRAINT_NAME                           NOT NULL VARCHAR2(30)
+ CONSTRAINT_TYPE                                    VARCHAR2(1)
+ TABLE_NAME                                NOT NULL VARCHAR2(30)
+ SEARCH_CONDITION                                   LONG
+ R_OWNER                                            VARCHAR2(30)
+ R_CONSTRAINT_NAME                                  VARCHAR2(30)
+ DELETE_RULE                                        VARCHAR2(9)
+ STATUS                                             VARCHAR2(8)
+ DEFERRABLE                                         VARCHAR2(14)
+ DEFERRED                                           VARCHAR2(9)
+ VALIDATED                                          VARCHAR2(13)
+ GENERATED                                          VARCHAR2(14)
+ BAD                                                VARCHAR2(3)
+ RELY                                               VARCHAR2(4)
+ LAST_CHANGE                                        DATE
+ INDEX_OWNER                                        VARCHAR2(30)
+ INDEX_NAME                                         VARCHAR2(30)
+ INVALID                                            VARCHAR2(7)
+ VIEW_RELATED                                       VARCHAR2(14)
+
+SQL> select constraint_name,constraint_type from user_constraint
+  2  where table_name='EMP';
+select constraint_name,constraint_type from user_constraint
+                                            *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+SQL> select constraint_name,constraint_type from user_constraints
+  2  where table_name='EMP';
+
+CONSTRAINT_NAME                C
+------------------------------ -
+SYS_C005458                    P
+CK                             C
+
+SQL> commit
+  2  ;
+
+提交完成。
+
+SQL> select constraint_name,constraint_type from user_constraints
+  2  where table_name='MM';
+
+CONSTRAINT_NAME                C
+------------------------------ -
+FK_MN                          R
+
+SQL> create index idx on mm(m1);
+
+索引已创建。
+
+SQL> select * from mm where m1='abc';
+
+未选定行
+
+SQL> select * from emp;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         yy
+002        钱2        男         02
+003        孙3        女         03
+
+SQL> insert into emp values('004','李4','女','04');
+
+已创建 1 行。
+
+SQL> insert into emp values('005','周5','女','05');
+
+已创建 1 行。
+
+SQL> create bitmap index on bit_emp on emp(sex);
+create bitmap index on bit_emp on emp(sex)
+                    *
+第 1 行出现错误:
+ORA-00953: 索引名缺失或无效
+
+
+SQL>  create bitmap index bit_emp on emp(sex);
+
+索引已创建。
+
+SQL> select * from emp where sex='男';
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         yy
+002        钱2        男         02
+
+SQL> create unique index myidx on mm(m2);
+
+索引已创建。
+
+SQL> exit
+从 Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options 断开
+
+C:\Documents and Settings\user>

@@ -1,0 +1,828 @@
+Microsoft Windows XP [版本 5.1.2600]
+(C) 版权所有 1985-2001 Microsoft Corp.
+
+C:\Documents and Settings\user>sqlplus sysman/dashi
+
+SQL*Plus: Release 10.2.0.1.0 - Production on 星期三 3月 21 14:14:30 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+连接到:
+Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> select * from a;
+
+A          B
+---------- ----------
+hello      Molyn
+it is      fanyu
+woo!       Great!
+hi         I am Joyu
+
+SQL> select * from b;
+
+A1         A2         A3
+---------- ---------- ----------
+abc        xyz        aa
+bca        dee        aa
+abc        ttt        aa
+cba                   aa
+bbb                   aa
+abc        ggd        aa
+abc        dfd        aa
+
+已选择7行。
+
+SQL> select * from c;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0002       外国文学   27                 10 人民文学
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17 清华大学
+0005       计算机入门 18.5                6 电子工业
+0006       数值算法   21                  7 电子工业
+0007       C语言设计  20                  9 电子工业
+
+已选择7行。
+
+SQL> select * from e;
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+SQL> select * from emp
+  2  ;
+select * from emp
+              *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+SQL> select * from f;
+select * from f
+              *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+SQL> select * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         03
+004        李4        女         04
+005        周5        女         55
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+已选择10行。
+
+SQL>  declare
+  2  type mc is record(
+  3  a d.id%type,
+  4  b varchar2(10));
+  5  r mc;
+  6  begin
+  7  select id,ename into r from d where eid='004';
+  8  dbms_output.put_line(r.a||','||r.b);
+  9  end;
+ 10  /
+
+PL/SQL 过程已成功完成。
+
+SQL> set serveroutput on
+SQL> /
+04,李4
+
+PL/SQL 过程已成功完成。
+
+SQL> declare
+  2  m d%rowtype;
+  3  begin
+  4  select * into m from d where eid='002';
+  5  dbms_output.put_line(m.eid||','||m.ename||','||m.sex||','||m.id);
+  6  end;
+  7  /
+002,钱2,男,02
+
+PL/SQL 过程已成功完成。
+
+SQL> declare
+  2  cursor my is
+  3  select * from c;
+  4  mr c%rowtype;
+  5  begin
+  6  open my;
+  7  fetch my into mr;
+  8  while my%found loop
+  9  dbms_output.put_line(mr.books_name||','||mr.price);
+ 10  fetch my into mr;
+ 11  end loop;
+ 12  close my;
+ 13  end;
+ 14  /
+中国文学,39
+外国文学,27
+英语阅读,33
+建筑艺术,45.5
+计算机入门,18.5
+数值算法,21
+C语言设计,20
+
+PL/SQL 过程已成功完成。
+
+SQL> declare
+  2  cursor cur(id varchar2) is
+  3  select books_name from c where books_id=id;
+  4  t c.books_name%type;
+  5  begin
+  6  open cur('0001');
+  7  loop
+  8  fetch cur into t;
+  9  exit when cur%notfound;
+ 10  dbms_output.put_line(t);
+ 11  end loop;
+ 12  close cur;
+ 13  end;
+ 14  /
+中国文学
+
+PL/SQL 过程已成功完成。
+
+SQL> select * from c;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0002       外国文学   27                 10 人民文学
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17 清华大学
+0005       计算机入门 18.5                6 电子工业
+0006       数值算法   21                  7 电子工业
+0007       C语言设计  20                  9 电子工业
+
+已选择7行。
+
+SQL> declare
+  2  cursor cur(id varchar2) is
+  3  select books_name from c where books_id=id;
+  4  begin
+  5  dbms_output.put_line('****结果集为：****');
+  6  for c in cur('0001') loop
+  7  dbms_output.put_line(c.books_name);
+  8  end loop;
+  9  end;
+ 10  /
+****结果集为：****
+中国文学
+
+PL/SQL 过程已成功完成。
+
+SQL> declare
+  2  t c.books_name%type;
+  3  cursor cur(id varchar2) is
+  4  select books_name from c where books_id=id;
+  5  begin
+  6  if cur%isopen then
+  7  dbms_output.put_line('乔鱼！游标已打开！');
+  8  else
+  9  open cur('0003');
+ 10  end if;
+ 11  fetch sur into t;
+ 12  close cur;
+ 13  dbms_output.put_line(t);
+ 14  end;
+ 15  /
+fetch sur into t;
+      *
+第 11 行出现错误:
+ORA-06550: 第 11 行, 第 7 列:
+PLS-00201: 必须声明标识符 'SUR'
+ORA-06550: 第 11 行, 第 1 列:
+PL/SQL: SQL Statement ignored
+
+
+SQL> save c:\e.txt
+已创建 file c:\e.txt
+SQL> edit c:\e.txt
+
+SQL> /
+fetch sur into t;
+      *
+第 11 行出现错误:
+ORA-06550: 第 11 行, 第 7 列:
+PLS-00201: 必须声明标识符 'SUR'
+ORA-06550: 第 11 行, 第 1 列:
+PL/SQL: SQL Statement ignored
+
+
+SQL> @ c:\e.txt
+英语阅读
+
+PL/SQL 过程已成功完成。
+
+SQL> /
+英语阅读
+
+PL/SQL 过程已成功完成。
+
+SQL> l
+  1  declare
+  2  t c.books_name%type;
+  3  cursor cur(id varchar2) is
+  4  select books_name from c where books_id=id;
+  5  begin
+  6  if cur%isopen then
+  7  dbms_output.put_line('乔鱼！游标已打开！');
+  8  else
+  9  open cur('0003');
+ 10  end if;
+ 11  fetch cur into t;
+ 12  close cur;
+ 13  dbms_output.put_line(t);
+ 14* end;
+SQL> /
+英语阅读
+
+PL/SQL 过程已成功完成。
+
+SQL> select d;
+select d
+       *
+第 1 行出现错误:
+ORA-00923: 未找到要求的 FROM 关键字
+
+
+SQL> select  * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         03
+004        李4        女         04
+005        周5        女         55
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+已选择10行。
+
+SQL> declare
+  2  t varchar(10);
+  3  cursor cur is
+  4  select name from d;
+  5  begin
+  6  open cur;
+  7  loop
+  8  exit when cur%notfound or cur%notfound is null;
+  9  dbms_output.put_line('游标cur的rowcount是：'||cur%rowcount);
+ 10  end loop;
+ 11  close cur;
+ 12  end;
+ 13  /
+select name from d;
+       *
+第 4 行出现错误:
+ORA-06550: 第 4 行, 第 8 列:
+PL/SQL: ORA-00904: "NAME": 标识符无效
+ORA-06550: 第 4 行, 第 1 列:
+PL/SQL: SQL Statement ignored
+
+
+SQL> save c:\f.txt
+已创建 file c:\f.txt
+SQL> edit c:\f.txt
+
+SQL> @ c:\f.txt
+
+PL/SQL 过程已成功完成。
+
+SQL> l
+  1  declare
+  2  t varchar(10);
+  3  cursor cur is
+  4  select ename from d;
+  5  begin
+  6  open cur;
+  7  loop
+  8  exit when cur%notfound or cur%notfound is null;
+  9  dbms_output.put_line('游标cur的rowcount是：'||cur%rowcount);
+ 10  end loop;
+ 11  close cur;
+ 12* end;
+SQL> edit c:\f.txt
+
+SQL> @ c:\f.txt
+fecth cur into t;
+      *
+第 8 行出现错误:
+ORA-06550: 第 8 行, 第 7 列:
+PLS-00103: 出现符号 "CUR"在需要下列之一时：
+:= . ( @ % ;
+
+
+SQL> edit c:\f.txt
+
+SQL> /
+fecth cur into t;
+      *
+第 8 行出现错误:
+ORA-06550: 第 8 行, 第 7 列:
+PLS-00103: 出现符号 "CUR"在需要下列之一时：
+:= . ( @ % ;
+
+
+SQL> @ c:\f.txt
+fecth cur into t;
+      *
+第 8 行出现错误:
+ORA-06550: 第 8 行, 第 7 列:
+PLS-00103: 出现符号 "CUR"在需要下列之一时：
+:= . ( @ % ;
+
+
+SQL> l
+  1  declare
+  2  t varchar(10);
+  3  cursor cur is
+  4  select ename from d;
+  5  begin
+  6  open cur;
+  7  loop
+  8  fecth cur into t;
+  9  exit when cur%notfound or cur%notfound is null;
+ 10  dbms_output.put_line('游标cur的rowcount是：'||cur%rowcount);
+ 11  end loop;
+ 12  close cur;
+ 13* end;
+SQL> edit c:\f.txt
+
+SQL> @ c:\f.txt
+游标cur的rowcount是：1
+游标cur的rowcount是：2
+游标cur的rowcount是：3
+游标cur的rowcount是：4
+游标cur的rowcount是：5
+游标cur的rowcount是：6
+游标cur的rowcount是：7
+游标cur的rowcount是：8
+游标cur的rowcount是：9
+游标cur的rowcount是：10
+
+PL/SQL 过程已成功完成。
+
+SQL> select * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         03
+004        李4        女         04
+005        周5        女         55
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+已选择10行。
+
+SQL> declare
+  2  cursor cur is
+  3  select ename from d for update;
+  4  t varchar2(10);
+  5  begin
+  6  open cur;
+  7  fetch cur into t;
+  8  while cur%found loop
+  9  update d set ename=ename||'_Joyu' where current of cur;
+ 10  fetch cur into t;
+ 11  end loop;
+ 12  close cur;
+ 13  end;
+ 14  /
+
+PL/SQL 过程已成功完成。
+
+SQL> select * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1_Joyu   男         01
+002        钱2_Joyu   男         02
+003        孙3_Joyu   男         03
+004        李4_Joyu   女         04
+005        周5_Joyu   女         55
+01         A部门_Joyu
+02         B部门_Joyu
+03         C部门_Joyu
+04         D部门_Joyu
+05         E部门_Joyu
+
+已选择10行。
+
+SQL> begin
+  2  for cur in(select ename from d) loop
+  3  dbms_output.put_line(cur.ename);
+  4  end loop;
+  5  end;
+  6  /
+赵1_Joyu
+钱2_Joyu
+孙3_Joyu
+李4_Joyu
+周5_Joyu
+A部门_Joyu
+B部门_Joyu
+C部门_Joyu
+D部门_Joyu
+E部门_Joyu
+
+PL/SQL 过程已成功完成。
+
+SQL> save c:\g.txt
+已创建 file c:\g.txt
+SQL> edit c:\g.txt
+
+SQL> @ c:\g.txt
+赵1_Joyu
+钱2_Joyu
+孙3_Joyu
+李4_Joyu
+周5_Joyu
+A部门_Joyu
+B部门_Joyu
+C部门_Joyu
+D部门_Joyu
+E部门_Joyu
+
+PL/SQL 过程已成功完成。
+
+SQL> /
+赵1_Joyu
+钱2_Joyu
+孙3_Joyu
+李4_Joyu
+周5_Joyu
+A部门_Joyu
+B部门_Joyu
+C部门_Joyu
+D部门_Joyu
+E部门_Joyu
+
+PL/SQL 过程已成功完成。
+
+SQL> l
+  1  begin
+  2  for cur in(select ename from d) loop/*此处的cur是一个游标，由于事先没有声明
+，也没有open 和close故称隐式游标！*/
+  3  dbms_output.put_line(cur.ename);
+  4  end loop;
+  5* end;
+Microsoft Windows XP [版本 5.1.2600]
+(C) 版权所有 1985-2001 Microsoft Corp.
+
+C:\Documents and Settings\user>sqlplus sysman/dashi
+
+SQL*Plus: Release 10.2.0.1.0 - Production on 星期三 3月 21 20:43:12 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+连接到:
+Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> set serveroutput on
+SQL> select * from c;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0002       外国文学   27                 10 人民文学
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17 清华大学
+0005       计算机入门 18.5                6 电子工业
+0006       数值算法   21                  7 电子工业
+0007       C语言设计  20                  9 电子工业
+
+已选择7行。
+
+SQL> create or replace prodedure myproc(id in varchar2)
+  2  is
+  3  name varchar2(10);
+create or replace prodedure myproc(id in varchar2)
+                  *
+第 1 行出现错误:
+ORA-00922: 选项缺失或无效
+
+
+SQL> create or replace prodedure myproc(id in varchar2)
+  2  is
+  3  name varchar2(10);
+create or replace prodedure myproc(id in varchar2)
+                  *
+第 1 行出现错误:
+ORA-00922: 选项缺失或无效
+
+
+SQL> create or replace procedure m(id in varchar2)
+  2  is
+  3  name varchar2(10);
+  4  begin
+  5  select books_name into name from c where books_id=id;
+  6  dbms_output.put_line(name);
+  7  end;
+  8  /
+
+过程已创建。
+
+SQL> create or replace procedure m(id in varchar)
+  2  is
+  3  name varchar2(10);
+  4  begin
+  5  select books_name into name form c where books_id=id;
+  6  dbms_output.put_line(name);
+  7  end m;
+  8  /
+
+警告: 创建的过程带有编译错误。
+
+SQL> show errors
+PROCEDURE M 出现错误:
+
+LINE/COL ERROR
+-------- -----------------------------------------------------------------
+5/1      PL/SQL: SQL Statement ignored
+5/29     PL/SQL: ORA-00923: 未找到要求的 FROM 关键字
+SQL> save c:\g.txt
+SP2-0540: 文件 "c:\g.txt" 已经存在。
+使用 "SAVE filename[.ext] REPLACE"。
+SQL> edit c:\g.txt
+
+SQL> save c:\w.txt
+已创建 file c:\w.txt
+SQL> edit c:\w.txt
+
+SQL> @ c:\w.txt
+
+过程已创建。
+
+SQL> l
+  1  create or replace procedure m(id in varchar)
+  2  is
+  3  name varchar2(10);
+  4  begin
+  5  select books_name into name from c where books_id=id;
+  6  dbms_output.put_line(name);
+  7* end m;
+SQL> show errors procedure m;
+没有错误。
+SQL> declare
+  2  tid varchar2(10);
+  3  begin
+  4  tid:='0001';
+  5  m(tid);
+  6  end;
+  7  /
+中国文学
+
+PL/SQL 过程已成功完成。
+
+SQL> begin
+  2  m('0001');
+  3  end;
+  4  /
+中国文学
+
+PL/SQL 过程已成功完成。
+
+SQL> execute m('0001');
+中国文学
+
+PL/SQL 过程已成功完成。
+
+SQL> begin
+  2  execute m('0001');
+  3  end;
+  4  /
+execute m('0001');
+        *
+第 2 行出现错误:
+ORA-06550: 第 2 行, 第 9 列:
+PLS-00103: 出现符号 "M"在需要下列之一时：
+:= . ( @ % ; immediate
+符号 ":=" 被替换为 "M" 后继续。
+
+
+SQL> create or replace procedure m2(id varchar2,name out varchar2)
+  2  is
+  3  begin
+  4  select books_name into name from c where books_id=id;
+  5  end;
+  6  /
+
+过程已创建。
+
+SQL> declare
+  2  tid varchar2(10);
+  3  tname varchar2(10);
+  4  begin
+  5  tid='0001';
+  6  m2(tid,tname);
+  7  dbms_output.put_line(tname);
+  8  end;
+  9  /
+tid='0001';
+   *
+第 5 行出现错误:
+ORA-06550: 第 5 行, 第 4 列:
+PLS-00103: 出现符号 "="在需要下列之一时：
+:= . ( @ % ;
+符号 ":=在 "=" 继续之前已插入。
+
+
+SQL> declare
+  2  tid varchar2(10);
+  3  tname varchar2(10);
+  4  begin
+  5  tid:='0001';
+  6  m2(tid,tname);
+  7  dbms_output.put_line(tname);
+  8  end;
+  9  /
+中国文学
+
+PL/SQL 过程已成功完成。
+
+SQL> create or replace view m
+  2  as
+  3  select * from c;
+select * from c
+              *
+第 3 行出现错误:
+ORA-00955: 名称已由现有对象使用
+
+
+SQL> create or replace view m
+  2  as select * from c;
+as select * from c
+                 *
+第 2 行出现错误:
+ORA-00955: 名称已由现有对象使用
+
+
+SQL> exit
+从 Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options 断开
+
+C:\Documents and Settings\user>sqlplus sysman/dashi
+
+SQL*Plus: Release 10.2.0.1.0 - Production on 星期三 3月 21 21:15:08 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+连接到:
+Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> create or replace view mv
+  2  as
+  3  select * from c;
+
+视图已创建。
+
+SQL> select * from mv;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0002       外国文学   27                 10 人民文学
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17 清华大学
+0005       计算机入门 18.5                6 电子工业
+0006       数值算法   21                  7 电子工业
+0007       C语言设计  20                  9 电子工业
+
+已选择7行。
+
+SQL> insert into mv(books_id) values('0008');
+
+已创建 1 行。
+
+SQL> select * from mv;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0002       外国文学   27                 10 人民文学
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17 清华大学
+0005       计算机入门 18.5                6 电子工业
+0006       数值算法   21                  7 电子工业
+0007       C语言设计  20                  9 电子工业
+0008
+
+已选择8行。
+
+SQL> select * from c;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0002       外国文学   27                 10 人民文学
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17 清华大学
+0005       计算机入门 18.5                6 电子工业
+0006       数值算法   21                  7 电子工业
+0007       C语言设计  20                  9 电子工业
+0008
+
+已选择8行。
+
+SQL> create or replace view mv
+  2  as
+  3  select * from c where price>30;
+
+视图已创建。
+
+SQL> select * from mv;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17 清华大学
+
+SQL> insert into mv values('0009','abcd',23.5,'aa');
+insert into mv values('0009','abcd',23.5,'aa')
+            *
+第 1 行出现错误:
+ORA-00947: 没有足够的值
+
+
+SQL>  insert into mv values('0009','abcd','23',5,'aa');
+
+已创建 1 行。
+
+SQL> select * from mv;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17 清华大学
+
+SQL> select * from c;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0002       外国文学   27                 10 人民文学
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17 清华大学
+0005       计算机入门 18.5                6 电子工业
+0006       数值算法   21                  7 电子工业
+0007       C语言设计  20                  9 电子工业
+0008
+0009       abcd       23                  5 aa
+
+已选择9行。
+
+SQL> create or replace view m2
+  2  as
+  3  select * from c where price>30
+  4  with check option
+  5  /
+select * from c where price>30
+              *
+第 3 行出现错误:
+ORA-00955: 名称已由现有对象使用
+
+
+SQL> create or replace view mv
+  2  as select * from c where price>30
+  3  with check option
+  4  /
+
+视图已创建。
+ insert into mv values('0021','sakfj','21',3,'dkd');

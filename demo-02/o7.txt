@@ -1,0 +1,1082 @@
+Microsoft Windows XP [版本 5.1.2600]
+(C) 版权所有 1985-2001 Microsoft Corp.
+
+C:\Documents and Settings\user>sqlplus sysman/dashi
+
+SQL*Plus: Release 10.2.0.1.0 - Production on 星期四 3月 22 09:36:33 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+连接到:
+Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL>  select * from c;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0002       外国文学   27                 10 人民文学
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17 清华大学
+0005       计算机入门 18.5                6 电子工业
+0006       数值算法   21                  7 电子工业
+0007       C语言设计  20                  9 电子工业
+0013       akdsl      22                  3 eed
+0032       kdsj       35                 21 ksd
+0008
+0009       abcd       23                  5 aa
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0010       edcb       18                  5 aa
+0011       ekdj       39                  3 bb
+
+已选择13行。
+
+SQL> delete from c where books_id='0011';
+
+已删除 1 行。
+
+SQL> commit;
+
+提交完成。
+
+SQL> delecte from  c where books_id='0010';
+SP2-0734: 未知的命令开头 "delecte fr..." - 忽略了剩余的行。
+SQL> delete from c where books_id='0010';
+
+已删除 1 行。
+
+SQL> select * from c;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0002       外国文学   27                 10 人民文学
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17 清华大学
+0005       计算机入门 18.5                6 电子工业
+0006       数值算法   21                  7 电子工业
+0007       C语言设计  20                  9 电子工业
+0013       akdsl      22                  3 eed
+0032       kdsj       35                 21 ksd
+0008
+0009       abcd       23                  5 aa
+
+已选择11行。
+
+SQL> rollback;
+
+回退已完成。
+
+SQL> select * from c;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0002       外国文学   27                 10 人民文学
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17 清华大学
+0005       计算机入门 18.5                6 电子工业
+0006       数值算法   21                  7 电子工业
+0007       C语言设计  20                  9 电子工业
+0013       akdsl      22                  3 eed
+0032       kdsj       35                 21 ksd
+0008
+0009       abcd       23                  5 aa
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0010       edcb       18                  5 aa
+
+已选择12行。
+
+SQL> delete from c where books_id='0010';
+
+已删除 1 行。
+
+SQL> select * from c;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0002       外国文学   27                 10 人民文学
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17 清华大学
+0005       计算机入门 18.5                6 电子工业
+0006       数值算法   21                  7 电子工业
+0007       C语言设计  20                  9 电子工业
+0013       akdsl      22                  3 eed
+0032       kdsj       35                 21 ksd
+0008
+0009       abcd       23                  5 aa
+
+已选择11行。
+
+SQL> 在这儿如果再打开一个窗口，执得 select * from c;得到的表中是还有0010       e
+dcb       18                  5 aa这一记录的！因为上述操作不是自动保存的，只有su
+mmit后，才真正的提交到数据库里了，当然再次查询时，你再也找不到这条记录了！（summ
+it写错了，应该是commit;
+SP2-0734: 未知的命令开头 "在这儿如果..." - 忽略了剩余的行。
+SQL> select * from c for update;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0002       外国文学   27                 10 人民文学
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17 清华大学
+0005       计算机入门 18.5                6 电子工业
+0006       数值算法   21                  7 电子工业
+0007       C语言设计  20                  9 电子工业
+0013       akdsl      22                  3 eed
+0032       kdsj       35                 21 ksd
+0008
+0009       abcd       23                  5 aa
+
+已选择11行。
+
+SQL> 此时若在另一个窗口中对该表进行修改是不允许的，只能等待此窗口中的update操作
+完后，别一个用户（窗口）才被充许继续执行。
+SP2-0734: 未知的命令开头 "此时若在另..." - 忽略了剩余的行。
+SQL> update c set qty=
+  2  '88' where books_id='0005';
+
+已更新 1 行。
+
+SQL> commit
+  2  ;
+
+提交完成。
+
+SQL>
+SQL>  此时若在另一个窗口中对该表进行修改是不允许的，只能等待此窗口中的update操作
+
+SP2-0734: 未知的命令开头 "此时若在另..." - 忽略了剩余的行。
+SQL> 完成并提交后，别一个用户（窗口）才被充许继续执行。
+SP2-0734: 未知的命令开头 "完成并提交..." - 忽略了剩余的行。
+SQL> rollback了就不能commit了，commit了就不能rollback了，因为rollback是指取消操
+作，既在取消了，就意味着没有对这个表进行操作，当然不存在提交了，同样，提交后，此
+次事务已结束，故在接下来的新的操作中想要对刚才的事务中的操作进行回滚（还原）是不
+可能的，因为已经是另一下事务了！而且如果在新事务中也没进行操作就回滚，同样也是不
+允许的！
+SP2-0734: 未知的命令开头 "rollback了..." - 忽略了剩余的行。
+SQL> select * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         03
+004        李4        女         04
+005        周5        女         55
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+已选择10行。
+
+SQL> select * from e;
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+SQL> create or replace trigger shan
+  2  after delete on e
+  3  for each row
+  4  begin
+  5  delete from d where id=:old.id;
+  6  end shan;
+  7  /
+
+触发器已创建
+
+SQL> delete form e where id='01';
+delete form e where id='01'
+       *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+SQL> delete from e where id='01';
+
+已删除 1 行。
+
+SQL> select * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+002        钱2        男         02
+003        孙3        男         03
+004        李4        女         04
+005        周5        女         55
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+已选择9行。
+
+SQL> rollback;
+
+回退已完成。
+
+SQL> select * from e;
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+SQL> select * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         03
+004        李4        女         04
+005        周5        女         55
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+已选择10行。
+
+SQL>  create or replace trigger shan
+  2   after delete on e
+  3   for each row
+  4   begin
+  5   delete from d where id=:old.id;
+  6   end shan;
+  7  /
+
+触发器已创建
+
+SQL> create or replace trigger cha
+  2  after insert on e
+  3  for each row
+  4  begin
+  5  insert into d(eid,ename,id) values('121','sdkjfls',:new.id);
+  6  end;
+  7  /
+
+触发器已创建
+
+SQL> insert into e values('77','sdflsk');
+
+已创建 1 行。
+
+SQL> select * from e;
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+77         sdflsk
+
+已选择6行。
+
+SQL> select * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         03
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+已选择11行。
+
+SQL> create or replace trigger xin
+  2  after update on e
+  3  for each row
+  4  begin
+  5  update d set id=:new.id where id=:old.id;
+  6  end;
+  7  /
+
+触发器已创建
+
+SQL> update e set name='sdjl' where id='03';
+
+已更新 1 行。
+
+SQL> select * from e;
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+03         sdjl
+04         D部门
+05         E部门
+77         sdflsk
+
+已选择6行。
+
+SQL> select * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         03
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+已选择11行。
+
+SQL> update e set id='32233' where id='03';
+
+已更新 1 行。
+
+SQL> select * from e;
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+32233      sdjl
+04         D部门
+05         E部门
+77         sdflsk
+
+已选择6行。
+
+SQL> select * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         32233
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+已选择11行。
+
+SQL> select * from c;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0002       外国文学   27                 10 人民文学
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17 清华大学
+0005       计算机入门 18.5               88 电子工业
+0006       数值算法   21                  7 电子工业
+0007       C语言设计  20                  9 电子工业
+0013       akdsl      22                  3 eed
+0032       kdsj       35                 21 ksd
+0008
+
+已选择10行。
+
+SQL> create or replace trigger shan
+  2  after delete on c
+  3  for each row
+  4  begin
+  5  if :old.books_id='0001' then
+  6  raise_application_error(-20000,'乔鱼说不准删！');
+  7  end if;
+  8  end;
+  9  /
+create or replace trigger shan
+                          *
+第 1 行出现错误:
+ORA-04095: 触发器 'SHAN' 已经在另一表上存在, 无法替换
+
+
+SQL>  create or replace trigger san
+  2  after delete on c
+  3  for each row
+  4  begin
+  5  if :old.books_id='0001' then
+  6  raise_application_error(-20000,'乔鱼说不准删！');
+  7  end if;
+  8  end;
+  9  /
+
+触发器已创建
+
+SQL> delete from c where books_id='0003';
+
+已删除 1 行。
+
+SQL> delete from c where books_id='0001';
+delete from c where books_id='0001'
+            *
+第 1 行出现错误:
+ORA-20000: 乔鱼说不准删！
+ORA-06512: 在 "SYSMAN.SAN", line 3
+ORA-04088: 触发器 'SYSMAN.SAN' 执行过程中出错
+
+
+SQL> select * from c;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0002       外国文学   27                 10 人民文学
+0004       建筑艺术   45.5               17 清华大学
+0005       计算机入门 18.5               88 电子工业
+0006       数值算法   21                  7 电子工业
+0007       C语言设计  20                  9 电子工业
+0013       akdsl      22                  3 eed
+0032       kdsj       35                 21 ksd
+0008
+
+已选择9行。
+
+SQL> 注意:触发器san中的 raise_application_error(-20000,'乔鱼说不准删！');中的错
+误号的取值范围是-20999~-20000;
+SP2-0734: 未知的命令开头 "注意:触发..." - 忽略了剩余的行。
+SQL> rollback
+  2  ;
+
+回退已完成。
+
+SQL> select * from c;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0002       外国文学   27                 10 人民文学
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17 清华大学
+0005       计算机入门 18.5               88 电子工业
+0006       数值算法   21                  7 电子工业
+0007       C语言设计  20                  9 电子工业
+0013       akdsl      22                  3 eed
+0032       kdsj       35                 21 ksd
+0008
+
+已选择10行。
+
+SQL> exit
+从 Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options 断开
+
+C:\Documents and Settings\user>
+
+
+C:\Documents and Settings\user>sqlplus sysman/dashi
+
+SQL*Plus: Release 10.2.0.1.0 - Production on 星期四 3月 22 10:54:57 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+连接到:
+Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> select * from a;
+
+A          B
+---------- ----------
+hello      Molyn
+it is      fanyu
+woo!       Great!
+hi         I am Joyu
+
+SQL> select * from b;
+
+A1         A2         A3
+---------- ---------- ----------
+abc        xyz        aa
+bca        dee        aa
+abc        ttt        aa
+cba                   aa
+bbb                   aa
+abc        ggd        aa
+abc        dfd        aa
+
+已选择7行。
+
+SQL> create table mylog(curr_user varchar2(100),curr_date date,act char(1));
+
+表已创建。
+
+SQL> create or replace trigger s
+  2  atfer insert or delect or update
+  3  .
+SQL> create or replace trigger s
+  2  after insert or delete or update
+  3  on b
+  4  begin
+  5  if inserting then
+  6  insert into mylog values(user,sysdate,'c');
+  7  elseif deleting then
+  8  insert into mylog values(user,sysdate,'s');
+  9  else
+ 10  insert into mylog values(user,sysdate,'x');
+ 11  end if;
+ 12  end;
+ 13  /
+
+警告: 创建的触发器带有编译错误。
+
+SQL> show errors
+TRIGGER S 出现错误:
+
+LINE/COL ERROR
+-------- -----------------------------------------------------------------
+4/8      PLS-00103: 出现符号 "DELETING"在需要下列之一时：
+         := . ( @ % ;
+
+9/4      PLS-00103: 出现符号 ";"在需要下列之一时：
+         if
+
+SQL>  create or replace trigger s
+  2   after insert or delete or update on b
+  3  begin
+  4   if inserting then
+  5   insert into mylog values(user,sysdate,'c');
+  6   elsif deleting then
+  7  insert into mylog values(user,sysdate,'s');
+  8  else
+  9  insert into mylog values(user,sysdate,'x');
+ 10  end if;
+ 11  end;
+ 12  /
+
+触发器已创建
+
+SQL> select * from b;
+
+A1         A2         A3
+---------- ---------- ----------
+abc        xyz        aa
+bca        dee        aa
+abc        ttt        aa
+cba                   aa
+bbb                   aa
+abc        ggd        aa
+abc        dfd        aa
+
+已选择7行。
+
+SQL> update b set a1='dssldf' where a2='ttt';
+
+已更新 1 行。
+
+SQL> insert into b values('uu','dd','cc');
+
+已创建 1 行。
+
+SQL> delete from b where a2='dee';
+
+已删除 1 行。
+
+SQL> select * from b;
+
+A1         A2         A3
+---------- ---------- ----------
+uu         dd         cc
+abc        xyz        aa
+dssldf     ttt        aa
+cba                   aa
+bbb                   aa
+abc        ggd        aa
+abc        dfd        aa
+
+已选择7行。
+
+SQL> select * from mylog;
+
+CURR_USER
+--------------------------------------------------------------------------------
+
+CURR_DATE      A
+-------------- -
+SYSMAN
+22-3月 -07     x
+
+SYSMAN
+22-3月 -07     c
+
+SYSMAN
+22-3月 -07     s
+
+
+SQL> select curr_user,to_char(curr_date,'yyyy-mm-dd hh24:mi:ss') d from mylog;
+
+CURR_USER
+--------------------------------------------------------------------------------
+
+D
+-------------------
+SYSMAN
+2007-03-22 11:08:10
+
+SYSMAN
+2007-03-22 11:08:45
+
+SYSMAN
+2007-03-22 11:09:22
+
+
+SQL> /
+
+CURR_USER
+--------------------------------------------------------------------------------
+D
+-------------------
+SYSMAN
+2007-03-22 11:08:10
+
+SYSMAN
+2007-03-22 11:08:45
+
+SYSMAN
+2007-03-22 11:09:22
+
+
+SQL> select * from auto;
+
+         A B
+---------- ----------
+        17 ddsdfs
+        20 ddsdfs
+        23 ddsdfs
+
+SQL> select myseq.nextval from dual;
+
+   NEXTVAL
+----------
+        80
+
+SQL> insert into auto values(myseq.nextval,'sd');
+
+已创建 1 行。
+
+SQL> select * from auto;
+
+         A B
+---------- ----------
+        17 ddsdfs
+        20 ddsdfs
+        23 ddsdfs
+        81 sd
+
+SQL> create or replace trigger sn
+  2  before insert on auto
+  3  for each row
+  4  declare
+  5  s number(50;
+  6  begin
+  7  select myseq.nextval into s from dual;
+  8  :new.a:=sn;
+  9  end;
+ 10  /
+
+警告: 创建的触发器带有编译错误。
+
+SQL>  create or replace trigger sn
+  2   before insert on auto
+  3   for each row
+  4   declare
+  5   s number(5);
+  6   begin
+  7   select myseq.nextval into s from dual;
+  8   :new.a:=sn;
+  9   end;
+ 10   /
+
+警告: 创建的触发器带有编译错误。
+
+SQL>  create or replace trigger sn
+  2   before insert on auto
+  3   for each row
+  4   declare
+  5   s number(5);
+  6   begin
+  7   select myseq.nextval into s from dual;
+  8   :new.a:=s;
+  9  end;
+ 10  /
+
+触发器已创建
+
+SQL> insert into auto values(32,'df');
+
+已创建 1 行。
+
+SQL> insert into auto values(21,'dtt');
+
+已创建 1 行。
+
+SQL> insert into auto values(2321,'ddtt');
+
+已创建 1 行。
+
+SQL> select * from auto;
+
+         A B
+---------- ----------
+        17 ddsdfs
+        20 ddsdfs
+        23 ddsdfs
+        81 sd
+        82 df
+        83 dtt
+        84 ddtt
+
+已选择7行。
+
+SQL>  select * from v;
+
+EID        ENAME
+---------- ----------
+001        赵1
+002        钱2
+003        孙3
+004        李4
+005        周5
+121        sdkjfls
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+已选择11行。
+
+SQL> insert into v values('445','tdst');
+insert into v values('445','tdst')
+*
+第 1 行出现错误:
+ORA-01733: 此处不允许虚拟列
+
+
+SQL> cretae or replace trigger t
+SP2-0734: 未知的命令开头 "cretae or ..." - 忽略了剩余的行。
+SQL> create or replace trigger t
+  2  instead of insert on v
+  3  for each row
+  4  begin
+  5  insert into e values(:new.id,:new.name);
+  6  insert into d(eid,ename,sex,id) values(:new.eid,:new.ename,:new.sex,:new.id
+);
+  7  end;
+  8  /
+instead of insert on v
+                     *
+第 2 行出现错误:
+ORA-25005: 在只读视图上无法 CREATE INSTEAD OF 触发器
+
+
+SQL> select * from vde;
+select * from vde
+              *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+SQL> select * from de;
+select * from de
+              *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+SQL> select * from v2;
+
+EID        ENAME
+---------- ----------
+001        赵1
+002        钱2
+003        孙3
+004        李4
+005        周5
+121        sdkjfls
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+已选择11行。
+
+SQL> select * from v3;
+select * from v3
+              *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+SQL> select * from v2;
+
+EID        ENAME
+---------- ----------
+001        赵1
+002        钱2
+003        孙3
+004        李4
+005        周5
+121        sdkjfls
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+已选择11行。
+
+SQL> insert into v2('33','dks');
+insert into v2('33','dks')
+               *
+第 1 行出现错误:
+ORA-00928: 缺失 SELECT 关键字
+
+
+SQL> insert into v2 values('33','dks');
+insert into v2 values('33','dks')
+*
+第 1 行出现错误:
+ORA-01733: 此处不允许虚拟列
+
+
+SQL> show all view
+appinfo 为 OFF 并且已设置为 "SQL*Plus"
+arraysize 15
+autocommit OFF
+autoprint OFF
+autorecovery OFF
+autotrace OFF
+blockterminator "." (hex 2e)
+btitle OFF 为下一条 SELECT 语句的前几个字符
+cmdsep OFF
+colsep " "
+compatibility version NATIVE
+concat "." (hex 2e)
+copycommit 0
+COPYTYPECHECK 为 ON
+define "&" (hex 26)
+describe DEPTH 1 LINENUM OFF INDENT ON
+echo OFF
+editfile "afiedt.buf"
+embedded OFF
+escape OFF
+用于 6 或更多行的 FEEDBACK ON
+flagger OFF
+flush ON
+heading ON
+headsep "|" (hex 7c)
+instance "local"
+linesize 80
+lno 17
+loboffset 1
+logsource ""
+long 80
+longchunksize 80
+markup HTML OFF HEAD "<style type='text/css'> body {font:10pt Arial,Helvetica,sa
+ns-serif; color:black; background:White;} p {font:10pt Arial,Helvetica,sans-seri
+f; color:black; background:White;} table,tr,td {font:10pt Arial,Helvetica,sans-s
+erif; color:Black; background:#f7f7e7; padding:0px 0px 0px 0px; margin:0px 0px 0
+px 0px;} th {font:bold 10pt Arial,Helvetica,sans-serif; color:#336699; backgroun
+d:#cccc99; padding:0px 0px 0px 0px;} h1 {font:16pt Arial,Helvetica,Geneva,sans-s
+erif; color:#336699; background-color:White; border-bottom:1px solid #cccc99; ma
+rgin-top:0pt; margin-bottom:0pt; padding:0px 0px 0px 0px;} h2 {font:bold 10pt Ar
+ial,Helvetica,Geneva,sans-serif; color:#336699; background-color:White; margin-t
+op:4pt; margin-bottom:0pt;} a {font:9pt Arial,Helvetica,sans-serif; color:#66330
+0; background:#ffffff; margin-top:0pt; margin-bottom:0pt; vertical-align:top;}</
+style><title>SQL*Plus Report</title>" BODY "" TABLE "border='1' width='90%' alig
+n='center' summary='Script output'" SPOOL OFF ENTMAP ON PREFORMAT OFF
+newpage 1
+null ""
+numformat ""
+numwidth 10
+pagesize 14
+PAUSE 为 OFF
+pno 1
+recsep WRAP
+recsepchar " " (hex 20)
+release 1002000100
+repfooter OFF  为 NULL
+repheader OFF  为 NULL
+serveroutput OFF
+shiftinout INVISIBLE
+showmode OFF
+spool OFF
+sqlblanklines OFF
+sqlcase MIXED
+sqlcode 1733
+sqlcontinue "> "
+sqlnumber ON
+sqlpluscompatibility 10.2.0
+sqlprefix "#" (hex 23)
+sqlprompt "SQL> "
+sqlterminator ";" (hex 3b)
+suffix "sql"
+tab ON
+termout ON
+timing OFF
+trimout ON
+trimspool OFF
+ttitle OFF 为下一条 SELECT 语句的前几个字符
+underline "-" (hex 2d)
+USER 为 "SYSMAN"
+verify ON
+wrap : 将换至下一行
+SP2-0158: 未知的 SHOW 选项 "view"
+SQL> create or replace view vde
+  2  as
+  3  select eid,ename,sex,d.id,d.name from e,d where e.id=d.id;
+select eid,ename,sex,d.id,d.name from e,d where e.id=d.id
+                          *
+第 3 行出现错误:
+ORA-00904: "D"."NAME": 标识符无效
+
+
+SQL> create or replace view vde
+  2  as
+  3  select eid,ename,sex,d.id,name from e,d where e.id=d.id;
+
+视图已创建。
+
+SQL> select * from vde;
+
+EID        ENAME      SEX        ID         NAME
+---------- ---------- ---------- ---------- ----------
+001        赵1        男         01         A部门
+002        钱2        男         02         B部门
+003        孙3        男         32233      sdjl
+004        李4        女         04         D部门
+121        sdkjfls               77         sdflsk
+
+SQL> insert into vde values('0111','abc','man','22','tt');
+insert into vde values('0111','abc','man','22','tt')
+*
+第 1 行出现错误:
+ORA-01779: 无法修改与非键值保存表对应的列
+
+
+SQL> create or replace trigger tr_vde
+  2  instead of insert on vde
+  3  for each row
+  4  begin
+  5  insert into e values(:new. insert into e values(:new.id,:new.name);
+  6   insert into d(eid,ename,sex,id) values(:new.eid,:ne.w.ename,:new.sex,:new.
+id
+  7  .
+SQL>  create or replace trigger tr_vde
+  2   instead of insert on vde
+  3   for each row
+  4   begin
+  5  insert into e values(:new.id,:new.name);
+  6  insert into d(eid,ename,sex,id) values(:new.eid,:new.ename,:new.sex,:new.id
+
+  7  insert into e values(:new.id,:new.name);
+  8  insert into d(eid,ename,sex,id) values(:new.eid,:new.ename,:new.sex,:new.id
+.
+  9  .
+SQL>  create or replace trigger tr_vde
+  2   instead of insert on vde
+  3   for each row
+  4   begin
+  5  insert into e values(:new.id,:new.name);
+  6  insert into d(eid,ename,sex,id) values(:new.eid,:new.ename,:new.sex,:new.id
+);
+  7  end;
+  8  /
+
+触发器已创建
+
+SQL> insert into vde values('0111','abc','man','22','tt');
+
+已创建 1 行。
+
+SQL> select * from vde;
+
+EID        ENAME      SEX        ID         NAME
+---------- ---------- ---------- ---------- ----------
+001        赵1        男         01         A部门
+002        钱2        男         02         B部门
+003        孙3        男         32233      sdjl
+004        李4        女         04         D部门
+121        sdkjfls               77         sdflsk
+121        sdkjfls               22         tt
+0111       abc        man        22         tt
+
+已选择7行。
+
+SQL> select * from e;
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+32233      sdjl
+04         D部门
+05         E部门
+77         sdflsk
+22         tt
+
+已选择7行。
+
+SQL> select * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         32233
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+121        sdkjfls               22
+0111       abc        man        22
+01         A部门
+02         B部门
+03         C部门
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+04         D部门
+05         E部门
+
+已选择13行。
+
+SQL> 上面就是用替换触发器解决视图的多表更新问题！
+SP2-0734: 未知的命令开头 "上面就是用..." - 忽略了剩余的行。
+SQL>

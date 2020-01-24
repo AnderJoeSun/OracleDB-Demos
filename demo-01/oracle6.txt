@@ -1,0 +1,846 @@
+Microsoft Windows XP [版本 5.1.2600]
+(C) 版权所有 1985-2001 Microsoft Corp.
+
+C:\Documents and Settings\user>sqlplus sysman/dahsi
+
+SQL*Plus: Release 10.2.0.1.0 - Production on 星期三 3月 21 23:51:10 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+请输入用户名:  sysman
+输入口令:
+
+连接到:
+Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> exit
+从 Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options 断开
+
+C:\Documents and Settings\user>ping
+
+Usage: ping [-t] [-a] [-n count] [-l size] [-f] [-i TTL] [-v TOS]
+            [-r count] [-s count] [[-j host-list] | [-k host-list]]
+            [-w timeout] target_name
+
+Options:
+    -t             Ping the specified host until stopped.
+                   To see statistics and continue - type Control-Break;
+                   To stop - type Control-C.
+    -a             Resolve addresses to hostnames.
+    -n count       Number of echo requests to send.
+    -l size        Send buffer size.
+    -f             Set Don't Fragment flag in packet.
+    -i TTL         Time To Live.
+    -v TOS         Type Of Service.
+    -r count       Record route for count hops.
+    -s count       Timestamp for count hops.
+    -j host-list   Loose source route along host-list.
+    -k host-list   Strict source route along host-list.
+    -w timeout     Timeout in milliseconds to wait for each reply.
+
+
+C:\Documents and Settings\user>ping 127.0.0.1 >>c:\ping.log
+
+C:\Documents and Settings\user>aslfdkjoie
+'aslfdkjoie' 不是内部或外部命令，也不是可运行的程序
+或批处理文件。
+
+C:\Documents and Settings\user>sqlplus sysman/dashi
+
+SQL*Plus: Release 10.2.0.1.0 - Production on 星期四 3月 22 00:15:48 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+连接到:
+Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> set serveroutput on
+SQL> create or replace view mv
+  2  as
+  3  select * from c where price>30
+  4  with check option
+  5  /
+
+视图已创建。
+
+SQL> select * from c
+  2  ;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0002       外国文学   27                 10 人民文学
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17 清华大学
+0005       计算机入门 18.5                6 电子工业
+0006       数值算法   21                  7 电子工业
+0007       C语言设计  20                  9 电子工业
+0008
+0009       abcd       23                  5 aa
+0010       edcb       18                  5 aa
+0011       ekdj       39                  3 bb
+
+已选择11行。
+
+SQL> select * from mv;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17 清华大学
+0011       ekdj       39                  3 bb
+
+SQL> insert into mv values('0013','akdfl','21',2,'ae');
+insert into mv values('0013','akdfl','21',2,'ae')
+            *
+第 1 行出现错误:
+ORA-01402: 视图 WITH CHECK OPTIDN where 子句违规
+
+
+SQL> insert into c values('0013','akdsl','22',3,'eed');
+
+已创建 1 行。
+
+SQL> select * from c;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0002       外国文学   27                 10 人民文学
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17 清华大学
+0005       计算机入门 18.5                6 电子工业
+0006       数值算法   21                  7 电子工业
+0007       C语言设计  20                  9 电子工业
+0013       akdsl      22                  3 eed
+0008
+0009       abcd       23                  5 aa
+0010       edcb       18                  5 aa
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0011       ekdj       39                  3 bb
+
+已选择12行。
+
+SQL> select * from mv;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17 清华大学
+0011       ekdj       39                  3 bb
+
+SQL> insert into mv values('0032','kdsj','35',21,'ksd');
+
+已创建 1 行。
+
+SQL> select * from c;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0002       外国文学   27                 10 人民文学
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17 清华大学
+0005       计算机入门 18.5                6 电子工业
+0006       数值算法   21                  7 电子工业
+0007       C语言设计  20                  9 电子工业
+0013       akdsl      22                  3 eed
+0032       kdsj       35                 21 ksd
+0008
+0009       abcd       23                  5 aa
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0010       edcb       18                  5 aa
+0011       ekdj       39                  3 bb
+
+已选择13行。
+
+SQL> select * from mv;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17 清华大学
+0032       kdsj       35                 21 ksd
+0011       ekdj       39                  3 bb
+
+SQL> select * from b;
+
+A1         A2         A3
+---------- ---------- ----------
+abc        xyz        aa
+bca        dee        aa
+abc        ttt        aa
+cba                   aa
+bbb                   aa
+abc        ggd        aa
+abc        dfd        aa
+
+已选择7行。
+
+SQL> select * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         03
+004        李4        女         04
+005        周5        女         55
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+已选择10行。
+
+SQL> select * from e;
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+SQL> select eid,ename,sex,d.id,d.name from e,d where e.id=d.id;
+select eid,ename,sex,d.id,d.name from e,d where e.id=d.id
+                          *
+第 1 行出现错误:
+ORA-00904: "D"."NAME": 标识符无效
+
+
+SQL> select eid,ename,sex,d.id,name from e,d where e.id=d.id;
+
+EID        ENAME      SEX        ID         NAME
+---------- ---------- ---------- ---------- ----------
+001        赵1        男         01         A部门
+002        钱2        男         02         B部门
+003        孙3        男         03         C部门
+004        李4        女         04         D部门
+
+SQL> create or replace view v
+  2  as
+  3  select eid,ename,sex,d.id,name from e,d where e.id=d.id;
+
+视图已创建。
+
+SQL> select * from v;
+
+EID        ENAME      SEX        ID         NAME
+---------- ---------- ---------- ---------- ----------
+001        赵1        男         01         A部门
+002        钱2        男         02         B部门
+003        孙3        男         03         C部门
+004        李4        女         04         D部门
+
+SQL> insert into v values('007','abc','m','88','dkjls');
+insert into v values('007','abc','m','88','dkjls')
+*
+第 1 行出现错误:
+ORA-01779: 无法修改与非键值保存表对应的列
+
+
+SQL> 用视图的方法，不能修改两个或两个以上的基表！
+SP2-0734: 未知的命令开头 "用视图的方..." - 忽略了剩余的行。
+SQL> create or replace view v
+  2  as select eid,ename,sex,e.id,name from e,d where e.id=d.id;
+
+视图已创建。
+
+SQL> select * from v;
+
+EID        ENAME      SEX        ID         NAME
+---------- ---------- ---------- ---------- ----------
+001        赵1        男         01         A部门
+002        钱2        男         02         B部门
+003        孙3        男         03         C部门
+004        李4        女         04         D部门
+
+SQL> create or replace view v
+  2  as select eid,ename from d
+  3  with read only;
+
+视图已创建。
+
+SQL> select * from v;
+
+EID        ENAME
+---------- ----------
+001        赵1
+002        钱2
+003        孙3
+004        李4
+005        周5
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+已选择10行。
+
+SQL> delete from v where eid='004';
+delete from v where eid='004'
+            *
+第 1 行出现错误:
+ORA-01752: 不能从没有一个键值保存表的视图中删除
+
+
+SQL> desc dba_views
+ 名称                                      是否为空? 类型
+ ----------------------------------------- -------- ----------------------------
+
+ OWNER                                     NOT NULL VARCHAR2(30)
+ VIEW_NAME                                 NOT NULL VARCHAR2(30)
+ TEXT_LENGTH                                        NUMBER
+ TEXT                                               LONG
+ TYPE_TEXT_LENGTH                                   NUMBER
+ TYPE_TEXT                                          VARCHAR2(4000)
+ OID_TEXT_LENGTH                                    NUMBER
+ OID_TEXT                                           VARCHAR2(4000)
+ VIEW_TYPE_OWNER                                    VARCHAR2(30)
+ VIEW_TYPE                                          VARCHAR2(30)
+ SUPERVIEW_NAME                                     VARCHAR2(30)
+
+SQL> desc user_views
+ 名称                                      是否为空? 类型
+ ----------------------------------------- -------- ----------------------------
+
+ VIEW_NAME                                 NOT NULL VARCHAR2(30)
+ TEXT_LENGTH                                        NUMBER
+ TEXT                                               LONG
+ TYPE_TEXT_LENGTH                                   NUMBER
+ TYPE_TEXT                                          VARCHAR2(4000)
+ OID_TEXT_LENGTH                                    NUMBER
+ OID_TEXT                                           VARCHAR2(4000)
+ VIEW_TYPE_OWNER                                    VARCHAR2(30)
+ VIEW_TYPE                                          VARCHAR2(30)
+ SUPERVIEW_NAME                                     VARCHAR2(30)
+
+SQL> desc all_views;
+ 名称                                      是否为空? 类型
+ ----------------------------------------- -------- ----------------------------
+
+ OWNER                                     NOT NULL VARCHAR2(30)
+ VIEW_NAME                                 NOT NULL VARCHAR2(30)
+ TEXT_LENGTH                                        NUMBER
+ TEXT                                               LONG
+ TYPE_TEXT_LENGTH                                   NUMBER
+ TYPE_TEXT                                          VARCHAR2(4000)
+ OID_TEXT_LENGTH                                    NUMBER
+ OID_TEXT                                           VARCHAR2(4000)
+ VIEW_TYPE_OWNER                                    VARCHAR2(30)
+ VIEW_TYPE                                          VARCHAR2(30)
+ SUPERVIEW_NAME                                     VARCHAR2(30)
+
+SQL> select text from user_views where view_name='v_read';
+
+未选定行
+
+SQL> select user from dual;
+
+USER
+------------------------------
+SYSMAN
+
+SQL> conn sys/dashi as sysdba
+已连接。
+SQL> select * from c;
+select * from c
+              *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+SQL> select * from sysman.c;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0002       外国文学   27                 10 人民文学
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17 清华大学
+0005       计算机入门 18.5                6 电子工业
+0006       数值算法   21                  7 电子工业
+0007       C语言设计  20                  9 电子工业
+0013       akdsl      22                  3 eed
+0032       kdsj       35                 21 ksd
+0008
+0009       abcd       23                  5 aa
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0010       edcb       18                  5 aa
+0011       ekdj       39                  3 bb
+
+已选择13行。
+
+Microsoft Windows XP [版本 5.1.2600]
+(C) 版权所有 1985-2001 Microsoft Corp.
+
+C:\Documents and Settings\user>sqlplus sys/dashi as sysdba
+
+SQL*Plus: Release 10.2.0.1.0 - Production on 星期四 3月 22 00:40:05 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+连接到:
+Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> select * from sysman.b;
+
+A1         A2         A3
+---------- ---------- ----------
+abc        xyz        aa
+bca        dee        aa
+abc        ttt        aa
+cba                   aa
+bbb                   aa
+abc        ggd        aa
+abc        dfd        aa
+
+已选择7行。
+
+SQL> create sysman x for sysman.b;
+create sysman x for sysman.b
+       *
+第 1 行出现错误:
+ORA-00901: 无效 CREATE 命令
+
+
+SQL> conn sysman/dashi
+已连接。
+SQL> create table f(deptno varchar2(10),dname varchar2(10),loc varchar(10));
+
+表已创建。
+
+SQL> insert into f values('10','ACCOUNTING','NEW YORK');
+
+已创建 1 行。
+
+SQL> insert into f values('20','RESEARCH','DALLAS');
+
+已创建 1 行。
+
+SQL> insert into f values('30','SALES','CHICAGO');
+
+已创建 1 行。
+
+SQL> insert into f values('40','OPERATIONS','BOSTON');
+
+已创建 1 行。
+
+SQL> select * from f;
+
+DEPTNO     DNAME      LOC
+---------- ---------- ----------
+10         ACCOUNTING NEW YORK
+20         RESEARCH   DALLAS
+30         SALES      CHICAGO
+40         OPERATIONS BOSTON
+
+SQL> conn
+请输入用户名:  sys as sysdba
+输入口令:
+已连接。
+SQL> select * from sysman.f;
+
+DEPTNO     DNAME      LOC
+---------- ---------- ----------
+10         ACCOUNTING NEW YORK
+20         RESEARCH   DALLAS
+30         SALES      CHICAGO
+40         OPERATIONS BOSTON
+
+SQL> create synonym dept for sysman.f;
+
+同义词已创建。
+
+SQL> select * form dept;
+select * form dept
+         *
+第 1 行出现错误:
+ORA-00923: 未找到要求的 FROM 关键字
+
+
+SQL> select * from dept;
+
+DEPTNO     DNAME      LOC
+---------- ---------- ----------
+10         ACCOUNTING NEW YORK
+20         RESEARCH   DALLAS
+30         SALES      CHICAGO
+40         OPERATIONS BOSTON
+
+SQL> conn system/dashi
+已连接。
+SQL> select * from dept;
+select * from dept
+              *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+SQL>  create synonym dept2 for sysman.f;
+
+同义词已创建。
+
+SQL> conn sys/dashi as sysdba
+已连接。
+SQL> select * from dept2;
+select * from dept2
+              *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+SQL> conn sysman/dashi
+已连接。
+SQL> select * from dept;
+select * from dept
+              *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+SQL> select * from dept2;
+select * from dept2
+              *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+SQL> conn sys/dashi as sysdba
+已连接。
+SQL> create public synonym dep for sysman.f;
+
+同义词已创建。
+
+SQL> conn sysman/dashi
+已连接。
+SQL> select * from dep;
+
+DEPTNO     DNAME      LOC
+---------- ---------- ----------
+10         ACCOUNTING NEW YORK
+20         RESEARCH   DALLAS
+30         SALES      CHICAGO
+40         OPERATIONS BOSTON
+
+SQL> conn system/dashi
+已连接。
+SQL> select * from dep;
+
+DEPTNO     DNAME      LOC
+---------- ---------- ----------
+10         ACCOUNTING NEW YORK
+20         RESEARCH   DALLAS
+30         SALES      CHICAGO
+40         OPERATIONS BOSTON
+
+SQL> create public synonym dep2 for sysman.f;
+
+同义词已创建。
+
+SQL> conn sys/dashi as sysdba;
+已连接。
+
+SQL> drop synonym deptt;
+
+同义词已删除。
+
+
+SQL>
+SQL> select * from dep2;
+
+DEPTNO     DNAME      LOC
+---------- ---------- ----------
+10         ACCOUNTING NEW YORK
+20         RESEARCH   DALLAS
+30         SALES      CHICAGO
+40         OPERATIONS BOSTON
+
+SQL> conn sysman/dashi
+已连接。
+SQL> select * from dep2;
+
+DEPTNO     DNAME      LOC
+---------- ---------- ----------
+10         ACCOUNTING NEW YORK
+20         RESEARCH   DALLAS
+30         SALES      CHICAGO
+40         OPERATIONS BOSTON
+
+SQL> desc dba_synonyms
+ 名称                                      是否为空? 类型
+ ----------------------------------------- -------- ----------------------------
+
+ OWNER                                     NOT NULL VARCHAR2(30)
+ SYNONYM_NAME                              NOT NULL VARCHAR2(30)
+ TABLE_OWNER                                        VARCHAR2(30)
+ TABLE_NAME                                NOT NULL VARCHAR2(30)
+ DB_LINK                                            VARCHAR2(128)
+
+SQL> 公共同义词默认为是属于public用户的！
+SP2-0734: 未知的命令开头 "公共同义词..." - 忽略了剩余的行。
+SQL> desc user_synonyms
+ 名称                                      是否为空? 类型
+ ----------------------------------------- -------- ----------------------------
+
+ SYNONYM_NAME                              NOT NULL VARCHAR2(30)
+ TABLE_OWNER                                        VARCHAR2(30)
+ TABLE_NAME                                NOT NULL VARCHAR2(30)
+ DB_LINK                                            VARCHAR2(128)
+
+SQL> conn system/dashi
+已连接。
+SQL> desc user_synonyms
+ 名称                                      是否为空? 类型
+ ----------------------------------------- -------- ----------------------------
+
+ SYNONYM_NAME                              NOT NULL VARCHAR2(30)
+ TABLE_OWNER                                        VARCHAR2(30)
+ TABLE_NAME                                NOT NULL VARCHAR2(30)
+ DB_LINK                                            VARCHAR2(128)
+
+SQL> select synonym_name,table_name,table_owner from user_synonyms;
+
+SYNONYM_NAME                   TABLE_NAME
+------------------------------ ------------------------------
+TABLE_OWNER
+------------------------------
+SYSCATALOG                     SYSCATALOG
+SYS
+
+CATALOG                        CATALOG
+SYS
+
+TAB                            TAB
+SYS
+
+
+SYNONYM_NAME                   TABLE_NAME
+------------------------------ ------------------------------
+TABLE_OWNER
+------------------------------
+COL                            COL
+SYS
+
+TABQUOTAS                      TABQUOTAS
+SYS
+
+SYSFILES                       SYSFILES
+SYS
+
+
+SYNONYM_NAME                   TABLE_NAME
+------------------------------ ------------------------------
+TABLE_OWNER
+------------------------------
+PUBLICSYN                      PUBLICSYN
+SYS
+
+PRODUCT_USER_PROFILE           SQLPLUS_PRODUCT_PROFILE
+SYSTEM
+
+DEPT2                          F
+SYSMAN
+
+
+已选择9行。
+
+SQL>
+
+C:\Documents and Settings\user>sqlplus sysman/dashi
+
+SQL*Plus: Release 10.2.0.1.0 - Production on 星期四 3月 22 01:09:34 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+连接到:
+Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> create sequence myseq
+  2  start with 2
+  3  increment by 3
+  4  order
+  5  nocycle;
+
+序列已创建。
+
+SQL> select myseq.nextval from dual;
+
+   NEXTVAL
+----------
+         2
+
+SQL>
+SQL>  select myseq.nextval from dual;
+
+   NEXTVAL
+----------
+         5
+
+SQL>  select myseq.nextval from dual;
+
+   NEXTVAL
+----------
+         8
+
+SQL>  select myseq.nextval from dual;
+
+   NEXTVAL
+----------
+        11
+
+SQL>  select myseq.nextval from dual;
+
+   NEXTVAL
+----------
+        14
+
+SQL> select myseq.currval from dual;
+
+   CURRVAL
+----------
+        14
+
+SQL> create table auto(a number,b varchar2(10));
+
+表已创建。
+
+SQL> insert into auto values(myseq.nextval,'ddsdfs');
+
+已创建 1 行。
+
+SQL> /
+
+已创建 1 行。
+
+SQL> /
+
+已创建 1 行。
+
+SQL> select * from auto;
+
+         A B
+---------- ----------
+        17 ddsdfs
+        20 ddsdfs
+        23 ddsdfs
+
+SQL> desc dba_sequences
+ 名称                                      是否为空? 类型
+ ----------------------------------------- -------- ----------------------------
+
+ SEQUENCE_OWNER                            NOT NULL VARCHAR2(30)
+ SEQUENCE_NAME                             NOT NULL VARCHAR2(30)
+ MIN_VALUE                                          NUMBER
+ MAX_VALUE                                          NUMBER
+ INCREMENT_BY                              NOT NULL NUMBER
+ CYCLE_FLAG                                         VARCHAR2(1)
+ ORDER_FLAG                                         VARCHAR2(1)
+ CACHE_SIZE                                NOT NULL NUMBER
+ LAST_NUMBER                               NOT NULL NUMBER
+
+SQL> select sequence_name,sequence_owner from dab_sequence
+  2  where sequence_owner='sysman';
+select sequence_name,sequence_owner from dab_sequence
+                                         *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+SQL>  select sequence_name,sequence_owner from dab_sequences
+  2  where sequence_owner='sysman';
+ select sequence_name,sequence_owner from dab_sequences
+                                          *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+SQL>  select sequence_name,sequence_owner from dba_sequences
+  2  where sequence_owner='sysman';
+
+未选定行
+
+SQL> select user from dual;
+
+USER
+------------------------------
+SYSMAN
+
+SQL>  select sequence_name,sequence_owner from dba_sequences
+  2  where sequence_owner='sysman';
+
+未选定行
+
+SQL>
+SQL> 此处运行与教程不同，教程上运行成功，得到sequence_name是myseq,sequence_owner
+是tt(教程上是在用户tt中创建myseq的，按理，我在这儿应该得到的是sysman)
+SP2-0734: 未知的命令开头 "此处运行与..." - 忽略了剩余的行。
+SQL> alter sequence myseq
+  2  increment by 1;
+
+序列已更改。
+
+SQL> select myseq.nextval from dual
+  2  ;
+
+   NEXTVAL
+----------
+        60
+
+SQL>  select myseq.nextval from dual
+  2   ;
+
+   NEXTVAL
+----------
+        61
+
+SQL> /
+
+   NEXTVAL
+----------
+        62
+
+SQL> /
+
+   NEXTVAL
+----------
+        63
+
+SQL> /
+
+   NEXTVAL
+----------
+        64
+
+SQL> /
+
+   NEXTVAL
+----------
+        65
+
+SQL>

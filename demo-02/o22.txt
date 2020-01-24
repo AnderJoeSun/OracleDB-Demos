@@ -1,0 +1,123 @@
+
+C:\Documents and Settings\user>cd\
+
+C:\>lsnrctl status
+
+LSNRCTL for 32-bit Windows: Version 10.2.0.1.0 - Production on 23-3月 -2007 07:5
+7:14
+
+Copyright (c) 1991, 2005, Oracle.  All rights reserved.
+
+正在连接到 (DESCRIPTION=(ADDRESS=(PROTOCOL=IPC)(KEY=EXTPROC1)))
+LISTENER 的 STATUS
+------------------------
+别名                      LISTENER
+版本                      TNSLSNR for 32-bit Windows: Version 10.2.0.1.0 - Produ
+ction
+启动日期                  23-3月 -2007 07:10:49
+正常运行时间              0 天 0 小时 46 分 26 秒
+跟踪级别                  off
+安全性                    ON: Local OS Authentication
+SNMP                      OFF
+监听程序参数文件          c:\oracle\product\10.2.0\db_1\network\admin\listener.o
+ra
+监听程序日志文件          c:\oracle\product\10.2.0\db_1\network\log\listener.log
+
+监听端点概要...
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=ipc)(PIPENAME=\\.\pipe\EXTPROC1ipc)))
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=Joyu)(PORT=1521)))
+服务摘要..
+服务 "PLSExtProc" 包含 1 个例程。
+  例程 "PLSExtProc", 状态 UNKNOWN, 包含此服务的 1 个处理程序...
+服务 "test.com.cn" 包含 1 个例程。
+  例程 "test", 状态 READY, 包含此服务的 1 个处理程序...
+服务 "testXDB.com.cn" 包含 1 个例程。
+  例程 "test", 状态 READY, 包含此服务的 1 个处理程序...
+服务 "test_XPT.com.cn" 包含 1 个例程。
+  例程 "test", 状态 READY, 包含此服务的 1 个处理程序...
+命令执行成功
+
+C:\>lsnrctl start
+
+LSNRCTL for 32-bit Windows: Version 10.2.0.1.0 - Production on 23-3月 -2007 07:5
+7:32
+
+Copyright (c) 1991, 2005, Oracle.  All rights reserved.
+
+TNS-01106: 使用名称LISTENER的监听程序已经启动
+
+C:\>lsnrctl stop
+
+LSNRCTL for 32-bit Windows: Version 10.2.0.1.0 - Production on 23-3月 -2007 07:5
+7:43
+
+Copyright (c) 1991, 2005, Oracle.  All rights reserved.
+
+正在连接到 (DESCRIPTION=(ADDRESS=(PROTOCOL=IPC)(KEY=EXTPROC1)))
+命令执行成功
+
+C:\>lsnrctl start listener1
+
+LSNRCTL for 32-bit Windows: Version 10.2.0.1.0 - Production on 23-3月 -2007 08:0
+0:10
+
+Copyright (c) 1991, 2005, Oracle.  All rights reserved.
+
+启动tnslsnr: 请稍候...
+
+Failed to open service <OracleOraDb10g_home1TNSListenerlistener1>, error 1060.
+TNSLSNR for 32-bit Windows: Version 10.2.0.1.0 - Production
+系统参数文件为c:\oracle\product\10.2.0\db_1\network\admin\listener.ora
+写入c:\oracle\product\10.2.0\db_1\network\log\listener1.log的日志信息
+监听: (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=Joyu)(PORT=1522)))
+
+正在连接到 (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=Joyu)(PORT=1522)))
+LISTENER 的 STATUS
+------------------------
+别名                      listener1
+版本                      TNSLSNR for 32-bit Windows: Version 10.2.0.1.0 - Produ
+ction
+启动日期                  23-3月 -2007 08:00:12
+正常运行时间              0 天 0 小时 0 分 2 秒
+跟踪级别                  off
+安全性                    ON: Local OS Authentication
+SNMP                      OFF
+监听程序参数文件          c:\oracle\product\10.2.0\db_1\network\admin\listener.o
+ra
+监听程序日志文件          c:\oracle\product\10.2.0\db_1\network\log\listener1.lo
+g
+监听端点概要...
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=Joyu)(PORT=1522)))
+监听程序不支持服务
+命令执行成功
+
+C:\>conn sysman/dashi @t ora
+'conn' 不是内部或外部命令，也不是可运行的程序
+或批处理文件。
+
+C:\>sqlplus sysman/dashi
+
+SQL*Plus: Release 10.2.0.1.0 - Production on 星期五 3月 23 08:32:58 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+连接到:
+Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> conn sysman/dashi@ora
+已连接。
+SQL> select * from emp;
+
+EID        ENAME
+---------- ----------
+001        赵1
+002        钱2
+003        孙3
+
+SQL> exit
+从 Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options 断开
+
+C:\>

@@ -1,0 +1,660 @@
+Microsoft Windows XP [版本 5.1.2600]
+(C) 版权所有 1985-2001 Microsoft Corp.
+
+C:\Documents and Settings\user>sqlplus sysman/dashi
+
+SQL*Plus: Release 10.2.0.1.0 - Production on 星期二 3月 20 20:22:55 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+连接到:
+Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> declare
+  2  a number;
+  3  b varchar2(10);
+  4  BEGIN
+  5  a:=53;
+  6  if a=1 then
+  7  b:='a';
+  8  elseif a=2 then
+  9  b:='b';
+ 10  else
+ 11  b:='c';
+ 12  end if;
+ 13  dbms_output.put_line('b is:'||b);
+ 14  end;
+ 15  /
+elseif a=2 then
+       *
+第 8 行出现错误:
+ORA-06550: 第 8 行, 第 8 列:
+PLS-00103: 出现符号 "A"在需要下列之一时：
+:= . ( @ % ;
+ORA-06550: 第 14 行, 第 4 列:
+PLS-00103: 出现符号 ";"在需要下列之一时：
+if
+
+
+SQL> declare
+  2  a number;
+  3  b varchar2(10);
+  4  begin
+  5  a:=2;
+  6  case
+  7  when a=1 then b:='a';
+  8  when a=2 then b:='b';
+  9  when a=3 then b:='c';
+ 10  end case;
+ 11  dbms_output.put_line('b is :'||b);
+ 12  end;
+ 13  /
+
+PL/SQL 过程已成功完成。
+
+SQL> outserver
+SP2-0042: 未知命令 "outserver" - 其余行忽略。
+SQL> set severoutput on size 10000
+SP2-0735: 未知的 SET 选项开头 "severoutpu..."
+SQL> set severoutput on size 10000;
+SP2-0735: 未知的 SET 选项开头 "severoutpu..."
+SQL> conn sys as dba
+SP2-0306: 选项无效。
+用法: CONN[ECT] [logon] [AS {SYSDBA|SYSOPER}]
+其中 <logon>  ::= <username>[/<password>][@<connect_identifier>] | /
+SQL> conn sys/dashi as sysdba
+已连接。
+SQL> set serveroutput on size 10000
+SQL> conn sysman/dashi
+已连接。
+SQL> set serveroutput on size 10000
+SQL> l
+  1  declare
+  2  a number;
+  3  b varchar2(10);
+  4  begin
+  5  a:=2;
+  6  case
+  7  when a=1 then b:='a';
+  8  when a=2 then b:='b';
+  9  when a=3 then b:='c';
+ 10  end case;
+ 11  dbms_output.put_line('b is :'||b);
+ 12* end;
+SQL> /
+b is :b
+
+PL/SQL 过程已成功完成。
+
+SQL> declare
+  2  a number;
+  3  b varchar2(10);
+  4  begin
+  5  a:=2;
+  6  case
+  7  when a=1 then b:='a';
+  8  when a=2 then b:='b';
+  9  when a=3 then b:='c';
+ 10  else
+ 11  b:='Others!';
+ 12  end case;
+ 13  dbms_output.put_line('b is:'||b);
+ 14  end;
+ 15  /
+b is:b
+
+PL/SQL 过程已成功完成。
+
+SQL> /
+b is:b
+
+PL/SQL 过程已成功完成。
+
+SQL> l
+  1  declare
+  2  a number;
+  3  b varchar2(10);
+  4  begin
+  5  a:=2;
+  6  case
+  7  when a=1 then b:='a';
+  8  when a=2 then b:='b';
+  9  when a=3 then b:='c';
+ 10  else
+ 11  b:='Others!';
+ 12  end case;
+ 13  dbms_output.put_line('b is:'||b);
+ 14* end;
+SQL> declare
+  2  x number;
+  3  begin
+  4  x:=0;
+  5  loop
+  6  x:=x+1;
+  7  if x>=3 then
+  8  exit;
+  9  end if;
+ 10  dbms_output.put_line('内：x='||x);
+ 11  end loop;
+ 12  dbms_output.put_line('外: x='||x);
+ 13  end;
+ 14  /
+内：x=1
+内：x=2
+外: x=3
+
+PL/SQL 过程已成功完成。
+
+SQL> declare
+  2  a number;
+  3  b varchar2(10);
+  4  BEGIN
+  5  a:=53;
+  6  if a=1 then
+  7  b:='a';
+  8  elseif a=2 then
+  9  b:='b';
+ 10  else
+ 11  b:='c';
+ 12  end if;
+ 13  dbms_output.put_line('b is:'||b);
+ 14  end;
+ 15  /
+elseif a=2 then
+       *
+第 8 行出现错误:
+ORA-06550: 第 8 行, 第 8 列:
+PLS-00103: 出现符号 "A"在需要下列之一时：
+:= . ( @ % ;
+ORA-06550: 第 14 行, 第 4 列:
+PLS-00103: 出现符号 ";"在需要下列之一时：
+if
+
+
+SQL>  declare
+  2   a number;
+  3   b varchar2(10);
+  4   BEGIN
+  5   a:=53;
+  6   if a=1 then
+  7   b:='a';
+  8   end if;
+  9  elseif a=2 then
+ 10  b:='b';
+ 11  end if;
+ 12  else
+ 13  b:='c';
+ 14  end if;
+ 15  dbms)_output.put_line('b is"||b);
+ 16  end;
+ 17  /
+ERROR:
+ORA-01756: 引号内的字符串没有正确结束
+
+
+SQL>  declare
+  2   a number;
+  3   b varchar2(10);
+  4   BEGIN
+  5   a:=53;
+  6   if a=1 then
+  7   b:='a';
+  8   end if;
+  9  elseif a=2 then
+ 10  b:='b';
+ 11  end if;
+ 12  else
+ 13  b:='c';
+ 14  end if;
+ 15  dbms)_output.put_line('b is :'||b);
+ 16  end;
+ 17  /
+elseif a=2 then
+       *
+第 9 行出现错误:
+ORA-06550: 第 9 行, 第 8 列:
+PLS-00103: 出现符号 "A"在需要下列之一时：
+:= . ( @ % ;
+ORA-06550: 第 12 行, 第 1 列:
+PLS-00103: 出现符号 "ELSE"在需要下列之一时：
+begin case declare end
+exception exit for goto if loop mod null pragma raise return
+select update while with <an identifier>
+<a double-quoted delimited-identifier> <a bind variable> <
+ORA-06550: 第 15 行, 第 1 列:
+PLS-00103: 出现符号 "DBMS"
+
+
+SQL>
+SQL>  declare
+  2   a number;
+  3   b varchar2(10);
+  4   BEGIN
+  5   a:=53;
+  6   if a=1 then
+  7   b:='a';
+  8   end if;
+  9  if a=2 then
+ 10  b:='b';
+ 11  end if;
+ 12  if a=3 then
+ 13  b:='c';
+ 14  end if;
+ 15  dbms_output.put_line('b is: '||b);
+ 16  end;
+ 17  /
+b is:
+
+PL/SQL 过程已成功完成。
+
+SQL> declare
+  2  x number;
+  3  begin
+  4  x:=0;
+  5  loop
+  6  x:=x+1;
+  7  if x>=3 then
+  8  exit;
+  9  end if;
+ 10  dbms_output.put_line('内：x='||x);
+ 11  end loop;
+ 12  dbms_output.put_line('外: x='||x);
+ 13  end;
+ 14
+ 15  /
+内：x=1
+内：x=2
+外: x=3
+
+PL/SQL 过程已成功完成。
+
+SQL> save c:\ plsql4.txt
+SP2-0116: SAVE 命令非法
+SQL> save c:\plsql4.txt
+已创建 file c:\plsql4.txt
+SQL> @ c:\plsql4.txt
+内：x=1
+内：x=2
+外: x=3
+
+PL/SQL 过程已成功完成。
+
+SQL> l
+  1  declare
+  2  x number;
+  3  begin
+  4  x:=0;
+  5  loop
+  6  x:=x+1;
+  7  exit when x>=3;
+  8  dbms_output.put_line('内：x='||x);
+  9  end loop;
+ 10  dbms_output.put_line('外: x='||x);
+ 11  end;
+ 12*
+SQL> /
+内：x=1
+内：x=2
+外: x=3
+
+PL/SQL 过程已成功完成。
+
+SQL> declare
+  2  x number;
+  3  begin
+  4  x:=0;
+  5  while x<=3 loop
+  6  x:=x+1;
+  7  dbms_output.put_line('inside: x='||x);
+  8  end loop;
+  9  dbms_output.put.line('outside: x='||x);
+ 10  end;
+ 11  /
+dbms_output.put.line('outside: x='||x);
+                *
+第 9 行出现错误:
+ORA-06550: 第 9 行, 第 17 列:
+PLS-00225: 子程序或游标 'PUT' 引用超出范围
+ORA-06550: 第 9 行, 第 1 列:
+PL/SQL: Statement ignored
+
+
+SQL>  declare
+  2   x number;
+  3   begin
+  4   x:=0;
+  5   while x<=3 loop
+  6   x:=x+1;
+  7   dbms_output.put_line('inside: x='||x);
+  8   end loop;
+  9   dbms_output.put_line('outside: x='||x);
+ 10  end;
+ 11  /
+inside: x=1
+inside: x=2
+inside: x=3
+inside: x=4
+outside: x=4
+
+PL/SQL 过程已成功完成。
+
+SQL> begin
+  2  for i in 1..5 loop
+  3  dbms_output.put_line('i='||i);
+  4  end loop;
+  5  dbms_output.put_line('end for loop!');
+  6  end;
+  7  /
+i=1
+i=2
+i=3
+i=4
+i=5
+end for loop!
+
+PL/SQL 过程已成功完成。
+
+SQL> edit c:\plsql4.txt
+
+SQL> begin
+  2  for i in reverse 1..5 loop
+  3  dbms_output.put_line('i='||i);
+  4  end loop;
+  5  dbms_output.put_line(' end for loop!');
+  6  end;
+  7  /
+i=5
+i=4
+i=3
+i=2
+i=1
+end for loop!
+
+PL/SQL 过程已成功完成。
+
+SQL> declare
+  2  x number;
+  3  begin
+  4  x:=0;
+  5  <<a>>
+  6  x:=x+1;
+  7  dbms_output.put_line(x);
+  8  if x<3 then
+  9  goto a;
+ 10  end if;
+ 11  end;
+ 12  /
+1
+2
+3
+
+PL/SQL 过程已成功完成。
+
+SQL> select * from b;
+
+A1         A2         A3
+---------- ---------- ----------
+abc        xyz        aa
+bca        dee        aa
+abc        ttt        aa
+cba                   aa
+bbb                   aa
+abc        ggd        aa
+abc        dfd        aa
+
+已选择7行。
+
+SQL> declare
+  2  test varchar2(10);
+  3  begin
+  4  select a2 into test from b where a1='dddd';
+  5  dbms_output.put_line(test);
+  6  end;
+  7  /
+declare
+*
+第 1 行出现错误:
+ORA-01403: 未找到数据
+ORA-06512: 在 line 4
+
+
+SQL>  declare
+  2   test varchar2(10);
+  3   begin
+  4   select a2 into test from b where a1='dddd';
+  5   dbms_output.put_line(test);
+  6  exeption
+  7  when no_data_found then
+  8  dbms_output.put_line('乔鱼说没数据啊！');
+  9  end;
+ 10  /
+when no_data_found then
+*
+第 7 行出现错误:
+ORA-06550: 第 7 行, 第 1 列:
+PLS-00103: 出现符号 "WHEN"在需要下列之一时：
+:= . ( @ % ;
+ORA-06550: 第 9 行, 第 4 列:
+PLS-00103: 出现符号 "end-of-file"在需要下列之一时：
+end not pragma
+final instantiable order overriding static member constructor
+map
+
+
+SQL>  declare
+  2   test varchar2(10);
+  3   begin
+  4   select a2 into test from b where a1='dddd';
+  5   dbms_output.put_line(test);
+  6  exception
+  7  when no_data_found then
+  8  dbms_output.put_line('乔鱼说没有数据啊，不要找了！');
+  9  end;
+ 10  /
+乔鱼说没有数据啊，不要找了！
+
+PL/SQL 过程已成功完成。
+
+SQL> delare
+SP2-0042: 未知命令 "delare" - 其余行忽略。
+SQL> declare
+  2  test varchar2(10);
+  3  begin
+  4  select a1 into test form b;
+  5  dbms_output.put_line(test);
+  6  exception
+  7  when no_data_found then
+  8  dbms_output.put_line('乔鱼，没有数据！);
+  9  ehwn too_many_rows then
+ 10  dbms_output.put_line('乔鱼，给你的太多了！');
+ 11  when others then
+ 12  dbms_output.put_line('乔鱼，其它问题！');
+ 13  end;
+ 14  /
+ERROR:
+ORA-01756: 引号内的字符串没有正确结束
+
+
+SQL> save c:\a.txt
+已创建 file c:\a.txt
+SQL> edit c:\a.txt
+
+SQL> @ c:\a.txt
+select a1 into test form b;
+                    *
+第 4 行出现错误:
+ORA-06550: 第 4 行, 第 21 列:
+PL/SQL: ORA-00923: 未找到要求的 FROM 关键字
+ORA-06550: 第 4 行, 第 1 列:
+PL/SQL: SQL Statement ignored
+ORA-06550: 第 9 行, 第 6 列:
+PLS-00103: 出现符号 "TOO_MANY_ROWS"在需要下列之一时：
+:= . ( @ % ;
+ORA-06550: 第 11 行, 第 1 列:
+PLS-00103: 出现符号 "WHEN"在需要下列之一时：
+begin case declare else
+elsif end exit for goto if loop mod null pragma raise return
+select update while with <an identifier>
+<a double-quoted delimited-identifier> <a bind variable>
+ORA-06550: 第 13 行, 第 4 列:
+PLS-00103: 出现符号 "end-of-file"在需要下列之一时：
+end not pragma
+final instantiable order overriding static member constructor
+map
+
+
+SQL> select * from b;
+
+A1         A2         A3
+---------- ---------- ----------
+abc        xyz        aa
+bca        dee        aa
+abc        ttt        aa
+cba                   aa
+bbb                   aa
+abc        ggd        aa
+abc        dfd        aa
+
+已选择7行。
+
+SQL> edit c:\a.txt
+
+SQL> @ c:\a.txt
+ehwn too_many_rows then
+     *
+第 9 行出现错误:
+ORA-06550: 第 9 行, 第 6 列:
+PLS-00103: 出现符号 "TOO_MANY_ROWS"在需要下列之一时：
+:= . ( @ % ;
+ORA-06550: 第 11 行, 第 1 列:
+PLS-00103: 出现符号 "WHEN"在需要下列之一时：
+begin case declare else
+elsif end exit for goto if loop mod null pragma raise return
+select update while with <an identifier>
+<a double-quoted delimited-identifier> <a bind variable>
+ORA-06550: 第 13 行, 第 4 列:
+PLS-00103: 出现符号 "end-of-file"在需要下列之一时：
+end not pragma
+final instantiable order overriding static member constructor
+map
+
+
+SQL> edit c:\a.txt
+
+SQL> @ c:\a.txt
+乔鱼，给你的太多了！
+
+PL/SQL 过程已成功完成。
+
+SQL> declare
+  2  tname varchar2(10);
+  3  e exception;
+  4  begin
+  5  select a1 into tname from b where a2='ttt';
+  6  if tname()'abc' then
+  7  raise e;
+  8  end if;
+  9  dbms_output.put_line('是abc了！：'||tname);
+ 10  exception
+ 11  when e then
+ 12  dbms_output.put_line('乔鱼，我找错了！你要的是abc,对不起！');
+ 13  end;
+ 14  /
+if tname()'abc' then
+          *
+第 6 行出现错误:
+ORA-06550: 第 6 行, 第 11 列:
+PLS-00103: 出现符号 "abc"在需要下列之一时：
+. ( * % & = - + < / > at in
+is mod remainder not rem then <an exponent (**)>
+<> or != or ~= >= <= <> and or like LIKE2_ LIKE4_ LIKEC_
+between || multiset member SUBMULTISET_
+符号 "*" 被替换为 "abc" 后继续。
+
+
+SQL>  declare
+  2   tname varchar2(10);
+  3   e exception;
+  4   begin
+  5   select a1 into tname from b where a2='ttt';
+  6   if tname()'abc' then
+  7   raise e;
+  8   end if;
+  9   dbms_output.put_line('是abc了！：'||tname);
+ 10   exception
+ 11   when e then
+ 12   dbms_output.put_line('乔鱼，我找错了！你要的是abc,对不起！');
+ 13   end;
+ 14  .
+SQL> save c:\b.txt
+已创建 file c:\b.txt
+SQL> edit c:\b.txt
+
+SQL> @ c:\b.txt
+是abc了！：abc
+
+PL/SQL 过程已成功完成。
+
+SQL> l
+  1   declare
+  2   tname varchar2(10);
+  3   e exception;
+  4   begin
+  5   select a1 into tname from b where a2='ttt';
+  6   if tname<>'abc' then
+  7   raise e;
+  8   end if;
+  9   dbms_output.put_line('是abc了！：'||tname);
+ 10   exception
+ 11   when e then
+ 12   dbms_output.put_line('乔鱼，我找错了！你要的是abc,对不起！');
+ 13*  end;
+SQL> edit c:\b.txt
+
+SQL> @ c:\b.txt
+乔鱼，我找错了！你要的是bac,对不起！
+
+PL/SQL 过程已成功完成。
+
+SQL> l
+  1   declare
+  2   tname varchar2(10);
+  3   e exception;
+  4   begin
+  5   select a1 into tname from b where a2='ttt';
+  6   if tname<>'bac' then
+  7   raise e;
+  8   end if;
+
+  9   dbms_output.put_line('是bac了！：'||tname);
+ 10   exception
+ 11   when e then
+ 12   dbms_output.put_line('乔鱼，我找错了！你要的是bac,对不起！');
+ 13*  end;
+SQL>
+SQL> declare
+  2  type mr is record(
+  3  id varchar2(10);
+  4  .
+SQL> declare
+  2  type mr is record(
+  3  id varchar2(10),
+  4  name varchar2(10));
+  5  a mr;
+  6  begin
+  7  select a1,a2 into a from b where a2='ttt';
+  8  dbms_output.put_line(a.id||','||a.name);
+  9  end;
+ 10  /
+
+PL/SQL 过程已成功完成。
+
+SQL> set serveroutput on size 10000
+SQL> /
+abc,ttt
+
+PL/SQL 过程已成功完成。
+
+SQL>

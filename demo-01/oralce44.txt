@@ -1,0 +1,456 @@
+Microsoft Windows XP [版本 5.1.2600]
+(C) 版权所有 1985-2001 Microsoft Corp.
+
+C:\Documents and Settings\user>sqlplus sysman/dashi
+
+SQL*Plus: Release 10.2.0.1.0 - Production on 星期五 3月 23 08:47:37 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+连接到:
+Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> select * fro d;
+select * fro d
+         *
+第 1 行出现错误:
+ORA-00923: 未找到要求的 FROM 关键字
+
+
+SQL> select * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         32233
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+121        sdkjfls               22
+0111       abc        man        22
+001        test22
+01         A部门
+02         B部门
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+03         C部门
+04         D部门
+05         E部门
+
+已选择14行。
+
+SQL> delete from d;
+
+已删除14行。
+
+SQL> commit;
+
+提交完成。
+
+SQL> select * from d;
+
+未选定行
+
+SQL> 再见上一个窗口，oralce33.txt中的
+SP2-0734: 未知的命令开头 "再见上一个..." - 忽略了剩余的行。
+SQL> 接上一个窗口！
+SP2-0734: 未知的命令开头 "接上一个窗..." - 忽略了剩余的行。
+SQL> select * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         32233
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+121        sdkjfls               22
+0111       abc        man        22
+001        test22
+01         A部门
+02         B部门
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+03         C部门
+04         D部门
+05         E部门
+
+已选择14行。
+
+SQL> shutdown immediate
+ORA-01031: 权限不足
+SQL> conn sys/dashi as sysdba
+已连接。
+SQL> shutdown immediate
+数据库已经关闭。
+已经卸载数据库。
+ORACLE 例程已经关闭。
+SQL> conn sysman/dashi
+ERROR:
+ORA-01034: ORACLE not available
+ORA-27101: shared memory realm does not exist
+
+
+警告: 您不再连接到 ORACLE。
+SQL> startup mount
+ORA-01031: insufficient privileges
+SQL> conn sys/dashi as sysdba
+已连接到空闲例程。
+SQL> startup mount
+ORACLE 例程已经启动。
+
+Total System Global Area  167772160 bytes
+Fixed Size                  1247900 bytes
+Variable Size              83887460 bytes
+Database Buffers           79691776 bytes
+Redo Buffers                2945024 bytes
+数据库装载完毕。
+SQL> alter database open;
+
+数据库已更改。
+
+SQL> select * from sysman.d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         32233
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+121        sdkjfls               22
+0111       abc        man        22
+001        test22
+01         A部门
+02         B部门
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+03         C部门
+04         D部门
+05         E部门
+
+已选择14行。
+
+SQL> archive log list;
+数据库日志模式             非存档模式
+自动存档             禁用
+存档终点            USE_DB_RECOVERY_FILE_DEST
+最早的联机日志序列     20
+当前日志序列           22
+SQL> alter system set log_archive_start=true scope=spfile;
+
+系统已更改。
+
+SQL> 日志文件已改为归档方式
+SP2-0734: 未知的命令开头 "日志文件已..." - 忽略了剩余的行。
+SQL>
+SQL> 下面开始热备份！
+SP2-0734: 未知的命令开头 "下面开始热..." - 忽略了剩余的行。
+SQL> shutdown immediate
+数据库已经关闭。
+已经卸载数据库。
+ORACLE 例程已经关闭。
+SQL> startup mount
+ORA-32004: obsolete and/or deprecated parameter(s) specified
+ORACLE 例程已经启动。
+
+Total System Global Area  167772160 bytes
+Fixed Size                  1247900 bytes
+Variable Size              83887460 bytes
+Database Buffers           79691776 bytes
+Redo Buffers                2945024 bytes
+数据库装载完毕。
+SQL>
+SQL> alter database archivelog;
+
+数据库已更改。
+
+SQL> alter database open;
+
+数据库已更改。
+
+SQL> archive log list;
+数据库日志模式            存档模式
+自动存档             启用
+存档终点            USE_DB_RECOVERY_FILE_DEST
+最早的联机日志序列     20
+下一个存档日志序列   22
+当前日志序列           22
+SQL> 看到了，日志文件自动存档方式已启用
+SP2-0734: 未知的命令开头 "看到了，日..." - 忽略了剩余的行。
+SQL> alter tablespace tabs begin backup;
+
+表空间已更改。
+
+SQL> 此时copy C:\oracle\product\10.2.0\oradata\test\TABS.DBF to:C:\TEMP\TABS.DBF
+
+SP2-0734: 未知的命令开头 "此时copy C..." - 忽略了剩余的行。
+SQL> alter tablespace tabs end backup;
+
+表空间已更改。
+
+SQL> alter system archive log current;
+
+系统已更改。
+
+SQL> alter system switch logfile;
+
+系统已更改。
+
+SQL> alter system switch logfile;
+
+系统已更改。
+
+SQL> shutdown immediate;
+数据库已经关闭。
+已经卸载数据库。
+ORACLE 例程已经关闭。
+SQL>
+SQL>
+SQL> 在上面的两个alter system switch logfile;是因为我们默认的是三个连辑的日志文
+件，所以分别地作这样的切换。
+SP2-0734: 未知的命令开头 "在上面的两..." - 忽略了剩余的行。
+SQL> 关闭数据库后，手动删除C:\oracle\product\10.2.0\oradata\test\TABS.DBF
+SP2-0734: 未知的命令开头 "关闭数据库..." - 忽略了剩余的行。
+SQL> 再启动
+SP2-0042: 未知命令 "再启动" - 其余行忽略。
+SQL> startup
+ORA-32004: obsolete and/or deprecated parameter(s) specified
+ORACLE 例程已经启动。
+
+Total System Global Area  167772160 bytes
+Fixed Size                  1247900 bytes
+Variable Size              83887460 bytes
+Database Buffers           79691776 bytes
+Redo Buffers                2945024 bytes
+数据库装载完毕。
+ORA-01157: 无法标识/锁定数据文件 6 - 请参阅 DBWR 跟踪文件
+ORA-01110: 数据文件 6: 'C:\ORACLE\PRODUCT\10.2.0\ORADATA\TEST\TABS.DBF'
+
+
+SQL>
+SQL>
+SQL> 上面的无法标识/锁定数据文件 6就是我删除的那个TABS.DBF
+SP2-0734: 未知的命令开头 "上面的无法..." - 忽略了剩余的行。
+SQL> 验证一下：
+SP2-0042: 未知命令 "验证一下：" - 其余行忽略。
+SQL> select * from v$recover file;
+select * from v$recover file
+                        *
+第 1 行出现错误:
+ORA-00933: SQL 命令未正确结束
+
+
+SQL>  select * from v$recover_file;
+
+     FILE# ONLINE  ONLINE_
+---------- ------- -------
+ERROR                                                                CHANGE#
+----------------------------------------------------------------- ----------
+TIME
+--------------
+         6 ONLINE  ONLINE
+FILE NOT FOUND                                                             0
+
+
+
+SQL> 因为我在连辑日志中作了备份，接下来我还原！
+SP2-0734: 未知的命令开头 "因为我在连..." - 忽略了剩余的行。
+SQL> alter database datafile 6 offline drop;
+
+数据库已更改。
+
+SQL> alter database open;
+
+数据库已更改。
+
+SQL>
+SQL>
+SQL>
+SQL> 现在copy C:\TEMP\TABS.DB  to:C:\oracle\product\10.2.0\oradata\test\TABS.DBF
+
+SP2-0734: 未知的命令开头 "现在copy C..." - 忽略了剩余的行。
+SQL> recouver datafile 6;
+SP2-0734: 未知的命令开头 "recouver d..." - 忽略了剩余的行。
+SQL> recover datafile 6;
+ORA-00283: 恢复会话因错误而取消
+ORA-01110: 数据文件 6: 'C:\ORACLE\PRODUCT\10.2.0\ORADATA\TEST\TABS.DBF'
+ORA-01157: 无法标识/锁定数据文件 6 - 请参阅 DBWR 跟踪文件
+ORA-01110: 数据文件 6: 'C:\ORACLE\PRODUCT\10.2.0\ORADATA\TEST\TABS.DBF'
+
+
+SQL> 刚才忘了copy了，这次copy了
+SP2-0734: 未知的命令开头 "刚才忘了co..." - 忽略了剩余的行。
+SQL> recover datafile 6;
+ORA-00279: 更改 1186914 (在 03/23/2007 09:20:49 生成) 对于线程 1 是必需的
+ORA-00289: 建议:
+C:\ORACLE\PRODUCT\10.2.0\FLASH_RECOVERY_AREA\TEST\ARCHIVELOG\2007_03_23\O1_MF_1_
+
+22_%U_.ARC
+ORA-00280: 更改 1186914 (用于线程 1) 在序列 #22 中
+
+
+指定日志: {<RET>=suggested | filename | AUTO | CANCEL}
+auto
+已应用的日志。
+完成介质恢复。
+SQL> alter database datafile 6 online;
+
+数据库已更改。
+
+SQL>  select * from v$recover file;
+ select * from v$recover file
+                         *
+第 1 行出现错误:
+ORA-00933: SQL 命令未正确结束
+
+
+SQL> select * from v$recover_file;
+
+未选定行
+
+SQL> 成功了，没有出现问题，由于我在表空间tabs里面没有建表，所以不好验证，下次记
+得在这个表 空间里创表，然后用查表的方式验证这个备份与还原过程！
+SP2-0734: 未知的命令开头 "成功了，没..." - 忽略了剩余的行。
+SQL> 去看C:\oracle\product\10.2.0\flash_recovery_area\TEST\ARCHIVELOG\2007_03_23
+中我创建的三个归档日志
+SP2-0734: 未知的命令开头 "去看C:\ora..." - 忽略了剩余的行。
+SQL> show user
+USER 为 "SYS"
+SQL> 接下来对控制文件进行热备份：
+SP2-0734: 未知的命令开头 "接下来对控..." - 忽略了剩余的行。
+SQL> alter database backup controlfile to trace;
+
+数据库已更改。
+
+SQL> shutdown immediate
+数据库已经关闭。
+已经卸载数据库。
+ORACLE 例程已经关闭。
+SQL>
+SQL>
+SQL>
+SQL>
+SQL> 现在模拟控制文件丢失的情况，把C:\oracle\product\10.2.0\admin\test\udump\tes
+t_ora_256.trc复制到c:\temp中，并把文件中的注解了的文字删去，以便阅读。
+SP2-0734: 未知的命令开头 "现在模拟控..." - 忽略了剩余的行。
+SQL> SQL> 现在模拟控制文件丢失的情况，把C:\oracle\product\10.2.0\admin\test\udum
+p\tes
+SP2-0734: 未知的命令开头 "SQL> 现在..." - 忽略了剩余的行。
+SQL> t_ora_324.trc(刚才看错了）复制到c:\temp中，并把文件中的注解了的文字删去，以
+便阅读。
+SP2-0734: 未知的命令开头 "t_ora_324...." - 忽略了剩余的行。
+SQL> 上述的 alter database backup controlfile to trace;便把控制文件备份到了C:\or
+acle\product\10.2.0\admin\test\udump\test_ora_256.trc中了，为了安全起见，我把C:\
+oracle\product\10.2.0\oradata\test\中的三个控制文件事先复制到c:\temp中：
+SP2-0734: 未知的命令开头 "上述的 alt..." - 忽略了剩余的行。
+SP2-0044: 要获取已知命令的列表, 请输入 HELP;
+输入 EXIT 可退出。
+SQL> 再删除这三个控制文件
+SP2-0734: 未知的命令开头 "再删除这三..." - 忽略了剩余的行。
+SQL> 我再来一次：
+SP2-0734: 未知的命令开头 "我再来一次..." - 忽略了剩余的行。
+SQL> startup mount
+ORA-32004: obsolete and/or deprecated parameter(s) specified
+ORACLE 例程已经启动。
+
+Total System Global Area  167772160 bytes
+Fixed Size                  1247900 bytes
+Variable Size              88081764 bytes
+Database Buffers           75497472 bytes
+Redo Buffers                2945024 bytes
+ORA-00205: ?????????, ??????, ???????
+
+
+SQL>
+SQL> 因为我删了那三个控制文件，故启动时出现了问题，我手动还原此三个文件后：
+SP2-0734: 未知的命令开头 "因为我删了..." - 忽略了剩余的行。
+SQL> startup mount
+ORA-32004: ?????/?????
+ORA-01081: ????????? ORACLE - ??????
+SQL> exit
+从 Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Productio
+With the Partitioning, OLAP and Data Mining options 断开
+
+C:\Documents and Settings\user>sqlplus sysman/dashi
+
+SQL*Plus: Release 10.2.0.1.0 - Production on 星期五 3月 23 10:43:29 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+ERROR:
+ORA-01033: ORACLE initialization or shutdown in progress
+
+
+请输入用户名:  sysman
+输入口令:
+ERROR:
+ORA-01033: ORACLE initialization or shutdown in progress
+
+
+请输入用户名:  jafs
+输入口令:
+ERROR:
+ORA-01033: ORACLE initialization or shutdown in progress
+
+
+SP2-0157: 在 3 次尝试之后无法连接到 ORACLE, 退出 SQL*Plus
+
+C:\Documents and Settings\user>sqlplus sys/dashi as sysdba
+
+SQL*Plus: Release 10.2.0.1.0 - Production on 星期五 3月 23 10:44:53 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+连接到:
+Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> conn sysman/dashi
+ERROR:
+ORA-01033: ORACLE initialization or shutdown in progress
+
+
+警告: 您不再连接到 ORACLE。
+SQL> startup
+ORA-32004: obsolete and/or deprecated parameter(s) specified
+ORA-01031: insufficient privileges
+SQL> conn sysman/dashi
+ERROR:
+ORA-01033: ORACLE initialization or shutdown in progress
+
+
+SQL> exit
+
+C:\Documents and Settings\user>
+我后面的没有成功，教程上是这样恢复控制文件的：
+sql>alter database backup controlfile to trace;
+
+database altered.
+sql>shutdown immediate
+...
+关闭了
+sql>@c:\create_ctl.txt
+删除的三个控制文件重新创建了。。。（与先前的一样的，也即恢复了）
+sql>select user from dual;
+user
+--------------------------
+sys
+
+sql>
+上述表明了，控制文件恢复后，又可以使用数据库了
+sql>ho cls
+清屏
+sql>recover database until cancel;
+sql>alter database open resetlogs;
+重新生成日志文件。
+

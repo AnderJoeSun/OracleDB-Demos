@@ -1,0 +1,310 @@
+Microsoft Windows XP [版本 5.1.2600]
+(C) 版权所有 1985-2001 Microsoft Corp.
+
+C:\Documents and Settings\user>sqlplus
+
+SQL*Plus: Release 10.2.0.1.0 - Production on 星
+期一 3月 19 14:46:04 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights re
+served.
+
+请输入用户名:  sysman
+输入口令:
+
+连接到:
+Oracle Database 10g Enterprise Edition Release 1
+0.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining opti
+ons
+
+SQL> create table a(a varchar2(10),b char(10));
+
+表已创建。
+
+SQL> alter table a
+  2  add c number;
+
+表已更改。
+
+SQL> alter table a drop column c;
+
+表已更改。
+
+SQL> grant select on a to joyu;
+grant select on a to joyu
+                     *
+第 1 行出现错误:
+ORA-01917: 用户或角色 'JOYU' 不存在
+
+
+SQL> create user Joyu identified by paswrd
+  2  ;
+
+用户已创建。
+
+SQL> conn Joyu/paswrd
+ERROR:
+ORA-01045: user JOYU lacks CREATE SESSION privil
+ege; logon denied
+
+
+警告: 您不再连接到 ORACLE。
+SQL> conn Joyu
+输入口令:
+ERROR:
+ORA-01045: user JOYU lacks CREATE SESSION privil
+ege; logon denied
+
+
+SQL> grant select to Joyu
+  2  ;
+SP2-0640: 未连接
+SQL> conn "sys/dashi as syadba";
+输入口令:
+ERROR:
+ORA-01017: invalid username/password; logon deni
+ed
+
+
+SQL> conn sysman/dashi
+已连接。
+SQL> grant select to Joyu
+  2  ;
+grant select to Joyu
+      *
+第 1 行出现错误:
+ORA-01919: 角色 'SELECT' 不存在
+
+
+SQL> grant select on bytes to Joyu;
+grant select on bytes to Joyu
+                *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+SQL> select bytes from v$datafile;
+
+     BYTES
+----------
+ 503316480
+  36700160
+ 262144000
+   5242880
+ 104857600
+
+SQL> grant select on v$datafile to Joyu;
+grant select on v$datafile to Joyu
+                *
+第 1 行出现错误:
+ORA-01031: 权限不足
+
+
+SQL> conn sys/dashi as sysdba
+已连接。
+SQL> grant select on v$datafile to JOyu;
+grant select on v$datafile to JOyu
+                *
+第 1 行出现错误:
+ORA-02030: 只能从固定的表/视图查询
+
+
+SQL> create user Fanyu identified by paswrd
+  2  ;
+
+用户已创建。
+
+SQL> conn fanyu/paswrd
+ERROR:
+ORA-01045: user FANYU lacks CREATE SESSION privi
+lege; logon denied
+
+
+警告: 您不再连接到 ORACLE。
+SQL> create table b(a number,b varchar2(20),c ch
+ar(39));
+SP2-0640: 未连接
+SQL> conn sys/dashi as sysdba
+已连接。
+SQL> grant select on a to Joyu;
+grant select on a to Joyu
+                *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+SQL> conn sysman/dashi
+已连接。
+SQL> select * from a;
+
+未选定行
+
+SQL> grant select on a to Joyu;
+
+授权成功。
+
+SQL> insert into a(a,b) values('hello world','Jo
+yu');
+insert into a(a,b) values('hello world','Joyu')
+                          *
+第 1 行出现错误:
+ORA-12899: 列 "SYSMAN"."A"."A" 的值太大 (实际值:
+ 11, 最大值: 10)
+
+
+SQL> into a(a,b) values('hello','Molyn');
+SP2-0734: 未知的命令开头 "into a(a,b..." - 忽略
+了剩余的行。
+SQL> insert into a(a,b) values('hello','Molyn');
+
+
+已创建 1 行。
+
+SQL> insert into a(a,b) values('It's you!','Fany
+u');
+ERROR:
+ORA-01756: 引号内的字符串没有正确结束
+
+
+SQL> insert into a values('it is','
+  2  Fanyu');
+
+已创建 1 行。
+
+SQL> insert into a values('3','i am Joyu');
+
+已创建 1 行。
+
+SQL> insert into a(b) values('Great!');
+
+已创建 1 行。
+
+SQL> select * from a;
+
+A          B
+---------- ----------
+hello      Molyn
+it is
+           Fanyu
+
+3          i am Joyu
+           Great!
+
+SQL> grant select on a to Fanyu;
+
+授权成功。
+
+SQL> grant select,alter,drop on a to Joyu;
+grant select,alter,drop on a to Joyu
+                   *
+第 1 行出现错误:
+ORA-00990: 权限缺失或无效
+
+
+SQL> grant drop on a to Joyu;
+grant drop on a to Joyu
+      *
+第 1 行出现错误:
+ORA-00990: 权限缺失或无效
+
+
+SQL> grant alter on a to Joyu;
+
+授权成功。
+
+SQL> conn Joyu/paswrd
+ERROR:
+ORA-01045: user JOYU lacks CREATE SESSION privil
+ege; logon denied
+
+
+警告: 您不再连接到 ORACLE。
+SQL> select a from sysman.a;
+SP2-0640: 未连接
+SQL> conn sysman
+输入口令:
+已连接。
+SQL> select * from a;
+
+A          B
+---------- ----------
+hello      Molyn
+it is
+           Fanyu
+
+3          i am Joyu
+           Great!
+
+SQL> update a set a='woo!' where b='Great';
+
+已更新0行。
+
+SQL> update a set a='woo!' where b='Great!';
+
+已更新 1 行。
+
+SQL> select * from a;
+
+A          B
+---------- ----------
+hello      Molyn
+it is
+           Fanyu
+
+3          i am Joyu
+woo!       Great!
+
+SQL> alter a set b='Fanyu' where a='it is';
+alter a set b='Fanyu' where a='it is'
+      *
+第 1 行出现错误:
+ORA-00940: 无效的 ALTER 命令
+
+
+SQL> update a set b='fanyu' where a='it is';
+
+已更新 1 行。
+
+SQL> select * from a;
+
+A          B
+---------- ----------
+hello      Molyn
+it is      fanyu
+3          i am Joyu
+woo!       Great!
+
+SQL> delete from a where a='3';
+
+已删除 1 行。
+
+SQL> insert into a  add('hi','I am Joyu');
+insert into a  add('hi','I am Joyu')
+               *
+第 1 行出现错误:
+ORA-00926: 缺失 VALUES 关键字
+
+
+SQL> insert into a values(a='hi',b='I am Joyu');
+
+insert into a values(a='hi',b='I am Joyu')
+                      *
+第 1 行出现错误:
+ORA-00917: 缺失逗号
+
+
+SQL> insert into a values('hi','I am Joyu');
+
+已创建 1 行。
+
+SQL> select * from a;
+
+A          B
+---------- ----------
+hello      Molyn
+it is      fanyu
+woo!       Great!
+hi         I am Joyu
+
+SQL>

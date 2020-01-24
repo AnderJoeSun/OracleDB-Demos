@@ -1,0 +1,1269 @@
+Microsoft Windows XP [版本 5.1.2600]
+(C) 版权所有 1985-2001 Microsoft Corp.
+
+C:\Documents and Settings\user>cd\
+
+C:\>sqlplus sysman/dashi
+
+SQL*Plus: Release 10.2.0.1.0 - Production on 星期三 3月 28 14:18:00 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+连接到:
+Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> col bytes format 000,000,000;
+SQL> select * from v$datafile;
+
+   ........
+---------- -------------
+AUX_NAME
+--------------------------------------------------------------------------------
+FIRST_NONLOGGED_SCN FIRST_NONLOGGE
+------------------- --------------
+
+
+已选择7行。
+
+SQL> select bytes from v$datafile;
+
+     BYTES
+----------
+##########
+##########
+##########
+##########
+##########
+##########
+##########
+
+已选择7行。
+
+SQL> col bytes format 999,999,999;
+SQL> select bytes from v$datafile;
+
+       BYTES
+------------
+ 513,802,240
+  36,700,160
+ 314,572,800
+   5,242,880
+ 104,857,600
+  10,485,760
+  10,485,760
+
+已选择7行。
+
+SQL> col bytes heading "字节"
+SQL> select bytes from v$datafile;
+
+        字节
+------------
+ 513,802,240
+  36,700,160
+ 314,572,800
+   5,242,880
+ 104,857,600
+  10,485,760
+  10,485,760
+
+已选择7行。
+
+SQL> col bytes format a10;
+SQL> select bytes from v$datafile;
+
+      字节
+----------
+##########
+##########
+##########
+##########
+##########
+##########
+##########
+
+已选择7行。
+
+SQL> select * from e;
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+32233      sdjl
+04         D部门
+05         E部门
+77         sdflsk
+22         tt
+
+已选择7行。
+
+SQL> col id format a3;
+SQL> select * from e;
+
+ID  NAME
+--- ----------
+01  A部门
+02  B部门
+322 sdjl
+33
+
+04  D部门
+05  E部门
+77  sdflsk
+22  tt
+
+已选择7行。
+
+SQL> set linesize 50
+SQL> ttiltle center "乔鱼的标题" skip 1
+SP2-0734: 未知的命令开头 "ttiltle ce..." - 忽略了剩余的行。
+SQL> ttitle center "乔鱼" skip 1
+SQL> select * from d;
+
+                       乔鱼
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ---
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         322
+                                 33
+
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+121        sdkjfls               22
+0111       abc        man        22
+
+                       乔鱼
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ---
+001        test22
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+已选择14行。
+
+SQL> select * from e;
+
+                       乔鱼
+ID  NAME
+--- ----------
+01  A部门
+02  B部门
+322 sdjl
+33
+
+04  D部门
+05  E部门
+77  sdflsk
+22  tt
+
+已选择7行。
+
+SQL> ttitle center "乔鱼的"
+SQL> select * from e;
+
+                      乔鱼的
+ID  NAME
+--- ----------
+01  A部门
+02  B部门
+322 sdjl
+33
+
+04  D部门
+05  E部门
+77  sdflsk
+22  tt
+
+已选择7行。
+
+SQL> set linesize 10
+SQL> ttitle center "乔鱼";
+SQL> select * from d;
+
+   乔鱼
+EID
+----------
+ENAME
+----------
+SEX
+----------
+ID
+---
+001
+赵1
+男
+01
+
+   乔鱼
+EID
+----------
+ENAME
+----------
+SEX
+----------
+ID
+---
+
+002
+钱2
+男
+
+   乔鱼
+EID
+----------
+ENAME
+----------
+SEX
+----------
+ID
+---
+02
+
+003
+孙3
+
+   乔鱼
+EID
+----------
+ENAME
+----------
+SEX
+----------
+ID
+---
+男
+322
+33
+
+
+   乔鱼
+EID
+----------
+ENAME
+----------
+SEX
+----------
+ID
+---
+004
+李4
+女
+04
+
+   乔鱼
+EID
+----------
+ENAME
+----------
+SEX
+----------
+ID
+---
+
+005
+周5
+女
+
+   乔鱼
+EID
+----------
+ENAME
+----------
+SEX
+----------
+ID
+---
+55
+
+121
+sdkjfls
+
+   乔鱼
+EID
+----------
+ENAME
+----------
+SEX
+----------
+ID
+---
+
+77
+
+121
+
+   乔鱼
+EID
+----------
+ENAME
+----------
+SEX
+----------
+ID
+---
+sdkjfls
+
+22
+
+
+   乔鱼
+EID
+----------
+ENAME
+----------
+SEX
+----------
+ID
+---
+0111
+abc
+man
+22
+
+   乔鱼
+EID
+----------
+ENAME
+----------
+SEX
+----------
+ID
+---
+
+001
+test22
+
+
+   乔鱼
+EID
+----------
+ENAME
+----------
+SEX
+----------
+ID
+---
+
+
+01
+A部门
+
+   乔鱼
+EID
+----------
+ENAME
+----------
+SEX
+----------
+ID
+---
+
+
+
+02
+
+   乔鱼
+EID
+----------
+ENAME
+----------
+SEX
+----------
+ID
+---
+B部门
+
+
+
+
+   乔鱼
+EID
+----------
+ENAME
+----------
+SEX
+----------
+ID
+---
+03
+C部门
+
+
+
+   乔鱼
+EID
+----------
+ENAME
+----------
+SEX
+----------
+ID
+---
+
+04
+D部门
+
+
+   乔鱼
+EID
+----------
+ENAME
+----------
+SEX
+----------
+ID
+---
+
+
+05
+E部门
+
+   乔鱼
+EID
+----------
+ENAME
+----------
+SEX
+----------
+ID
+---
+
+
+
+
+已选择14行。
+
+SQL> set linesize 50
+SQL> ttitle center "乔鱼的确" left "测试报表" right "页"
+SQL> select * from d;
+
+测试报表             乔鱼的确                   页
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ---
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         322
+                                 33
+
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+121        sdkjfls               22
+0111       abc        man        22
+
+测试报表             乔鱼的确                   页
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ---
+001        test22
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+已选择14行。
+
+SQL> ttitle center "adaf" skip 1 left "sdlk" skip 1 right "djfls"
+SQL> select * from d;
+
+                       adaf
+sdlk
+                                             djfls
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ---
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         322
+                                 33
+
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+
+                       adaf
+sdlk
+                                             djfls
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ---
+121        sdkjfls               22
+0111       abc        man        22
+001        test22
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+已选择14行。
+
+SQL> ttitle center "kjsdfl" right format 000 sql.pno
+SQL> select * from d;
+
+                      kjsdfl                   001
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ---
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         322
+                                 33
+
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+121        sdkjfls               22
+0111       abc        man        22
+
+                      kjsdfl                   002
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ---
+001        test22
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+已选择14行。
+
+SQL> ttitle off
+SQL> select * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ---
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         322
+                                 33
+
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+121        sdkjfls               22
+0111       abc        man        22
+001        test22
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ---
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+已选择14行。
+
+SQL> break on pub
+SQL> select * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ---
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         322
+                                 33
+
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+121        sdkjfls               22
+0111       abc        man        22
+001        test22
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ---
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+已选择14行。
+
+SQL> select * from c;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY
+---------- ---------- ---------- ----------
+PUB
+----------
+0001       中国文学   39                 12
+人民文学
+
+0002       外国文学   27                 10
+
+
+0003       英语阅读   33                 22
+清华大学
+
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY
+---------- ---------- ---------- ----------
+PUB
+----------
+0004       建筑艺术   45.5               17
+清华大学
+
+0005       计算机入门 18.5               88
+电子工业
+
+0006       数值算法   21                  7
+
+
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY
+---------- ---------- ---------- ----------
+PUB
+----------
+0007       C语言设计  20                  9
+电子工业
+
+0013       akdsl      22                  3
+eed
+
+0032       kdsj       35                 21
+ksd
+
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY
+---------- ---------- ---------- ----------
+PUB
+----------
+0008
+
+
+
+已选择10行。
+
+SQL> spool c:\i.txt
+SQL> edit
+已写入 file afiedt.buf
+
+  1* select * from c
+SQL> spool off
+SQL> edit c:\i.txt
+
+SQL> select * from e;
+
+ID  NAME
+--- ----------
+01  A部门
+02  B部门
+322 sdjl
+33
+
+04  D部门
+05  E部门
+77  sdflsk
+22  tt
+
+已选择7行。
+
+SQL> spool
+当前未假脱机
+SQL> spool c:\i.txt
+SQL> select * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ---
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         322
+                                 33
+
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+121        sdkjfls               22
+0111       abc        man        22
+001        test22
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ---
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+已选择14行。
+
+SQL> spool off
+SQL> select * from e;
+
+ID  NAME
+--- ----------
+01  A部门
+02  B部门
+322 sdjl
+33
+
+04  D部门
+05  E部门
+77  sdflsk
+22  tt
+
+已选择7行。
+
+SQL> conn test/qiaoyu
+已连接。
+SQL> select * from sysman.d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ---
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         322
+                                 33
+
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+121        sdkjfls               22
+0111       abc        man        22
+001        test22
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ---
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+已选择14行。
+
+SQL> commit
+  2  ;
+
+提交完成。
+
+SQL> select length('sadjf;la') from dual;
+
+LENGTH('SADJF;LA')
+------------------
+                 8
+
+SQL> select lengthb('ksjdfk') from dual;
+
+LENGTHB('KSJDFK')
+-----------------
+                6
+
+SQL> select lengthb('dkfsl好') from dual;
+
+LENGTHB('DKFSL好')
+------------------
+                 7
+
+SQL> select length('sdjf好') from dual;
+
+LENGTH('SDJF好')
+----------------
+               5
+
+SQL> select ltrim('  slkdfj   ') from dual;
+
+LTRIM('SL
+---------
+slkdfj
+
+SQL> select rtrim('   sdlkfj   ') from dual;
+
+RTRIM('SD
+---------
+   sdlkfj
+
+SQL> select trim(' jsdl   ') from dual;
+
+TRIM
+----
+jsdl
+
+SQL> select trim('  djslk  sdfkj   ');
+select trim('  djslk  sdfkj   ')
+                               *
+第 1 行出现错误:
+ORA-00923: 未找到要求的 FROM 关键字
+
+
+SQL> select trim('  kdsjfl   lsdf   ') from dual;
+
+TRIM('KDSJFLL
+-------------
+kdsjfl   lsdf
+
+SQL> select mtrim(' sdfs  sldjf  ') from dual;
+select mtrim(' sdfs  sldjf  ') from dual
+       *
+第 1 行出现错误:
+ORA-00904: "MTRIM": 标识符无效
+
+
+SQL> desc a;
+ERROR:
+ORA-04043: 对象 a 不存在
+
+
+SQL> conn sysman/dashi;
+已连接。
+SQL> show user
+USER 为 "SYSMAN"
+SQL> select substr('sjdflks',2,3) from dual;
+
+SUB
+---
+jdf
+
+SQL> select substr('sdjfl',1,5) from dual;
+
+SUBST
+-----
+sdjfl
+
+SQL> select substr('abcdefg'),length('abcdefg')-3+1,3) from dual;
+select substr('abcdefg'),length('abcdefg')-3+1,3) from dual
+                                                *
+第 1 行出现错误:
+ORA-00923: 未找到要求的 FROM 关键字
+
+
+SQL> select substr('abcdefg',7-4+1,4) from dual;
+
+SUBS
+----
+defg
+
+SQL> select sysdate from dual;
+
+SYSDATE
+--------------
+28-3月 -07
+
+SQL> select current_date from dual;
+
+CURRENT_DATE
+--------------
+28-3月 -07
+
+SQL> select sysdate from dual;
+
+SYSDATE
+--------------
+28-3月 -07
+
+SQL> select current_date from dual;
+
+CURRENT_DATE
+--------------
+28-3月 -07
+
+SQL> alter session set nls_date_format='dd-mon=yyyy hh:mi:ss';
+
+会话已更改。
+
+SQL> select sysdate from dual;
+
+SYSDATE
+-------------------------
+28-3月 =2007 03:46:58
+
+SQL> alter session set nls_date_format='dd-mon-yy hh24:mi:ss';
+
+会话已更改。
+
+SQL> select current_date from dual;
+
+CURRENT_DATE
+-----------------------
+28-3月 -07 15:47:59
+
+SQL> select next_day(sysdate,'星期哩') from dual;
+select next_day(sysdate,'星期哩') from dual
+                        *
+第 1 行出现错误:
+ORA-01846: 周中的日无效
+
+
+SQL> select next_day(sysdate,'星期二') from dual;
+
+NEXT_DAY(SYSDATE,'星期
+-----------------------
+03-4月 -07 15:49:10
+
+SQL> alter session nls_date_format='mon?dd?yyyy hh24(mi<ss';
+alter session nls_date_format='mon?dd?yyyy hh24(mi<ss'
+              *
+第 1 行出现错误:
+ORA-00922: 选项缺失或无效
+
+
+SQL> alter session set nls_date_format='mon?dd?yyyy hh24(mi<ss';
+
+会话已更改。
+
+SQL> select next_day(sysdate,'星期四') from dual;
+
+NEXT_DAY(SYSDATE,'星期四'
+-------------------------
+3月 ?29?2007 15(51<23
+
+SQL> select to_char(sysdate,'yyy-mm-dd') from dual;
+
+TO_CHAR(S
+---------
+007-03-28
+
+SQL> select to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') from dual;
+
+TO_CHAR(SYSDATE,'YY
+-------------------
+2007-03-28 15:53:11
+
+SQL> select to_number('333') from dual;
+
+TO_NUMBER('333')
+----------------
+             333
+
+SQL> select to_number('sd;f') from dual;
+select to_number('sd;f') from dual
+                 *
+第 1 行出现错误:
+ORA-01722: 无效数字
+
+
+SQL> select * from c;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY
+---------- ---------- ---------- ----------
+PUB
+----------
+0001       中国文学   39                 12
+人民文学
+
+0002       外国文学   27                 10
+
+
+0003       英语阅读   33                 22
+清华大学
+
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY
+---------- ---------- ---------- ----------
+PUB
+----------
+0004       建筑艺术   45.5               17
+清华大学
+
+0005       计算机入门 18.5               88
+电子工业
+
+0006       数值算法   21                  7
+
+
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY
+---------- ---------- ---------- ----------
+PUB
+----------
+0007       C语言设计  20                  9
+电子工业
+
+0013       akdsl      22                  3
+eed
+
+0032       kdsj       35                 21
+ksd
+
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY
+---------- ---------- ---------- ----------
+PUB
+----------
+0008
+
+
+
+已选择10行。
+
+SQL> select max(price) from c;
+
+MAX(PRICE)
+----------
+45.5
+
+SQL> select min(price) from c;
+
+MIN(PRICE)
+----------
+18.5
+
+SQL> select sum(price) from c;
+
+SUM(PRICE)
+----------
+       261
+
+SQL> select avg(price) from c;
+
+AVG(PRICE)
+----------
+        29
+
+SQL> select count(price) from c;
+
+COUNT(PRICE)
+------------
+           9
+
+SQL> select count(*) from c;
+
+  COUNT(*)
+----------
+        10
+
+SQL> select * form b;
+select * form b
+         *
+第 1 行出现错误:
+ORA-00923: 未找到要求的 FROM 关键字
+
+
+SQL> show user;
+USER 为 "SYSMAN"
+SQL> select * from b;
+
+A1         A2         A3
+---------- ---------- ----------
+uu         dd         aa
+abc        xyz        aa
+dssldf     ttt        aa
+cba                   aa
+bbb                   aa
+abc        ggd        aa
+abc        dfd        aa
+
+已选择7行。
+
+SQL> select count(*) from b;
+
+  COUNT(*)
+----------
+         7
+
+SQL> select count(a2) from b;
+
+ COUNT(A2)
+----------
+         5
+
+SQL> select * from c where price>20;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY
+---------- ---------- ---------- ----------
+PUB
+----------
+0001       中国文学   39                 12
+人民文学
+
+0002       外国文学   27                 10
+
+
+0003       英语阅读   33                 22
+清华大学
+
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY
+---------- ---------- ---------- ----------
+PUB
+----------
+0004       建筑艺术   45.5               17
+清华大学
+
+0006       数值算法   21                  7
+电子工业
+
+0013       akdsl      22                  3
+eed
+
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY
+---------- ---------- ---------- ----------
+PUB
+----------
+0032       kdsj       35                 21
+ksd
+
+
+已选择7行。
+
+SQL> select user from dual;
+
+USER
+------------------------------
+SYSMAN
+
+SQL> select sum(secode(sex,'男',1,0))  男人数，sum(decode(sex,'女',1,0)) 女人数 from d;
+select sum(secode(sex,'男',1,0))  男人数，sum(decode(sex,'女',1,0)) 女人数 from d
+                                        *
+第 1 行出现错误:
+ORA-00911: 无效字符
+
+
+SQL>  select sum(secode(sex,'男',1,0))  男人数,sum(decode(sex,'女',1,0)) 女人数 from d;
+ select sum(secode(sex,'男',1,0))  男人数,sum(decode(sex,'女',1,0)) 女人数 from d
+            *
+第 1 行出现错误:
+ORA-00904: "SECODE": 标识符无效
+
+
+SQL>  select sum(decode(sex,'男',1,0))  男人数,sum(decode(sex,'女',1,0)) 女人数 from d;
+
+    男人数     女人数
+---------- ----------
+         3          2
+
+SQL> select * from b;
+
+A1         A2         A3
+---------- ---------- ----------
+uu         dd         aa
+abc        xyz        aa
+dssldf     ttt        aa
+cba                   aa
+bbb                   aa
+abc        ggd        aa
+abc        dfd        aa
+
+已选择7行。
+
+SQL> select a1 a from b;
+
+A
+----------
+uu
+abc
+dssldf
+cba
+bbb
+abc
+abc
+
+已选择7行。
+
+SQL> select count(price) 条数 from c;
+
+      条数
+----------
+         9
+
+SQL>  select sum(decode(sex,'男',1,0))  男人数,sum(decode(sex,'女',1,3)) 女人数 from d;
+
+    男人数     女人数
+---------- ----------
+         3         38
+
+SQL>  select sum(decode(sex,'男',1,0))  男人数,sum(decode(sex,'女',1,1)) 女人数 from d;
+
+    男人数     女人数
+---------- ----------
+         3         14
+
+SQL> select sum(decode(sex,'男',1,0))  男人数,sum(decode(sex,'女',1,0)) 女人数 from d;
+
+    男人数     女人数
+---------- ----------
+         3          2
+
+SQL> select a1,nvl(a2,'sdjfsa') b from b;
+
+A1         B
+---------- ----------
+uu         dd
+abc        xyz
+dssldf     ttt
+cba        sdjfsa
+bbb        sdjfsa
+abc        ggd
+abc        dfd
+
+已选择7行。
+
+SQL> select * from b where a2 is null
+  2  ;
+
+A1         A2         A3
+---------- ---------- ----------
+cba                   aa
+bbb                   aa
+
+SQL> select * from b where a2 is not null;
+
+A1         A2         A3
+---------- ---------- ----------
+uu         dd         aa
+abc        xyz        aa
+dssldf     ttt        aa
+abc        ggd        aa
+abc        dfd        aa
+
+SQL> select * from b order by a1 desc;
+
+A1         A2         A3
+---------- ---------- ----------
+uu         dd         aa
+dssldf     ttt        aa
+cba                   aa
+bbb                   aa
+abc        dfd        aa
+abc        ggd        aa
+abc        xyz        aa
+
+已选择7行。
+
+SQL> select * from b order by a1 asc;
+
+A1         A2         A3
+---------- ---------- ----------
+abc        ggd        aa
+abc        xyz        aa
+abc        dfd        aa
+bbb                   aa
+cba                   aa
+dssldf     ttt        aa
+uu         dd         aa
+
+已选择7行。
+
+SQL> select a1 from b;
+
+A1
+----------
+uu
+abc
+dssldf
+cba
+bbb
+abc
+abc
+
+已选择7行。
+
+SQL> select distinct a1 from b;
+
+A1
+----------
+uu
+bbb
+abc
+dssldf
+cba
+
+SQL>

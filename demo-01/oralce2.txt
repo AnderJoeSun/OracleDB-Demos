@@ -1,0 +1,1873 @@
+Microsoft Windows XP [版本 5.1.2600]
+(C) 版权所有 1985-2001 Microsoft Corp.
+
+C:\Documents and Settings\user>sqlplus sysman/dashi
+
+SQL*Plus: Release 10.2.0.1.0 - Production on 星期五 3月 23 17:05:44 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+连接到:
+Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> help idex
+SP2-0172: 找不到符合此主题的帮助。
+SQL> help index
+
+Enter Help [topic] for help.
+
+ @             COPY         PAUSE                    SHUTDOWN
+ @@            DEFINE       PRINT                    SPOOL
+ /             DEL          PROMPT                   SQLPLUS
+ ACCEPT        DESCRIBE     QUIT                     START
+ APPEND        DISCONNECT   RECOVER                  STARTUP
+ ARCHIVE LOG   EDIT         REMARK                   STORE
+ ATTRIBUTE     EXECUTE      REPFOOTER                TIMING
+ BREAK         EXIT         REPHEADER                TTITLE
+ BTITLE        GET          RESERVED WORDS (SQL)     UNDEFINE
+ CHANGE        HELP         RESERVED WORDS (PL/SQL)  VARIABLE
+ CLEAR         HOST         RUN                      WHENEVER OSERROR
+ COLUMN        INPUT        SAVE                     WHENEVER SQLERROR
+ COMPUTE       LIST         SET
+ CONNECT       PASSWORD     SHOW
+
+
+SQL> select * from e;
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+32233      sdjl
+04         D部门
+05         E部门
+77         sdflsk
+22         tt
+
+已选择7行。
+
+SQL> select * from dept;
+select * from dept
+              *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+SQL> select
+  2  *
+  3
+SQL> ? set
+
+ SET
+ ---
+
+ Sets a system variable to alter the SQL*Plus environment settings
+ for your current session. For example, to:
+     -   set the display width for data
+     -   customize HTML formatting
+     -   enable or disable printing of column headings
+     -   set the number of lines per page
+ In iSQL*Plus, you can also use the Preferences screen to set
+ system variables.
+
+ SET system_variable value
+
+ where system_variable and value represent one of the following clauses:
+
+   APPI[NFO]{OFF|ON|text}                   NUM[WIDTH] {10|n}
+   ARRAY[SIZE] {15|n}                       PAGES[IZE] {14|n}
+   AUTO[COMMIT] {OFF|ON|IMM[EDIATE]|n}      PAU[SE] {OFF|ON|text}
+   AUTOP[RINT] {OFF|ON}                     RECSEP {WR[APPED]|EA[CH]|OFF}
+   AUTORECOVERY {OFF|ON}                    RECSEPCHAR {_|c}
+   AUTOT[RACE] {OFF|ON|TRACE[ONLY]}         SERVEROUT[PUT] {ON|OFF}
+     [EXP[LAIN]] [STAT[ISTICS]]               [SIZE {n | UNLIMITED}] [FOR[MAT]
+   BLO[CKTERMINATOR] {.|c|ON|OFF}             {WRA[PPED] |
+   CMDS[EP] {;|c|OFF|ON}                       WOR[D_WRAPPED] |
+   COLSEP {_|text}                             TRU[NCATED]}]
+   CON[CAT] {.|c|ON|OFF}                   *SHIFT[INOUT] {VIS[IBLE] |
+   COPYC[OMMIT] {0|n}                         INV[ISIBLE]}
+   COPYTYPECHECK {ON|OFF}                  *SHOW[MODE] {OFF|ON}
+   DEF[INE] {&|c|ON|OFF}                   *SQLBL[ANKLINES] {OFF|ON}
+   DESCRIBE [DEPTH {1|n|ALL}]               SQLC[ASE] {MIX[ED] |
+     [LINENUM {OFF|ON}] [INDENT {OFF|ON}]     LO[WER] | UP[PER]}
+   ECHO {OFF|ON}                           *SQLCO[NTINUE] {> | text}
+  *EDITF[ILE] file_name[.ext]              *SQLN[UMBER] {ON|OFF}
+   EMB[EDDED] {OFF|ON}                      SQLPLUSCOMPAT[IBILITY] {x.y[.z]}
+   ESC[APE] {\|c|OFF|ON}                   *SQLPRE[FIX] {#|c}
+   FEED[BACK] {6|n|ON|OFF}                 *SQLP[ROMPT] {SQL>|text}
+   FLAGGER {OFF|ENTRY|INTERMED[IATE]|FULL}  SQLT[ERMINATOR] {;|c|ON|OFF}
+  *FLU[SH] {ON|OFF}                        *SUF[FIX] {SQL|text}
+   HEA[DING] {ON|OFF}                      *TAB {ON|OFF}
+   HEADS[EP] {||c|ON|OFF}                  *TERM[OUT] {ON|OFF}
+   INSTANCE [instance_path|LOCAL]          *TI[ME] {OFF|ON}
+   LIN[ESIZE] {80|n} ({150|n} iSQL*Plus)    TIMI[NG] {OFF|ON}
+   LOBOF[FSET] {1|n}                       *TRIM[OUT] {ON|OFF}
+   LOGSOURCE [pathname]                    *TRIMS[POOL] {OFF|ON}
+   LONG {80|n}                              UND[ERLINE] {-|c|ON|OFF}
+   LONGC[HUNKSIZE] {80|n}                   VER[IFY] {ON|OFF}
+   MARK[UP] HTML [OFF|ON]                   WRA[P] {ON|OFF}
+     [HEAD text] [BODY text] [TABLE text]   XQUERY {BASEURI text|
+     [ENTMAP {ON|OFF}]                        ORDERING{UNORDERED|
+     [SPOOL {OFF|ON}]                                  ORDERED|DEFAULT}|
+     [PRE[FORMAT] {OFF|ON}]                   NODE{BYVALUE|BYREFERENCE|
+   NEWP[AGE] {1|n|NONE}                            DEFAULT}|
+   NULL text                                  CONTEXT text}
+   NUMF[ORMAT] format
+
+
+ An asterisk (*) indicates the SET option is not supported in iSQL*Plus.
+
+
+SQL> set sqlblanklines on
+SQL> select
+  2
+  3
+  4
+  5  * from e;
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+32233      sdjl
+04         D部门
+05         E部门
+77         sdflsk
+22         tt
+
+已选择7行。
+
+SQL> select * from e where id=&tt;
+输入 tt 的值:  04
+原值    1: select * from e where id=&tt
+新值    1: select * from e where id=04
+
+ID         NAME
+---------- ----------
+04         D部门
+
+SQL> list
+  1* select * from e where id=&tt
+SQL> l
+  1* select * from e where id=&tt
+SQL> l2 4
+SP2-0226: 行号 range 无效
+SQL> select
+  2  *
+  3  from
+  4  e
+  5  ;
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+32233      sdjl
+04         D部门
+05         E部门
+77         sdflsk
+22         tt
+
+已选择7行。
+
+SQL> l
+  1  select
+  2  *
+  3  from
+  4  e
+  5*
+SQL> l2 4
+  2  *
+  3  from
+  4* e
+SQL> l3
+  3* from
+SQL> c/n/m
+SP2-0023: 未找到字符串
+SQL> select * fron e;
+select * fron e
+         *
+第 1 行出现错误:
+ORA-00923: 未找到要求的 FROM 关键字
+
+
+SQL> c/fron/from
+  1* select * from e
+SQL> l
+  1* select * from e
+SQL> /
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+32233      sdjl
+04         D部门
+05         E部门
+77         sdflsk
+22         tt
+
+已选择7行。
+
+SQL> select * fron e;
+select * fron e
+         *
+第 1 行出现错误:
+ORA-00923: 未找到要求的 FROM 关键字
+
+
+SQL> c/n/m
+  1* select * from e
+SQL> l
+  1* select * from e
+SQL> /
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+32233      sdjl
+04         D部门
+05         E部门
+77         sdflsk
+22         tt
+
+已选择7行。
+
+SQL> select *
+  2  from e
+  3  where
+  4  id=
+  5  05
+  6  ;
+
+ID         NAME
+---------- ----------
+05         E部门
+
+SQL> l
+  1  select *
+  2  from e
+  3  where
+  4  id=
+  5  05
+  6*
+SQL> del 4
+SQL> l
+  1  select *
+  2  from e
+  3  where
+  4  05
+  5*
+SQL> /
+
+*
+第 5 行出现错误:
+ORA-00920: 无效的关系运算符
+
+
+SQL> l
+  1  select *
+  2  from e
+  3  where
+  4  05
+  5*
+SQL> del 2 3
+SQL> l
+  1  select *
+  2  05
+  3*
+SQL> rollback
+  2  ;
+
+回退已完成。
+
+SQL> l
+  1  rollback
+  2*
+SQL> select *;
+select *
+       *
+第 1 行出现错误:
+ORA-00923: 未找到要求的 FROM 关键字
+
+
+SQL> l
+  1* select *
+SQL> a from e
+  1* select *from e
+SQL> /
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+32233      sdjl
+04         D部门
+05         E部门
+77         sdflsk
+22         tt
+
+已选择7行。
+
+SQL> save c:\u.txt
+已创建 file c:\u.txt
+SQL> @c:\u.txt
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+32233      sdjl
+04         D部门
+05         E部门
+77         sdflsk
+22         tt
+
+已选择7行。
+
+SQL> l
+  1* select *from e
+SQL> get c:\u.txt
+  1* select *from e
+SQL> /
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+32233      sdjl
+04         D部门
+05         E部门
+77         sdflsk
+22         tt
+
+已选择7行。
+
+SQL> select * from e;
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+32233      sdjl
+04         D部门
+05         E部门
+77         sdflsk
+22         tt
+
+已选择7行。
+
+SQL> edit
+已写入 file afiedt.buf
+
+  1* select * from e where id=04
+SQL> l
+  1* select * from e where id=04
+SQL> /
+
+ID         NAME
+---------- ----------
+04         D部门
+
+SQL> ? column
+
+ COLUMN
+ ------
+
+ Specifies display attributes for a given column, such as:
+     - text for the column heading
+     - alignment for the column heading
+     - format for NUMBER data
+     - wrapping of column data
+ Also lists the current display attributes for a single column
+ or all columns.
+
+ COL[UMN] [{column | expr} [option ...] ]
+
+ where option represents one of the following clauses:
+     ALI[AS] alias
+     CLE[AR]
+     ENTMAP {ON|OFF}
+     FOLD_A[FTER]
+     FOLD_B[EFORE]
+     FOR[MAT] format
+     HEA[DING] text
+     JUS[TIFY] {L[EFT] | C[ENTER] | R[IGHT]}
+     LIKE {expr | alias}
+     NEWL[INE]
+     NEW_V[ALUE] variable
+     NOPRI[NT] | PRI[NT]
+     NUL[L] text
+     OLD_V[ALUE] variable
+     ON|OFF
+     WRA[PPED] | WOR[D_WRAPPED] | TRU[NCATED]
+
+
+SQL> col e heading "编号"
+SQL> select * from e;
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+32233      sdjl
+04         D部门
+05         E部门
+77         sdflsk
+22         tt
+
+已选择7行。
+
+SQL> column id heading "编号"
+SQL> select * from e;
+
+编号       NAME
+---------- ----------
+01         A部门
+02         B部门
+32233      sdjl
+04         D部门
+05         E部门
+77         sdflsk
+22         tt
+
+已选择7行。
+
+SQL> col id heading "编号"
+SQL> select * from e;
+
+编号       NAME
+---------- ----------
+01         A部门
+02         B部门
+32233      sdjl
+04         D部门
+05         E部门
+77         sdflsk
+22         tt
+
+已选择7行。
+
+SQL> select * from d;
+
+EID        ENAME      SEX        编号
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         32233
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+121        sdkjfls               22
+0111       abc        man        22
+001        test22
+01         A部门
+02         B部门
+
+EID        ENAME      SEX        编号
+---------- ---------- ---------- ----------
+03         C部门
+04         D部门
+05         E部门
+
+已选择14行。
+
+SQL> ? describe
+
+ DESCRIBE
+ --------
+
+ Lists the column definitions for a table, view, or synonym,
+ or the specifications for a function or procedure.
+
+ DESC[RIBE] {[schema.]object[@connect_identifier]}
+
+
+SQL> desc e;
+ 名称                                      是否为空? 类型
+ ----------------------------------------- -------- ----------------------------
+
+ ID                                                 VARCHAR2(10)
+ NAME                                               VARCHAR2(10)
+
+SQL> conn sys/dashi as sysdba;
+已连接。
+SQL> conn sysman/dashi
+已连接。
+SQL> col id format a10
+SQL> ? col
+
+ COLUMN
+ ------
+
+ Specifies display attributes for a given column, such as:
+     - text for the column heading
+     - alignment for the column heading
+     - format for NUMBER data
+     - wrapping of column data
+ Also lists the current display attributes for a single column
+ or all columns.
+
+ COL[UMN] [{column | expr} [option ...] ]
+
+ where option represents one of the following clauses:
+     ALI[AS] alias
+     CLE[AR]
+     ENTMAP {ON|OFF}
+     FOLD_A[FTER]
+     FOLD_B[EFORE]
+     FOR[MAT] format
+     HEA[DING] text
+     JUS[TIFY] {L[EFT] | C[ENTER] | R[IGHT]}
+     LIKE {expr | alias}
+     NEWL[INE]
+     NEW_V[ALUE] variable
+     NOPRI[NT] | PRI[NT]
+     NUL[L] text
+     OLD_V[ALUE] variable
+     ON|OFF
+     WRA[PPED] | WOR[D_WRAPPED] | TRU[NCATED]
+
+
+SQL> col id format a10 heading "部门名称"
+SQL> select * from e;
+
+部门名称   NAME
+---------- ----------
+01         A部门
+02         B部门
+32233      sdjl
+04         D部门
+05         E部门
+77         sdflsk
+22         tt
+
+已选择7行。
+
+SQL> exit
+从 Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options 断开
+
+C:\Documents and Settings\user>sqlplus sysman/dashi
+
+SQL*Plus: Release 10.2.0.1.0 - Production on 星期五 3月 23 17:27:42 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+连接到:
+Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> select * from e;
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+32233      sdjl
+04         D部门
+05         E部门
+77         sdflsk
+22         tt
+
+已选择7行。
+
+SQL> col id format a20
+SQL> select * from e;
+
+ID                   NAME
+-------------------- ----------
+01                   A部门
+02                   B部门
+32233                sdjl
+04                   D部门
+05                   E部门
+77                   sdflsk
+22                   tt
+
+已选择7行。
+
+SQL> desc e
+ 名称                                      是否为空? 类型
+ ----------------------------------------- -------- ----------------------------
+
+ ID                                                 VARCHAR2(10)
+ NAME                                               VARCHAR2(10)
+
+
+SQL> show user
+USER 为 "SYSMAN"
+SQL> select bytes from v$datafile;
+
+     BYTES
+----------
+ 513802240
+  36700160
+ 283115520
+   5242880
+ 104857600
+  10485760
+  10485760
+
+已选择7行。
+
+SQL> col bytes format 000,000,000
+SQL> select bytes from v$datafile;
+
+       BYTES
+------------
+ 513,802,240
+ 036,700,160
+ 283,115,520
+ 005,242,880
+ 104,857,600
+ 010,485,760
+ 010,485,760
+
+已选择7行。
+
+SQL> col bytes format 999,999,999
+SQL> select bytes from v$datafile;
+
+       BYTES
+------------
+ 513,802,240
+  36,700,160
+ 283,115,520
+   5,242,880
+ 104,857,600
+  10,485,760
+  10,485,760
+
+已选择7行。
+
+SQL> select * from e;
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+32233      sdjl
+04         D部门
+05         E部门
+77         sdflsk
+22         tt
+
+已选择7行。
+
+SQL> set linesize 50
+SQL> ttitle center "乔鱼的标题" skip 1-
+> left "测试报表" right "页" -
+> format 999 sql.pno skip 2
+SQL> select * from d;
+
+                    乔鱼的标题
+测试报表                                    页   1
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         32233
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+121        sdkjfls               22
+0111       abc        man        22
+
+                    乔鱼的标题
+测试报表                                    页   2
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        test22
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+已选择14行。
+
+SQL> 上面的pno是指页码；
+SP2-0734: 未知的命令开头 "上面的pno..." - 忽略了剩余的行。
+SQL> ttitle off
+SQL> select * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         32233
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+121        sdkjfls               22
+0111       abc        man        22
+001        test22
+01         A部门
+02         B部门
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+03         C部门
+04         D部门
+05         E部门
+
+已选择14行。
+
+SQL> 对于btitle用法是一样的
+SP2-0734: 未知的命令开头 "对于btitle..." - 忽略了剩余的行。
+SQL> break ?
+SP2-0016: 中断说明必须以 ON/BY 或 ACROSS 关键字开始
+SP2-0017: 在 ? 关键字后面缺少列名
+SQL> ? compute
+
+ COMPUTE
+ -------
+
+ In combination with the BREAK command, calculates and prints
+ summary lines using various standard computations. Also lists
+ all COMPUTE definitions.
+
+ COMP[UTE] [function [LAB[EL] text] ...
+   OF {expr|column|alias} ...
+   ON {expr|column|alias|REPORT|ROW} ...]
+
+
+SQL> ? comp
+
+ COMPUTE
+ -------
+
+ In combination with the BREAK command, calculates and prints
+ summary lines using various standard computations. Also lists
+ all COMPUTE definitions.
+
+ COMP[UTE] [function [LAB[EL] text] ...
+   OF {expr|column|alias} ...
+   ON {expr|column|alias|REPORT|ROW} ...]
+
+
+SQL> select * from c;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY
+---------- ---------- ---------- ----------
+PUB
+----------
+0001       中国文学   39                 12
+人民文学
+
+0002       外国文学   27                 10
+人民文学
+
+0003       英语阅读   33                 22
+清华大学
+
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY
+---------- ---------- ---------- ----------
+PUB
+----------
+0004       建筑艺术   45.5               17
+清华大学
+
+0005       计算机入门 18.5               88
+电子工业
+
+0006       数值算法   21                  7
+电子工业
+
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY
+---------- ---------- ---------- ----------
+PUB
+----------
+0007       C语言设计  20                  9
+电子工业
+
+0013       akdsl      22                  3
+eed
+
+0032       kdsj       35                 21
+ksd
+
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY
+---------- ---------- ---------- ----------
+PUB
+----------
+0008
+
+
+
+已选择10行。
+
+SQL> bread on pub
+SP2-0734: 未知的命令开头 "bread on p..." - 忽略了剩余的行。
+SQL> break on pub
+SQL> select * from c;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY
+---------- ---------- ---------- ----------
+PUB
+----------
+0001       中国文学   39                 12
+人民文学
+
+0002       外国文学   27                 10
+
+
+0003       英语阅读   33                 22
+清华大学
+
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY
+---------- ---------- ---------- ----------
+PUB
+----------
+0004       建筑艺术   45.5               17
+清华大学
+
+0005       计算机入门 18.5               88
+电子工业
+
+0006       数值算法   21                  7
+
+
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY
+---------- ---------- ---------- ----------
+PUB
+----------
+0007       C语言设计  20                  9
+电子工业
+
+0013       akdsl      22                  3
+eed
+
+0032       kdsj       35                 21
+ksd
+
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY
+---------- ---------- ---------- ----------
+PUB
+----------
+0008
+
+
+
+已选择10行。
+
+SQL> exit
+从 Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options 断开
+
+C:\Documents and Settings\user>sqlplus sysman/dashi
+
+SQL*Plus: Release 10.2.0.1.0 - Production on 星期五 3月 23 17:40:59 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+连接到:
+Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> select * from c;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0002       外国文学   27                 10 人民文学
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17 清华大学
+0005       计算机入门 18.5               88 电子工业
+0006       数值算法   21                  7 电子工业
+0007       C语言设计  20                  9 电子工业
+0013       akdsl      22                  3 eed
+0032       kdsj       35                 21 ksd
+0008
+
+已选择10行。
+
+SQL> comp count label "计数" of books_name on pub
+SQL> select * from c;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0002       外国文学   27                 10 人民文学
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17 清华大学
+0005       计算机入门 18.5               88 电子工业
+0006       数值算法   21                  7 电子工业
+0007       C语言设计  20                  9 电子工业
+0013       akdsl      22                  3 eed
+0032       kdsj       35                 21 ksd
+0008
+
+已选择10行。
+
+SQL> break on pub
+SQL> select * from c;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0002       外国文学   27                 10
+           ----------                       **********
+                    2                       计数
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17
+           ----------                       **********
+                    2                       计数
+0005       计算机入门 18.5               88 电子工业
+0006       数值算法   21                  7
+0007       C语言设计  20                  9
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+           ----------                       **********
+                    3                       计数
+0013       akdsl      22                  3 eed
+           ----------                       **********
+                    1                       计数
+0032       kdsj       35                 21 ksd
+           ----------                       **********
+                    1                       计数
+0008
+           ----------                       **********
+                    0                       计数
+
+已选择10行。
+
+SQL> spool是把我们得到的数据保存起来；
+SP2-0734: 未知的命令开头 "spool是把..." - 忽略了剩余的行。
+SQL> spool c:\i.txt
+SQL> select * from c;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0002       外国文学   27                 10
+           ----------                       **********
+                    2                       计数
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17
+           ----------                       **********
+                    2                       计数
+0005       计算机入门 18.5               88 电子工业
+0006       数值算法   21                  7
+0007       C语言设计  20                  9
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+           ----------                       **********
+                    3                       计数
+0013       akdsl      22                  3 eed
+           ----------                       **********
+                    1                       计数
+0032       kdsj       35                 21 ksd
+           ----------                       **********
+                    1                       计数
+0008
+           ----------                       **********
+                    0                       计数
+
+已选择10行。
+
+SQL> spool off
+SQL> edit c:\i.txt
+
+Microsoft Windows XP [版本 5.1.2600]
+(C) 版权所有 1985-2001 Microsoft Corp.
+
+C:\Documents and Settings\user>sqlplus sysman/dashi
+
+SQL*Plus: Release 10.2.0.1.0 - Production on 星期五 3月 23 17:49:58 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+连接到:
+Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> conn qqq/qqq123
+已连接。
+SQL> select * from sysman.d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         32233
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+121        sdkjfls               22
+0111       abc        man        22
+001        test22
+01         A部门
+02         B部门
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+03         C部门
+04         D部门
+05         E部门
+
+已选择14行。
+
+SQL> conn test/qiaoyu
+已连接。
+SQL> select * from sysman.d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         32233
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+121        sdkjfls               22
+0111       abc        man        22
+001        test22
+01         A部门
+02         B部门
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+03         C部门
+04         D部门
+05         E部门
+
+已选择14行。
+
+SQL> conn sysman/dashi
+已连接。
+SQL> revoke all on d from qqq
+  2  ;
+
+撤销成功。
+
+SQL> conn qqq/qqq123
+已连接。
+SQL> select * from sysman.d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         32233
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+121        sdkjfls               22
+0111       abc        man        22
+001        test22
+01         A部门
+02         B部门
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+03         C部门
+04         D部门
+05         E部门
+
+已选择14行。
+
+SQL> conn sysman/dashi
+已连接。
+SQL> revoke select  on d from qqq;
+revoke select  on d from qqq
+*
+第 1 行出现错误:
+ORA-01927: 无法 REVOKE 您未授权的权限
+
+
+SQL> conn qqq/qqq123
+已连接。
+SQL> select * from sysman.d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         32233
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+121        sdkjfls               22
+0111       abc        man        22
+001        test22
+01         A部门
+02         B部门
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+03         C部门
+04         D部门
+05         E部门
+
+已选择14行。
+
+SQL> commit;
+
+提交完成。
+
+SQL> select * from sysman.d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         32233
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+121        sdkjfls               22
+0111       abc        man        22
+001        test22
+01         A部门
+02         B部门
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+03         C部门
+04         D部门
+05         E部门
+
+已选择14行。
+
+SQL> select * from abc
+  2  ;
+select * from abc
+              *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+SQL> 系统函数
+SP2-0042: 未知命令 "系统函数" - 其余行忽略。
+SQL> select length('asdjfjdi') from dual;
+
+LENGTH('ASDJFJDI')
+------------------
+                 8
+
+SQL> select length('sdjfls好') from dual;
+
+LENGTH('SDJFLS好')
+------------------
+                 7
+
+SQL> select length('sdjfls好') from dual;
+
+LENGTH('SDJFLS好')
+------------------
+                 7
+
+SQL> select lengthb('sdjfls好') from dual;
+
+LENGTHB('SDJFLS好')
+-------------------
+                  8
+
+Microsoft Windows XP [版本 5.1.2600]
+(C) 版权所有 1985-2001 Microsoft Corp.
+
+C:\Documents and Settings\user>sqlplus sysman/dashi
+
+SQL*Plus: Release 10.2.0.1.0 - Production on 星期五 3月 23 17:49:58 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+连接到:
+Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> conn qqq/qqq123
+已连接。
+SQL> select * from sysman.d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         32233
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+121        sdkjfls               22
+0111       abc        man        22
+001        test22
+01         A部门
+02         B部门
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+03         C部门
+04         D部门
+05         E部门
+
+已选择14行。
+
+SQL> conn test/qiaoyu
+已连接。
+SQL> select * from sysman.d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         32233
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+121        sdkjfls               22
+0111       abc        man        22
+001        test22
+01         A部门
+02         B部门
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+03         C部门
+04         D部门
+05         E部门
+
+已选择14行。
+
+SQL> conn sysman/dashi
+已连接。
+SQL> revoke all on d from qqq
+  2  ;
+
+撤销成功。
+
+SQL> conn qqq/qqq123
+已连接。
+SQL> select * from sysman.d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         32233
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+121        sdkjfls               22
+0111       abc        man        22
+001        test22
+01         A部门
+02         B部门
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+03         C部门
+04         D部门
+05         E部门
+
+已选择14行。
+
+SQL> conn sysman/dashi
+已连接。
+SQL> revoke select  on d from qqq;
+revoke select  on d from qqq
+*
+第 1 行出现错误:
+ORA-01927: 无法 REVOKE 您未授权的权限
+
+
+SQL> conn qqq/qqq123
+已连接。
+SQL> select * from sysman.d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         32233
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+121        sdkjfls               22
+0111       abc        man        22
+001        test22
+01         A部门
+02         B部门
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+03         C部门
+04         D部门
+05         E部门
+
+已选择14行。
+
+SQL> commit;
+
+提交完成。
+
+SQL> select * from sysman.d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         32233
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+121        sdkjfls               22
+0111       abc        man        22
+001        test22
+01         A部门
+02         B部门
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+03         C部门
+04         D部门
+05         E部门
+
+已选择14行。
+
+SQL> select * from abc
+  2  ;
+select * from abc
+              *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+SQL> 系统函数
+SP2-0042: 未知命令 "系统函数" - 其余行忽略。
+SQL> select length('asdjfjdi') from dual;
+
+LENGTH('ASDJFJDI')
+------------------
+                 8
+
+SQL> select length('sdjfls好') from dual;
+
+LENGTH('SDJFLS好')
+------------------
+                 7
+
+SQL> select length('sdjfls好') from dual;
+
+LENGTH('SDJFLS好')
+------------------
+                 7
+
+SQL> select lengthb('sdjfls好') from dual;
+
+LENGTHB('SDJFLS好')
+-------------------
+                  8
+
+SQL> select ltrim(' ab好dj') from dual;
+
+LTRIM(
+------
+ab好dj
+
+SQL> select length(ltrim('  aba好dkfjsf')) from dual;
+
+LENGTH(LTRIM('ABA好DKFJSF'))
+----------------------------
+                          10
+
+SQL> select rtrim(' skdj好dkd  ') from daul;
+select rtrim(' skdj好dkd  ') from daul
+                                  *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+SQL> select rtrim(' skdj好dkd  ') from dual;
+
+RTRIM('SKD
+----------
+ skdj好dkd
+
+SQL> select trim('  sld好dk  ') from dual;
+
+TRIM('S
+-------
+sld好dk
+
+SQL> desc a;
+ERROR:
+ORA-04043: 对象 a 不存在
+
+
+SQL> show user
+USER 为 "QQQ"
+SQL> conn sysman/dashi
+已连接。
+SQL> desc a;
+ 名称                                      是否为空? 类型
+ ----------------------------------------- -------- ----------------------------
+
+ A                                                  VARCHAR2(10)
+ B                                                  CHAR(10)
+
+SQL> desc b;
+ 名称                                      是否为空? 类型
+ ----------------------------------------- -------- ----------------------------
+
+ A1                                                 VARCHAR2(10)
+ A2                                                 VARCHAR2(10)
+ A3                                                 CHAR(10)
+
+SQL> select * from a;
+
+A          B
+---------- ----------
+hello      Molyn
+it is      fanyu
+woo!       Great!
+hi         I am Joyu
+
+SQL> select * from b;
+
+A1         A2         A3
+---------- ---------- ----------
+uu         dd         cc
+abc        xyz        aa
+dssldf     ttt        aa
+cba                   aa
+bbb                   aa
+abc        ggd        aa
+abc        dfd        aa
+
+已选择7行。
+
+SQL> update b set a3='aa';
+
+已更新7行。
+
+SQL> select length(a2),length(a3) from b;
+
+LENGTH(A2) LENGTH(A3)
+---------- ----------
+         2         10
+         3         10
+         3         10
+                   10
+                   10
+         3         10
+         3         10
+
+已选择7行。
+
+SQL> desc b;
+ 名称                                      是否为空? 类型
+ ----------------------------------------- -------- ----------------------------
+
+ A1                                                 VARCHAR2(10)
+ A2                                                 VARCHAR2(10)
+ A3                                                 CHAR(10)
+
+SQL> select substr('abcdefg',2,3) from dual;
+
+SUB
+---
+bcd
+
+SQL> select substr('abcdefg',1,3) from dual;
+
+SUB
+---
+abc
+
+SQL> select substr('abcdefg',length('abcdefg')-3+1,3) from dual;
+
+SUB
+---
+efg
+
+SQL> select sysdate from dual;
+
+SYSDATE
+--------------
+23-3月 -07
+
+SQL> select current_date from dual;
+
+CURRENT_DATE
+--------------
+23-3月 -07
+
+SQL> alter session set nls_date_format='dd-mon-yyyy hh:mi:ss';
+
+会话已更改。
+
+SQL> select current_date from dual;
+
+CURRENT_DATE
+-------------------------
+23-3月 -2007 08:20:42
+
+SQL> select next_day(sysdate,'星期三') from dual;
+
+NEXT_DAY(SYSDATE,'星期三'
+-------------------------
+28-3月 -2007 08:21:21
+
+SQL> select next_day(sysdate,'星期一') from dual;
+
+NEXT_DAY(SYSDATE,'星期一'
+-------------------------
+26-3月 -2007 08:22:04
+
+SQL> select sysdate from dual;
+
+SYSDATE
+-------------------------
+23-3月 -2007 08:22:25
+
+SQL> select to_char(sysdate,'yyy-mm-dd') from dual;
+
+TO_CHAR(S
+---------
+007-03-23
+
+SQL> select to_char(sysdate,'yyyy-mm-dd') from dual;
+
+TO_CHAR(SY
+----------
+2007-03-23
+
+SQL> select to_char(sysdate,'yyyy-mm-dd hh:mi:ss') from dual;
+
+TO_CHAR(SYSDATE,'YY
+-------------------
+2007-03-23 08:23:44
+
+SQL> select to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') from dual;
+
+TO_CHAR(SYSDATE,'YY
+-------------------
+2007-03-23 20:24:44
+
+SQL> select to_char('12-') from dual;
+
+TO_
+---
+12-
+
+SQL> select to_char('12-3月-04') from dual;
+
+TO_CHAR('
+---------
+12-3月-04
+
+SQL> select to_number('333') from dual;
+
+TO_NUMBER('333')
+----------------
+             333
+
+SQL> select to_number('333') from dual;
+
+TO_NUMBER('333')
+----------------
+             333
+
+SQL> select * from c;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0002       外国文学   27                 10 人民文学
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17 清华大学
+0005       计算机入门 18.5               88 电子工业
+0006       数值算法   21                  7 电子工业
+0007       C语言设计  20                  9 电子工业
+0013       akdsl      22                  3 eed
+0032       kdsj       35                 21 ksd
+0008
+
+已选择10行。
+
+SQL> select max(price) from c;
+
+MAX(PRICE)
+----------
+45.5
+
+SQL> select min(price) from c;
+
+MIN(PRICE)
+----------
+18.5
+
+SQL> select sum(price) from c;
+
+SUM(PRICE)
+----------
+       261
+
+SQL> select avg(price) from c;
+
+AVG(PRICE)
+----------
+        29
+
+SQL> select count(price) from c;
+
+COUNT(PRICE)
+------------
+           9
+
+SQL> select count(*) from c;
+
+  COUNT(*)
+----------
+        10
+
+SQL> 上面表示表的记录的条数。
+SP2-0734: 未知的命令开头 "上面表示表..." - 忽略了剩余的行。
+SQL> select count(a2) from b;
+
+ COUNT(A2)
+----------
+         5
+
+SQL> select * from b;
+
+A1         A2         A3
+---------- ---------- ----------
+uu         dd         aa
+abc        xyz        aa
+dssldf     ttt        aa
+cba                   aa
+bbb                   aa
+abc        ggd        aa
+abc        dfd        aa
+
+已选择7行。
+
+SQL> select * from c where price>20;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0002       外国文学   27                 10 人民文学
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17 清华大学
+0006       数值算法   21                  7 电子工业
+0013       akdsl      22                  3 eed
+0032       kdsj       35                 21 ksd
+
+已选择7行。
+
+SQL> select * from c where price>20;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0002       外国文学   27                 10 人民文学
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17 清华大学
+0006       数值算法   21                  7 电子工业
+0013       akdsl      22                  3 eed
+0032       kdsj       35                 21 ksd
+
+已选择7行。
+
+SQL> select user from dual;
+
+USER
+------------------------------
+SYSMAN
+
+SQL> connect qqq/qqq123
+已连接。
+SQL> select user from dual;
+
+USER
+------------------------------
+QQQ
+
+SQL> conn sysman/dashi
+已连接。
+SQL> select * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         32233
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+121        sdkjfls               22
+0111       abc        man        22
+001        test22
+01         A部门
+02         B部门
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+03         C部门
+04         D部门
+05         E部门
+
+已选择14行。
+
+SQL> select sum(decode(sex,'男',1,0)) 男人数,sum(decode(sex,'女',1,0))女人数 fro
+m d;
+
+    男人数     女人数
+---------- ----------
+         3          2
+
+SQL> select * from b;
+
+A1         A2         A3
+---------- ---------- ----------
+uu         dd         aa
+abc        xyz        aa
+dssldf     ttt        aa
+cba                   aa
+bbb                   aa
+abc        ggd        aa
+abc        dfd        aa
+
+已选择7行。
+
+SQL> select a1,nvl(a2,'未输入') from b;
+
+A1         NVL(A2,'未
+---------- ----------
+uu         dd
+abc        xyz
+dssldf     ttt
+cba        未输入
+bbb        未输入
+abc        ggd
+abc        dfd
+
+已选择7行。
+
+SQL> select a1,nvl(a2,'未输入') from b;
+
+A1         NVL(A2,'未
+---------- ----------
+uu         dd
+abc        xyz
+dssldf     ttt
+cba        未输入
+bbb        未输入
+abc        ggd
+abc        dfd
+
+已选择7行。
+
+SQL> select * from b where a2 is null;
+
+A1         A2         A3
+---------- ---------- ----------
+cba                   aa
+bbb                   aa
+
+SQL> select * from b where a2=null;
+
+未选定行
+
+SQL> select * from b where a2 is not null;
+
+A1         A2         A3
+---------- ---------- ----------
+uu         dd         aa
+abc        xyz        aa
+dssldf     ttt        aa
+abc        ggd        aa
+abc        dfd        aa
+
+SQL> select * from b;
+
+A1         A2         A3
+---------- ---------- ----------
+uu         dd         aa
+abc        xyz        aa
+dssldf     ttt        aa
+cba                   aa
+bbb                   aa
+abc        ggd        aa
+abc        dfd        aa
+
+已选择7行。
+
+SQL> select * from b order by a1 asc;
+
+A1         A2         A3
+---------- ---------- ----------
+abc        ggd        aa
+abc        xyz        aa
+abc        dfd        aa
+bbb                   aa
+cba                   aa
+dssldf     ttt        aa
+uu         dd         aa
+
+已选择7行。
+
+SQL> 表示升序;
+SP2-0042: 未知命令 "表示升序" - 其余行忽略。
+SQL> select * from b order by a1 desc;
+
+A1         A2         A3
+---------- ---------- ----------
+uu         dd         aa
+dssldf     ttt        aa
+cba                   aa
+bbb                   aa
+abc        dfd        aa
+abc        ggd        aa
+abc        xyz        aa
+
+已选择7行。
+
+SQL> select a1 from b;
+
+A1
+----------
+uu
+abc
+dssldf
+cba
+bbb
+abc
+abc
+
+已选择7行。
+
+SQL> select distinct a1 from b;
+
+A1
+----------
+uu
+bbb
+abc
+dssldf
+cba
+
+SQL> 重复的数据只显示一个；
+SP2-0734: 未知的命令开头 "重复的数据..." - 忽略了剩余的行。
+SQL>

@@ -1,0 +1,1146 @@
+Microsoft Windows XP [版本 5.1.2600]
+(C) 版权所有 1985-2001 Microsoft Corp.
+
+C:\Documents and Settings\user>sqlplus
+
+SQL*Plus: Release 10.2.0.1.0 - Production on 星期五 3月 30 14:09:41 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+请输入用户名:  sysman
+输入口令:
+
+连接到:
+Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> create or replace view v as
+  2  select eid,ename from d
+  3  with read only;
+
+视图已创建。
+
+SQL> select * from v;
+
+EID        ENAME
+---------- ----------
+001        赵1_Mo男
+002        钱2_Mo男
+003        孙3_Mo男
+004        李4_Mo女
+005        周5_Mo女
+121        sdkjfls_Mo
+121        sdkjfls_Mo
+0111       abc_Moman
+001        test22_Mo
+01         A部门_Mo
+02         B部门_Mo
+
+EID        ENAME
+---------- ----------
+03         C部门_Mo
+04         D部门_Mo
+05         E部门_Mo
+
+已选择14行。
+
+SQL> create view v as select * from d;
+create view v as select * from d
+            *
+第 1 行出现错误:
+ORA-00955: 名称已由现有对象使用
+
+
+SQL> create view v1 as select * from d;
+
+视图已创建。
+
+SQL> select * from d ;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1_Mo男   男         01
+002        钱2_Mo男   男         02
+003        孙3_Mo男   男         32233
+004        李4_Mo女   女         04
+005        周5_Mo女   女         55
+121        sdkjfls_Mo            77
+121        sdkjfls_Mo            22
+0111       abc_Moman  man        22
+001        test22_Mo
+01         A部门_Mo
+02         B部门_Mo
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+03         C部门_Mo
+04         D部门_Mo
+05         E部门_Mo
+
+已选择14行。
+
+SQL> select * from v1;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1_Mo男   男         01
+002        钱2_Mo男   男         02
+003        孙3_Mo男   男         32233
+004        李4_Mo女   女         04
+005        周5_Mo女   女         55
+121        sdkjfls_Mo            77
+121        sdkjfls_Mo            22
+0111       abc_Moman  man        22
+001        test22_Mo
+01         A部门_Mo
+02         B部门_Mo
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+03         C部门_Mo
+04         D部门_Mo
+05         E部门_Mo
+
+已选择14行。
+
+SQL> update v1 set sex='lsjdf' where eid='0001';
+
+已更新0行。
+
+SQL>  update v1 set sex='lsjdf' where eid='0001';
+
+已更新0行。
+
+SQL>  update v1 set sex='lsjdf' where eid='001';
+
+已更新2行。
+
+SQL> select * from v1;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1_Mo男   lsjdf      01
+002        钱2_Mo男   男         02
+003        孙3_Mo男   男         32233
+004        李4_Mo女   女         04
+005        周5_Mo女   女         55
+121        sdkjfls_Mo            77
+121        sdkjfls_Mo            22
+0111       abc_Moman  man        22
+001        test22_Mo  lsjdf
+01         A部门_Mo
+02         B部门_Mo
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+03         C部门_Mo
+04         D部门_Mo
+05         E部门_Mo
+
+已选择14行。
+
+SQL> update v set ename='llll' where eid='001';
+update v set ename='llll' where eid='001'
+             *
+第 1 行出现错误:
+ORA-01733: 此处不允许虚拟列
+
+
+SQL> update v1 set ename='llll' where eid='001';
+
+已更新2行。
+
+SQL> drop view v;
+
+视图已删除。
+
+SQL> create view v;
+create view v
+            *
+第 1 行出现错误:
+ORA-00905: 缺失关键字
+
+
+SQL> create view v as Select eid from d;
+
+视图已创建。
+
+SQL> delete v;
+
+已删除14行。
+
+SQL> rollback;
+
+回退已完成。
+
+SQL> select * from v;
+
+EID
+----------
+001
+002
+003
+004
+005
+121
+121
+0111
+001
+01
+02
+
+EID
+----------
+03
+04
+05
+
+已选择14行。
+
+SQL> select * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        llll       lsjdf      01
+002        钱2_Mo男   男         02
+003        孙3_Mo男   男         32233
+004        李4_Mo女   女         04
+005        周5_Mo女   女         55
+121        sdkjfls_Mo            77
+121        sdkjfls_Mo            22
+0111       abc_Moman  man        22
+001        llll       lsjdf
+01         A部门_Mo
+02         B部门_Mo
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+03         C部门_Mo
+04         D部门_Mo
+05         E部门_Mo
+
+已选择14行。
+
+SQL> desc dba_views
+ 名称                                      是否为空? 类型
+ ----------------------------------------- -------- ----------------------------
+ OWNER                                     NOT NULL VARCHAR2(30)
+ VIEW_NAME                                 NOT NULL VARCHAR2(30)
+ TEXT_LENGTH                                        NUMBER
+ TEXT                                               LONG
+ TYPE_TEXT_LENGTH                                   NUMBER
+ TYPE_TEXT                                          VARCHAR2(4000)
+ OID_TEXT_LENGTH                                    NUMBER
+ OID_TEXT                                           VARCHAR2(4000)
+ VIEW_TYPE_OWNER                                    VARCHAR2(30)
+ VIEW_TYPE                                          VARCHAR2(30)
+ SUPERVIEW_NAME                                     VARCHAR2(30)
+
+SQL> desc dba_views
+ 名称                                      是否为空? 类型
+ ----------------------------------------- -------- ----------------------------
+ OWNER                                     NOT NULL VARCHAR2(30)
+ VIEW_NAME                                 NOT NULL VARCHAR2(30)
+ TEXT_LENGTH                                        NUMBER
+ TEXT                                               LONG
+ TYPE_TEXT_LENGTH                                   NUMBER
+ TYPE_TEXT                                          VARCHAR2(4000)
+ OID_TEXT_LENGTH                                    NUMBER
+ OID_TEXT                                           VARCHAR2(4000)
+ VIEW_TYPE_OWNER                                    VARCHAR2(30)
+ VIEW_TYPE                                          VARCHAR2(30)
+ SUPERVIEW_NAME                                     VARCHAR2(30)
+
+SQL> desc user_views
+ 名称                                      是否为空? 类型
+ ----------------------------------------- -------- ----------------------------
+ VIEW_NAME                                 NOT NULL VARCHAR2(30)
+ TEXT_LENGTH                                        NUMBER
+ TEXT                                               LONG
+ TYPE_TEXT_LENGTH                                   NUMBER
+ TYPE_TEXT                                          VARCHAR2(4000)
+ OID_TEXT_LENGTH                                    NUMBER
+ OID_TEXT                                           VARCHAR2(4000)
+ VIEW_TYPE_OWNER                                    VARCHAR2(30)
+ VIEW_TYPE                                          VARCHAR2(30)
+ SUPERVIEW_NAME                                     VARCHAR2(30)
+
+SQL> desc all_views
+ 名称                                      是否为空? 类型
+ ----------------------------------------- -------- ----------------------------
+ OWNER                                     NOT NULL VARCHAR2(30)
+ VIEW_NAME                                 NOT NULL VARCHAR2(30)
+ TEXT_LENGTH                                        NUMBER
+ TEXT                                               LONG
+ TYPE_TEXT_LENGTH                                   NUMBER
+ TYPE_TEXT                                          VARCHAR2(4000)
+ OID_TEXT_LENGTH                                    NUMBER
+ OID_TEXT                                           VARCHAR2(4000)
+ VIEW_TYPE_OWNER                                    VARCHAR2(30)
+ VIEW_TYPE                                          VARCHAR2(30)
+ SUPERVIEW_NAME                                     VARCHAR2(30)
+
+SQL> desc user_views;
+ 名称                                      是否为空? 类型
+ ----------------------------------------- -------- ----------------------------
+ VIEW_NAME                                 NOT NULL VARCHAR2(30)
+ TEXT_LENGTH                                        NUMBER
+ TEXT                                               LONG
+ TYPE_TEXT_LENGTH                                   NUMBER
+ TYPE_TEXT                                          VARCHAR2(4000)
+ OID_TEXT_LENGTH                                    NUMBER
+ OID_TEXT                                           VARCHAR2(4000)
+ VIEW_TYPE_OWNER                                    VARCHAR2(30)
+ VIEW_TYPE                                          VARCHAR2(30)
+ SUPERVIEW_NAME                                     VARCHAR2(30)
+
+SQL> select text from user_views where view_name='v_read';
+
+未选定行
+
+SQL> conn sys/dashi as sysdba
+已连接。
+SQL> select * from sysman.v2;
+
+EID        ENAME
+---------- ----------
+001        llll
+002        钱2_Mo男
+003        孙3_Mo男
+004        李4_Mo女
+005        周5_Mo女
+121        sdkjfls_Mo
+121        sdkjfls_Mo
+0111       abc_Moman
+001        llll
+01         A部门_Mo
+02         B部门_Mo
+
+EID        ENAME
+---------- ----------
+03         C部门_Mo
+04         D部门_Mo
+05         E部门_Mo
+
+已选择14行。
+
+SQL> create synonym dept for sysman.f;
+create synonym dept for sysman.f
+               *
+第 1 行出现错误:
+ORA-00955: 名称已由现有对象使用
+
+
+SQL> select * from dept;
+
+DEPTNO     DNAME      LOC
+---------- ---------- ----------
+10         ACCOUNTING NEW YORK
+20         RESEARCH   DALLAS
+30         SALES      CHICAGO
+40         OPERATIONS BOSTON
+
+SQL> create synonym deptt for sysman.f;
+
+同义词已创建。
+
+SQL> select * from deptt;
+
+DEPTNO     DNAME      LOC
+---------- ---------- ----------
+10         ACCOUNTING NEW YORK
+20         RESEARCH   DALLAS
+30         SALES      CHICAGO
+40         OPERATIONS BOSTON
+
+SQL> select * from sysman.f;
+
+DEPTNO     DNAME      LOC
+---------- ---------- ----------
+10         ACCOUNTING NEW YORK
+20         RESEARCH   DALLAS
+30         SALES      CHICAGO
+40         OPERATIONS BOSTON
+
+SQL> conn sysman/dashi
+已连接。
+SQL> select * from deptt;
+select * from deptt
+              *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+SQL> conn sys/dashi as sysdba;
+已连接。
+SQL> select * from deptt;
+
+DEPTNO     DNAME      LOC
+---------- ---------- ----------
+10         ACCOUNTING NEW YORK
+20         RESEARCH   DALLAS
+30         SALES      CHICAGO
+40         OPERATIONS BOSTON
+
+SQL> create public synonym dep2 for sysman.f;
+create public synonym dep2 for sysman.f
+                      *
+第 1 行出现错误:
+ORA-00955: 名称已由现有对象使用
+
+
+SQL> drop sysnonym dep2;
+drop sysnonym dep2
+     *
+第 1 行出现错误:
+ORA-00950: 无效 DROP 选项
+
+
+SQL> drop synonym dep2;
+drop synonym dep2
+             *
+第 1 行出现错误:
+ORA-01434: 要删除的专用同义词不存在
+
+
+SQL> drop synonym deptt;
+
+同义词已删除。
+
+SQL> drop public synonym dep2;
+
+同义词已删除。
+
+SQL> create public synonym dep2 for sysman.d;
+
+同义词已创建。
+
+SQL> select * from dep2;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        llll       lsjdf      01
+002        钱2_Mo男   男         02
+003        孙3_Mo男   男         32233
+004        李4_Mo女   女         04
+005        周5_Mo女   女         55
+121        sdkjfls_Mo            77
+121        sdkjfls_Mo            22
+0111       abc_Moman  man        22
+001        llll       lsjdf
+01         A部门_Mo
+02         B部门_Mo
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+03         C部门_Mo
+04         D部门_Mo
+05         E部门_Mo
+
+已选择14行。
+
+SQL> conn qqq/qqq123;
+已连接。
+SQL> select * from dep2;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        llll       lsjdf      01
+002        钱2_Mo男   男         02
+003        孙3_Mo男   男         32233
+004        李4_Mo女   女         04
+005        周5_Mo女   女         55
+121        sdkjfls_Mo            77
+121        sdkjfls_Mo            22
+0111       abc_Moman  man        22
+001        llll       lsjdf
+01         A部门_Mo
+02         B部门_Mo
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+03         C部门_Mo
+04         D部门_Mo
+05         E部门_Mo
+
+已选择14行。
+
+SQL> desc dba_synonym
+ERROR:
+ORA-04043: 对象 dba_synonym 不存在
+
+
+SQL> conn sys/dashi as sysdba;
+已连接。
+SQL> desc dba_synonym;
+ERROR:
+ORA-04043: 对象 dba_synonym 不存在
+
+
+SQL> conn qqq/qqq123;
+已连接。
+SQL> desc dba_synonyms;
+ERROR:
+ORA-04043: 对象 "SYS"."DBA_SYNONYMS" 不存在
+
+
+SQL> conn sys/dashi as sysdba
+已连接。
+SQL> desc dba_synonyms;
+ 名称                                      是否为空? 类型
+ ----------------------------------------- -------- ----------------------------
+ OWNER                                     NOT NULL VARCHAR2(30)
+ SYNONYM_NAME                              NOT NULL VARCHAR2(30)
+ TABLE_OWNER                                        VARCHAR2(30)
+ TABLE_NAME                                NOT NULL VARCHAR2(30)
+ DB_LINK                                            VARCHAR2(128)
+
+SQL> select synonym_name,table_owner from dba_synonyms;
+
+
+
+
+
+
+已选择3075行。
+
+
+SQL> select synonym_name,table_name,table_owner from user_synonyms;
+
+SYNONYM_NAME                   TABLE_NAME
+------------------------------ ------------------------------
+TABLE_OWNER
+------------------------------
+DEF$_AQCALL                    DEF$_AQCALL
+SYSTEM
+
+DEF$_CALLDEST                  DEF$_CALLDEST
+SYSTEM
+
+DEF$_SCHEDULE                  DEF$_SCHEDULE
+SYSTEM
+
+
+SYNONYM_NAME                   TABLE_NAME
+------------------------------ ------------------------------
+TABLE_OWNER
+------------------------------
+DEF$_ERROR                     DEF$_ERROR
+SYSTEM
+
+DEF$_DEFAULTDEST               DEF$_DEFAULTDEST
+SYSTEM
+
+DEF$_LOB                       DEF$_LOB
+SYSTEM
+
+
+SYNONYM_NAME                   TABLE_NAME
+------------------------------ ------------------------------
+TABLE_OWNER
+------------------------------
+XMLDOM                         DBMS_XMLDOM
+XDB
+
+XMLPARSER                      DBMS_XMLPARSER
+XDB
+
+XSLPROCESSOR                   DBMS_XSLPROCESSOR
+XDB
+
+
+SYNONYM_NAME                   TABLE_NAME
+------------------------------ ------------------------------
+TABLE_OWNER
+------------------------------
+DEPT                           F
+SYSMAN
+
+
+已选择10行。
+
+SQL> commit;
+
+提交完成。
+
+SQL> create sequence myseq
+  2  start with 2
+  3  increment by 3
+  4  order
+  5  nocycle;
+
+序列已创建。
+
+SQL> select myseq.nextval from dual;
+
+   NEXTVAL
+----------
+         2
+
+SQL> select myseq.nextval from dual;
+
+   NEXTVAL
+----------
+         5
+
+SQL> create sequence myseq2
+  2  start with 3
+  3  increment by 5
+  4  order cycle;
+create sequence myseq2
+*
+第 1 行出现错误:
+ORA-04015: CYCLE 必须指定 MAXVALUE 为升序
+
+
+SQL>
+SQL> create sequence myseq2
+  2  start with 3
+  3  increment by 5
+  4  order
+  5  maxvalue 333
+  6  cycle;
+
+序列已创建。
+
+SQL> create or replace sequence myseq2
+  2    start with 3
+  3    increment by 5
+  4    order
+  5    maxvalue 333
+  6  .
+SQL>  create or replace sequence myseq2
+  2     start with 3
+  3     increment by 5
+  4     order
+  5     maxvalue 20
+  6  cycle;
+ create or replace sequence myseq2
+                   *
+第 1 行出现错误:
+ORA-00922: 选项缺失或无效
+
+
+SQL>  create sequence myseq2
+  2      start with 3
+  3      increment by 5
+  4      order
+  5      maxvalue 20
+  6   cycle;
+ create sequence myseq2
+                 *
+第 1 行出现错误:
+ORA-00955: 名称已由现有对象使用
+
+
+SQL> create sequence myseq3    start with 3
+  2      increment by 5
+  3      order
+  4      maxvalue 20
+  5   cycle;
+create sequence myseq3    start with 3
+*
+第 1 行出现错误:
+ORA-04013: CACHE 值必须小于 CYCLE 值
+
+
+SQL>  create sequence myseq3
+  2      start with 3
+  3      increment by 5
+  4      order
+  5      maxvalue 20
+  6   cycle;
+ create sequence myseq3
+*
+第 1 行出现错误:
+ORA-04013: CACHE 值必须小于 CYCLE 值
+
+
+SQL>   create sequence myseq3
+  2       start with 3
+  3       increment by 5
+  4       order
+  5       maxvalue 30
+  6  cycle;
+  create sequence myseq3
+*
+第 1 行出现错误:
+ORA-04013: CACHE 值必须小于 CYCLE 值
+
+
+SQL>
+SQL>    create sequence myseq3
+  2        start with 3
+  3        increment by 5
+  4        order
+  5        maxvalue 100
+  6  cycle;
+
+序列已创建。
+
+SQL> select myseq3.nextval from dual;
+
+   NEXTVAL
+----------
+         3
+
+SQL> select myseq3.nextval from dual;
+
+   NEXTVAL
+----------
+         8
+
+SQL> select myseq3.nextval from dual;
+
+   NEXTVAL
+----------
+        13
+
+SQL> select myseq3.nextval from dual;
+
+   NEXTVAL
+----------
+        18
+
+SQL>
+SQL> select myseq3.nextval from dual;
+
+   NEXTVAL
+----------
+        23
+
+SQL> select myseq3.nextval from dual;
+
+   NEXTVAL
+----------
+        28
+
+SQL> select myseq3.nextval from dual;
+
+   NEXTVAL
+----------
+        33
+
+SQL> select myseq3.nextval from dual;
+
+   NEXTVAL
+----------
+        38
+
+SQL> select myseq3.nextval from dual;
+
+   NEXTVAL
+----------
+        43
+
+SQL> select myseq3.nextval from dual;
+
+   NEXTVAL
+----------
+        48
+
+SQL> select myseq3.nextval from dual;
+
+   NEXTVAL
+----------
+        53
+
+SQL> select myseq3.nextval from dual;
+
+   NEXTVAL
+----------
+        58
+
+SQL> select myseq3.nextval from dual;
+
+   NEXTVAL
+----------
+        63
+
+SQL> select myseq3.nextval from dual;
+
+   NEXTVAL
+----------
+        68
+
+SQL> select myseq3.nextval from dual;
+
+   NEXTVAL
+----------
+        73
+
+SQL> select myseq3.nextval from dual;
+
+   NEXTVAL
+----------
+        78
+
+SQL> select myseq3.nextval from dual;
+
+   NEXTVAL
+----------
+        83
+
+SQL> select myseq3.nextval from dual;
+
+   NEXTVAL
+----------
+        88
+
+SQL> select myseq3.nextval from dual;
+
+   NEXTVAL
+----------
+        93
+
+SQL> select myseq3.nextval from dual;
+
+   NEXTVAL
+----------
+        98
+
+SQL>
+SQL> select myseq3.nextval from dual;
+
+   NEXTVAL
+----------
+         1
+
+SQL> select myseq3.nextval from dual;
+
+   NEXTVAL
+----------
+         6
+
+SQL> select myseq3.nextval from dual;
+
+   NEXTVAL
+----------
+        11
+
+SQL>
+SQL> select myseq3.nextval from dual;
+
+   NEXTVAL
+----------
+        16
+
+SQL> drop table auto;
+drop table auto
+           *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+SQL> create table auto(a number,b varchar2(10));
+
+表已创建。
+
+SQL> insert into auto values(myseq.nextval,'dlsjf');
+
+已创建 1 行。
+
+SQL> /
+
+已创建 1 行。
+
+SQL> /
+
+已创建 1 行。
+
+SQL> /
+
+已创建 1 行。
+
+SQL> /
+
+已创建 1 行。
+
+SQL> select * from auto;
+
+         A B
+---------- ----------
+        62 dlsjf
+        65 dlsjf
+        68 dlsjf
+        71 dlsjf
+        74 dlsjf
+
+SQL> show user;
+USER 为 "SYS"
+SQL> desc dba_sequences;
+ 名称                                      是否为空? 类型
+ ----------------------------------------- -------- ----------------------------
+ SEQUENCE_OWNER                            NOT NULL VARCHAR2(30)
+ SEQUENCE_NAME                             NOT NULL VARCHAR2(30)
+ MIN_VALUE                                          NUMBER
+ MAX_VALUE                                          NUMBER
+ INCREMENT_BY                              NOT NULL NUMBER
+ CYCLE_FLAG                                         VARCHAR2(1)
+ ORDER_FLAG                                         VARCHAR2(1)
+ CACHE_SIZE                                NOT NULL NUMBER
+ LAST_NUMBER                               NOT NULL NUMBER
+
+SQL> select sequence_name,sequence_owner from dba_sequences;
+
+SEQUENCE_NAME                  SEQUENCE_OWNER
+------------------------------ ------------------------------
+MYSEQ3                         SYS
+MYSEQ2                         SYS
+MYSEQ                          SYS
+UTL_RECOMP_SEQ                 SYS
+OLAPI_HISTORY_SEQ              SYS
+AWREPORT_S$                    SYS
+AWXML_S$                       SYS
+AWCREATE10G_S$                 SYS
+AWCREATE_S$                    SYS
+AWMD_S$                        SYS
+EXPRESS_S$                     SYS
+
+SEQUENCE_NAME                  SEQUENCE_OWNER
+------------------------------ ------------------------------
+JAVA$PREFS$SEQ$                SYS
+JAVA$POLICY$SEQUENCE$          SYS
+AQ$_SYS$SERVICE_METRICS_TAB_N  SYS
+WRI$_SQLSET_STMT_ID_SEQ        SYS
+WRI$_SQLSET_REF_ID_SEQ         SYS
+WRI$_SQLSET_ID_SEQ             SYS
+WRI$_ALERT_THRSLOG_SEQUENCE    SYS
+AQ$_ALERT_QT_N                 SYS
+WRI$_ALERT_SEQUENCE            SYS
+INVALIDATION_REG_ID$           SYS
+ORA_PLAN_ID_SEQ$               SYS
+
+SEQUENCE_NAME                  SEQUENCE_OWNER
+------------------------------ ------------------------------
+AQ$_AQ$_MEM_MC_N               SYS
+HS$_INST_INIT_S                SYS
+HS$_CLASS_INIT_S               SYS
+HS$_INST_DD_S                  SYS
+HS$_CLASS_DD_S                 SYS
+HS$_BASE_DD_S                  SYS
+HS$_INST_CAPS_S                SYS
+HS$_CLASS_CAPS_S               SYS
+HS$_FDS_INST_S                 SYS
+HS$_FDS_CLASS_S                SYS
+STREAMS$_RULE_NAME_S           SYS
+
+SEQUENCE_NAME                  SEQUENCE_OWNER
+------------------------------ ------------------------------
+FGR$_NAMES_S                   SYS
+STREAMS$_APPLY_SPILL_TXNKEY_S  SYS
+GENERATOR$_S                   SYS
+MV_RF$JOBSEQ                   SYS
+IDX_RB$JOBSEQ                  SYS
+AQ$_KUPC$DATAPUMP_QUETAB_N     SYS
+SCHEDULER$_JOBSUFFIX_S         SYS
+SCHEDULER$_OLDOIDS_S           SYS
+AQ$_SCHEDULER$_EVENT_QTAB_N    SYS
+SCHEDULER$_EVTSEQ              SYS
+SCHEDULER$_INSTANCE_S          SYS
+
+SEQUENCE_NAME                  SEQUENCE_OWNER
+------------------------------ ------------------------------
+AQ$_SCHEDULER$_JOBQTAB_N       SYS
+AQ$_PUBLISHER_SEQUENCE         SYS
+AQ$_RULE_SEQUENCE              SYS
+AQ$_RULE_SET_SEQUENCE          SYS
+AQ$_IOTENQTXID                 SYS
+AQ$_CHAINSEQ                   SYS
+AQ$_PROPAGATION_SEQUENCE       SYS
+AQ$_TRANS_SEQUENCE             SYS
+DBMS_LOCK_ID                   SYS
+WRI$_ADV_SEQ_SQLW_QUERY        SYS
+WRI$_ADV_SEQ_MSGGROUP          SYS
+
+SEQUENCE_NAME                  SEQUENCE_OWNER
+------------------------------ ------------------------------
+WRI$_ADV_SEQ_JOURNAL           SYS
+WRI$_ADV_SEQ_DIR               SYS
+WRI$_ADV_SEQ_TASK              SYS
+IDGEN1$                        SYS
+CACHE_STATS_SEQ_0              SYS
+CACHE_STATS_SEQ_1              SYS
+TSM_MIG_SEQ$                   SYS
+REDEF_SEQ$                     SYS
+APPLY$_ERROR_HANDLER_SEQUENCE  SYS
+APPLY$_DEST_OBJ_ID             SYS
+APPLY$_SOURCE_OBJ_ID           SYS
+
+SEQUENCE_NAME                  SEQUENCE_OWNER
+------------------------------ ------------------------------
+STREAMS$_CAPTURE_INST          SYS
+AWSEQ$                         SYS
+PSINDEX_SEQ$                   SYS
+LOG$SEQUENCE                   SYS
+CDC_RSID_SEQ$                  SYS
+CDC_SUBSCRIBE_SEQ$             SYS
+PARTITION_NAME$                SYS
+ORA_TQ_BASE$                   SYS
+RGROUPSEQ                      SYS
+JOBSEQ                         SYS
+SNAPSITE_ID$                   SYS
+
+SEQUENCE_NAME                  SEQUENCE_OWNER
+------------------------------ ------------------------------
+SNAPSHOT_ID$                   SYS
+AUDSES$                        SYS
+PROFNUM$                       SYS
+SYSTEM_GRANT                   SYS
+OBJECT_GRANT                   SYS
+UGROUP_SEQUENCE                SYS
+REPCAT$_EXCEPTIONS_S           SYSTEM
+TEMPLATE$_TARGETS_S            SYSTEM
+REPCAT$_RUNTIME_PARMS_S        SYSTEM
+REPCAT$_TEMP_OUTPUT_S          SYSTEM
+REPCAT$_TEMPLATE_SITES_S       SYSTEM
+
+SEQUENCE_NAME                  SEQUENCE_OWNER
+------------------------------ ------------------------------
+REPCAT$_USER_PARM_VALUES_S     SYSTEM
+REPCAT$_TEMPLATE_PARMS_S       SYSTEM
+REPCAT$_TEMPLATE_OBJECTS_S     SYSTEM
+REPCAT$_TEMPLATE_REFGROUPS_S   SYSTEM
+REPCAT$_USER_AUTHORIZATIONS_S  SYSTEM
+REPCAT$_REFRESH_TEMPLATES_S    SYSTEM
+REPCAT_LOG_SEQUENCE            SYSTEM
+REPCAT$_REPPROP_KEY            SYSTEM
+REPCAT$_FLAVOR_NAME_S          SYSTEM
+REPCAT$_FLAVORS_S              SYSTEM
+LOGMNR_UIDS$                   SYSTEM
+
+SEQUENCE_NAME                  SEQUENCE_OWNER
+------------------------------ ------------------------------
+LOGMNR_SEQ$                    SYSTEM
+LOGMNR_EVOLVE_SEQ$             SYSTEM
+MVIEW$_ADVSEQ_ID               SYSTEM
+MVIEW$_ADVSEQ_GENERIC          SYSTEM
+DM$EXPIMP_ID_SEQ               DMSYS
+MGMT_RESPONSE_SNAPSHOT_ID      DBSNMP
+MGMT_RESPONSE_CAPTURE_ID       DBSNMP
+AQ$_WM$EVENT_QUEUE_TABLE_N     WMSYS
+WM$UDTRIG_DISPATCHER_SEQUENCE  WMSYS
+WM$ROW_SYNC_ID_SEQUENCE        WMSYS
+WM$VERSION_SEQUENCE            WMSYS
+
+SEQUENCE_NAME                  SEQUENCE_OWNER
+------------------------------ ------------------------------
+WM$ADT_SEQUENCE                WMSYS
+WM$VTID                        WMSYS
+WM$LOCK_SEQUENCE               WMSYS
+WM$INSTEADOF_TRIGS_SEQUENCE    WMSYS
+WM$UP_DEL_TRIG_NAME_SEQUENCE   WMSYS
+EXF$IDXOBJSEQ                  EXFSYS
+THS_SEQ                        CTXSYS
+MESG_ID_SEQ                    CTXSYS
+DR_ID_SEQ                      CTXSYS
+XDB$NAMESUFF_SEQ               XDB
+XDB$PROPNUM_SEQ                XDB
+
+SEQUENCE_NAME                  SEQUENCE_OWNER
+------------------------------ ------------------------------
+DBMS_MVSEQ                     OLAPSYS
+XML_LOADID_SEQUENCE            OLAPSYS
+CWM2_OLAP_ENABLESEQ            OLAPSYS
+OLAP_IRID                      OLAPSYS
+OLAP_ID_SEQ                    OLAPSYS
+SDO_NDM_NETWORK_ID_SEQ         MDSYS
+SDO_GEOR_SEQ                   MDSYS
+SAMPLE_SEQ                     MDSYS
+SDO_IDX_TAB_SEQUENCE           MDSYS
+SDO_TOPO_TRANSACT_SEQ          MDSYS
+SDO_TOPO_TRANSACT_SUBSEQ       MDSYS
+
+SEQUENCE_NAME                  SEQUENCE_OWNER
+------------------------------ ------------------------------
+TMP_COORD_OPS                  MDSYS
+MYSEQ                          SYSMAN
+DB_JOB_SEQUENCE                SYSMAN
+MGMT_JOB_SEQUENCE              SYSMAN
+MGMT_FAILOVER_SEQUENCE         SYSMAN
+MGMT_BLACKOUT_REASON_SEQ       SYSMAN
+AQ$_MGMT_NOTIFY_QTABLE_N       SYSMAN
+EMPLOYEES_SEQ                  HR
+DEPARTMENTS_SEQ                HR
+LOCATIONS_SEQ                  HR
+ORDERS_SEQ                     OE
+
+SEQUENCE_NAME                  SEQUENCE_OWNER
+------------------------------ ------------------------------
+AQ$_STREAMS_QUEUE_TABLE_N      IX
+AQ$_ORDERS_QUEUETABLE_N        IX
+
+已选择145行。
+
+SQL> select user from daul;
+select user from daul
+                 *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+SQL> select user from dual;
+
+USER
+------------------------------
+SYS
+
+SQL> select sequence_name,sequence_owner from dba_sequences
+  2  where sequence_owner='sysman';
+
+未选定行
+
+SQL> alter sequence myseq3;
+alter sequence myseq3
+                    *
+第 1 行出现错误:
+ORA-02286: 未指定 ALTER SEQUENCE 的选项
+
+
+SQL> alter sequence myseq
+  2  increment by 1;
+
+序列已更改。
+
+SQL> select myseq.nextval from dual;
+
+   NEXTVAL
+----------
+        75
+
+SQL> /
+
+   NEXTVAL
+----------
+        76
+
+SQL> alter sequence increment by 3;
+alter sequence increment by 3
+               *
+第 1 行出现错误:
+ORA-02277: 无效的序列名
+
+
+SQL> alter sequence myseq3 increment by 3;
+
+序列已更改。
+
+SQL> select myseq3.nextval from dual;
+
+   NEXTVAL
+----------
+        19
+
+SQL> /
+
+   NEXTVAL
+----------
+        22
+
+SQL> /
+
+   NEXTVAL
+----------
+        25
+
+SQL>

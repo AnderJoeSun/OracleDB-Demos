@@ -1,0 +1,784 @@
+Microsoft Windows XP [版本 5.1.2600]
+(C) 版权所有 1985-2001 Microsoft Corp.
+
+C:\Documents and Settings\user>sqlplus sysman
+
+SQL*Plus: Release 10.2.0.1.0 - Production on 星期二 3月 20 08:46:06 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+输入口令:
+
+连接到:
+Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> drop table e;
+
+表已删除。
+
+SQL> select * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男
+002        钱2        男
+003        孙3        男
+004        李4        女
+005        周5        女
+
+SQL> select * from a;
+
+A          B
+---------- ----------
+hello      Molyn
+it is      fanyu
+woo!       Great!
+hi         I am Joyu
+
+SQL> select * from c;
+
+BOOKS_ID   BOOKS_NAME PRICE             QTY PUB
+---------- ---------- ---------- ---------- ----------
+0001       中国文学   39                 12 人民文学
+0002       外国文学   27                 10 人民文学
+0003       英语阅读   33                 22 清华大学
+0004       建筑艺术   45.5               17 清华大学
+0005       计算机入门 18.5                6 电子工业
+0006       数值算法   21                  7 电子工业
+0007       C语言设计  20                  9 电子工业
+
+已选择7行。
+
+SQL> select * from e;
+select * from e
+              *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+SQL> update d set id='01' where eid='001';
+
+已更新 1 行。
+
+SQL>  update d set id='02' where eid='002';
+
+已更新 1 行。
+
+SQL>   update d set id='03' where eid='003';
+
+已更新 1 行。
+
+SQL>   update d set id='04' where eid='004';
+
+已更新 1 行。
+
+SQL>   update d set id='05' where eid='005';
+
+已更新 1 行。
+
+SQL> select * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         03
+004        李4        女         04
+005        周5        女         05
+
+SQL> create table e(id varchar2(10),name varchar2(10));
+
+表已创建。
+
+SQL> insert into e values('01','A部门');
+
+已创建 1 行。
+
+SQL> insert into e values('02','B部门');
+
+已创建 1 行。
+
+SQL> insert into e values('03','C部门');
+
+已创建 1 行。
+
+SQL> insert into e values('04','D部门');
+
+已创建 1 行。
+
+SQL> insert into e values('05','E部门');
+
+已创建 1 行。
+
+SQL> selcet * from e;
+SP2-0734: 未知的命令开头 "selcet * f..." - 忽略了剩余的行。
+SQL> select * from e;
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+SQL> select * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         03
+004        李4        女         04
+005        周5        女         05
+
+SQL> selcet eid 编号,ename 姓名,sex 性别,id 所在部门 from d d1,e;
+SP2-0734: 未知的命令开头 "selcet eid..." - 忽略了剩余的行。
+SQL> select eid 编号,ename 姓名,sex 性别,id 所在部门 from d d1,e;
+select eid 编号,ename 姓名,sex 性别,id 所在部门 from d d1,e
+                                    *
+第 1 行出现错误:
+ORA-00918: 未明确定义列
+
+
+SQL>  select eid 编号,ename 姓名,sex 性别,id 所在部门 from d d1,e where e.id=d.i
+d;
+ select eid 编号,ename 姓名,sex 性别,id 所在部门 from d d1,e where e.id=d.id
+                                                                        *
+第 1 行出现错误:
+ORA-00904: "D"."ID": 标识符无效
+
+
+SQL>  select eid 编号,ename 姓名,sex 性别,d.id 所在部门 from d d1,e where e.id=d
+.id;
+ select eid 编号,ename 姓名,sex 性别,d.id 所在部门 from d d1,e where e.id=d.id
+                                                                          *
+第 1 行出现错误:
+ORA-00904: "D"."ID": 标识符无效
+
+
+SQL> select eid 编号,ename 姓名,sex 性别,d.id 所在部门 from d,e where e.id=d.id;
+
+
+编号       姓名       性别       所在部门
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         03
+004        李4        女         04
+005        周5        女         05
+
+SQL> select eid 编号,ename 姓名,sex 性别,e.id 所在部门 from d,e where e.id=d.id;
+
+
+编号       姓名       性别       所在部门
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         03
+004        李4        女         04
+005        周5        女         05
+
+SQL> select eid 编号,ename 姓名,sex 性别,e.name 所在部门 from d,e where e.id=d.i
+d;
+
+编号       姓名       性别       所在部门
+---------- ---------- ---------- ----------
+001        赵1        男         A部门
+002        钱2        男         B部门
+003        孙3        男         C部门
+004        李4        女         D部门
+005        周5        女         E部门
+
+SQL> select eid 编号,ename 姓名,sex 性别,e.name 所在部门 from d X,e where e.id=d
+.id;
+select eid 编号,ename 姓名,sex 性别,e.name 所在部门 from d X,e where e.id=d.id
+                                                                          *
+第 1 行出现错误:
+ORA-00904: "D"."ID": 标识符无效
+
+
+SQL> select eid 编号,ename 姓名,sex 性别,e.name 所在部门 from d join e where e.i
+d=d.id;
+select eid 编号,ename 姓名,sex 性别,e.name 所在部门 from d join e where e.id=d.i
+d
+                                                                  *
+第 1 行出现错误:
+ORA-00905: 缺失关键字
+
+
+SQL> select eid 编号,ename 姓名,sex 性别,e.name 所在部门 from d join e on e.id=d
+.id;
+
+编号       姓名       性别       所在部门
+---------- ---------- ---------- ----------
+001        赵1        男         A部门
+002        钱2        男         B部门
+003        孙3        男         C部门
+004        李4        女         D部门
+005        周5        女         E部门
+
+SQL> select eid 编号,ename 姓名,sex 性别,e.name 所在部门 from d join e;
+select eid 编号,ename 姓名,sex 性别,e.name 所在部门 from d join e
+                                                                *
+第 1 行出现错误:
+ORA-00905: 缺失关键字
+
+
+SQL> select eid 编号,ename 姓名,sex 性别,e.name 所在部门 from d, e
+  2
+SQL> select eid 编号,ename 姓名,sex 性别,e.name 所在部门 from d, e;
+
+编号       姓名       性别       所在部门
+---------- ---------- ---------- ----------
+001        赵1        男         A部门
+001        赵1        男         B部门
+001        赵1        男         C部门
+001        赵1        男         D部门
+001        赵1        男         E部门
+002        钱2        男         A部门
+002        钱2        男         B部门
+002        钱2        男         C部门
+002        钱2        男         D部门
+002        钱2        男         E部门
+003        孙3        男         A部门
+
+编号       姓名       性别       所在部门
+---------- ---------- ---------- ----------
+003        孙3        男         B部门
+003        孙3        男         C部门
+003        孙3        男         D部门
+003        孙3        男         E部门
+004        李4        女         A部门
+004        李4        女         B部门
+004        李4        女         C部门
+004        李4        女         D部门
+004        李4        女         E部门
+005        周5        女         A部门
+005        周5        女         B部门
+
+编号       姓名       性别       所在部门
+---------- ---------- ---------- ----------
+005        周5        女         C部门
+005        周5        女         D部门
+005        周5        女         E部门
+
+已选择25行。
+
+SQL> update d set id='55' where eid='05';
+
+已更新0行。
+
+SQL> selcect * from d;
+SP2-0734: 未知的命令开头 "selcect * ..." - 忽略了剩余的行。
+SQL> select * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         03
+004        李4        女         04
+005        周5        女         05
+
+SQL> update d set d.id='55' where eid='005';
+
+已更新 1 行。
+
+SQL> select * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         03
+004        李4        女         04
+005        周5        女         55
+
+SQL>
+SQL>  select eid 编号,ename 姓名,sex 性别,e.name 所在部门 from d, e;
+
+编号       姓名       性别       所在部门
+---------- ---------- ---------- ----------
+001        赵1        男         A部门
+001        赵1        男         B部门
+001        赵1        男         C部门
+001        赵1        男         D部门
+001        赵1        男         E部门
+002        钱2        男         A部门
+002        钱2        男         B部门
+002        钱2        男         C部门
+002        钱2        男         D部门
+002        钱2        男         E部门
+003        孙3        男         A部门
+
+编号       姓名       性别       所在部门
+---------- ---------- ---------- ----------
+003        孙3        男         B部门
+003        孙3        男         C部门
+003        孙3        男         D部门
+003        孙3        男         E部门
+004        李4        女         A部门
+004        李4        女         B部门
+004        李4        女         C部门
+004        李4        女         D部门
+004        李4        女         E部门
+005        周5        女         A部门
+005        周5        女         B部门
+
+编号       姓名       性别       所在部门
+---------- ---------- ---------- ----------
+005        周5        女         C部门
+005        周5        女         D部门
+005        周5        女         E部门
+
+已选择25行。
+
+SQL>
+SQL>  select eid 编号,ename 姓名,sex 性别,e.name 所在部门 from d, e where d.id=e
+.id;
+
+编号       姓名       性别       所在部门
+---------- ---------- ---------- ----------
+001        赵1        男         A部门
+002        钱2        男         B部门
+003        孙3        男         C部门
+004        李4        女         D部门
+
+SQL>  select eid 编号,ename 姓名,sex 性别,e.name 所在部门 from d, e where d.id=e
+.id(+);
+
+编号       姓名       性别       所在部门
+---------- ---------- ---------- ----------
+001        赵1        男         A部门
+002        钱2        男         B部门
+003        孙3        男         C部门
+004        李4        女         D部门
+005        周5        女
+
+SQL>  select eid 编号,ename 姓名,sex 性别,e.name 所在部门 from d, e where d.id(+
+)=e.id;
+
+编号       姓名       性别       所在部门
+---------- ---------- ---------- ----------
+001        赵1        男         A部门
+002        钱2        男         B部门
+003        孙3        男         C部门
+004        李4        女         D部门
+                                 E部门
+
+SQL> exit
+从 Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options 断开
+
+C:\Documents and Settings\user>sqlplus sysman/dashi
+
+SQL*Plus: Release 10.2.0.1.0 - Production on 星期二 3月 20 09:19:58 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+连接到:
+Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> select * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         03
+004        李4        女         04
+005        周5        女         55
+
+SQL> select * from d where eid='002';
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+002        钱2        男         02
+
+SQL> select * from e where id in (select id from d);
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+
+SQL> select * from d where id in (select id from e);
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         03
+004        李4        女         04
+
+SQL> select * from d where id in(select id from e where e.id=d.id and e.id='03')
+;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+003        孙3        男         03
+
+SQL> select * from e where id not in( select id from e where e.id='03');
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+04         D部门
+05         E部门
+
+SQL> select * from e where id not in( select * from e where e.id='03');
+select * from e where id not in( select * from e where e.id='03')
+                                 *
+第 1 行出现错误:
+ORA-00913: 值过多
+
+
+SQL> select * from d where exists (select id from e);
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         03
+004        李4        女         04
+005        周5        女         55
+
+SQL> select * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         03
+004        李4        女         04
+005        周5        女         55
+
+SQL> select * from d where exists ( select id from f);
+select * from d where exists ( select id from f)
+                                              *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+SQL>  select * from d where exists ( select id from a);
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         03
+004        李4        女         04
+005        周5        女         55
+
+SQL> select * from a;
+
+A          B
+---------- ----------
+hello      Molyn
+it is      fanyu
+woo!       Great!
+hi         I am Joyu
+
+SQL> select id from a;
+select id from a
+       *
+第 1 行出现错误:
+ORA-00904: "ID": 标识符无效
+
+
+SQL> select * from d where exists ( select a.id from a);
+select * from d where exists ( select a.id from a)
+                                      *
+第 1 行出现错误:
+ORA-00904: "A"."ID": 标识符无效
+
+
+SQL> select * from d where exists ( select id from b);
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         03
+004        李4        女         04
+005        周5        女         55
+
+SQL> select  * from d where exists (select id form d where e.id=d.id);
+select  * from d where exists (select id form d where e.id=d.id)
+                                              *
+第 1 行出现错误:
+ORA-00923: 未找到要求的 FROM 关键字
+
+
+SQL> select  * from d where exists (select id from d where e.id=d.id);
+select  * from d where exists (select id from d where e.id=d.id)
+                                                      *
+第 1 行出现错误:
+ORA-00904: "E"."ID": 标识符无效
+
+
+SQL> select * fro e;
+select * fro e
+         *
+第 1 行出现错误:
+ORA-00923: 未找到要求的 FROM 关键字
+
+
+SQL> select * from e;
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+SQL> select  * from d where exists (select id from d where d.id=e.id);
+select  * from d where exists (select id from d where d.id=e.id)
+                                                           *
+第 1 行出现错误:
+ORA-00904: "E"."ID": 标识符无效
+
+
+SQL> select  * from d where exists (select id from e where id=d.id);
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         03
+004        李4        女         04
+
+SQL> select  * from d where exists (select id from d where id=e.id);
+select  * from d where exists (select id from d where id=e.id)
+                                                         *
+第 1 行出现错误:
+ORA-00904: "E"."ID": 标识符无效
+
+
+SQL> select  * from e where exists (select id from d where id=e.id);
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+
+SQL>  select  * from e where exists (select id from e where id=d.id);
+ select  * from e where exists (select id from e where id=d.id)
+                                                          *
+第 1 行出现错误:
+ORA-00904: "D"."ID": 标识符无效
+
+
+SQL> select * from e where exists (select id from d where id=e.id);
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+
+SQL> select * from d where exists (select id from e where e.id=d.is);
+select * from d where exists (select id from e where e.id=d.is)
+                                                            *
+第 1 行出现错误:
+ORA-01747: user.table.column, table.column 或列说明无效
+
+
+SQL> select * from d where exists (select id from e where e.id=d.id);
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         03
+004        李4        女         04
+
+SQL> select * from d where exists (select id from e where id=d.id);
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         03
+004        李4        女         04
+
+SQL> select * from d where not exists (select id from e where id=d.id);
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+005        周5        女         55
+
+SQL> select * from d where not exists (select * from e where id=d.id);
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+005        周5        女         55
+
+SQL> select * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         03
+004        李4        女         04
+005        周5        女         55
+
+SQL> select * from e;
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+SQL> select eis from d
+  2  union
+  3  select id,name from e;
+select eis from d
+       *
+第 1 行出现错误:
+ORA-00904: "EIS": 标识符无效
+
+
+SQL> select eid from d
+  2  union
+  3  select id,name from e;
+select eid from d
+*
+第 1 行出现错误:
+ORA-01789: 查询块具有不正确的结果列数
+
+
+SQL> select eid from d
+  2  union
+  3  select id,name from e;
+select eid from d
+*
+第 1 行出现错误:
+ORA-01789: 查询块具有不正确的结果列数
+
+
+SQL> select eid,ename form d
+  2  union
+  3  select id,name from d;
+select eid,ename form d
+                      *
+第 1 行出现错误:
+ORA-00923: 未找到要求的 FROM 关键字
+
+
+SQL> select eid,ename from d
+  2  union
+  3  select id,name from e;
+
+EID        ENAME
+---------- ----------
+001        赵1
+002        钱2
+003        孙3
+004        李4
+005        周5
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+已选择10行。
+
+SQL> select id from d
+  2  union
+  3  select id from e;
+
+ID
+----------
+01
+02
+03
+04
+05
+55
+
+已选择6行。
+
+SQL> select id from d
+  2  intersect
+  3  select id from e;
+
+ID
+----------
+01
+02
+03
+04
+
+SQL> insert into d(eid,ename) select id,name from e;
+
+已创建5行。
+
+SQL> selcet * from d;
+SP2-0734: 未知的命令开头 "selcet * f..." - 忽略了剩余的行。
+SQL> select * from d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         03
+004        李4        女         04
+005        周5        女         55
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+已选择10行。
+
+SQL> create table ttt as (select * from d);
+
+表已创建。
+
+SQL> select * from ttt;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         03
+004        李4        女         04
+005        周5        女         55
+01         A部门
+02         B部门
+03         C部门
+04         D部门
+05         E部门
+
+已选择10行。
+
+SQL> create table t as select eid,ename from d where d.eid='003';
+
+表已创建。
+
+SQL> select * from t;
+
+EID        ENAME
+---------- ----------
+003        孙3
+
+SQL>

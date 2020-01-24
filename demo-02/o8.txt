@@ -1,0 +1,522 @@
+
+C:\Documents and Settings\user>sqlplus sysman/dashi
+
+SQL*Plus: Release 10.2.0.1.0 - Production on 星期四 3月 22 12:22:26 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+连接到:
+Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> conn test/qiaoyu
+已连接。
+SQL> select * from sysman.d;
+select * from sysman.d
+                     *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+SQL> 出现上述错误是因为test没有权限，故找不到实际存在的sysman.d这个表！
+SP2-0734: 未知的命令开头 "出现上述错..." - 忽略了剩余的行。
+SQL>
+SQL> conn sys/dashi as sysdba
+已连接。
+SQL> grant select on sysman.e;
+grant select on sysman.e
+                       *
+第 1 行出现错误:
+ORA-00905: 缺失关键字
+
+
+SQL> grant select on sysman.e to test;
+
+授权成功。
+
+SQL> conn test/qiaoyu
+已连接。
+SQL> select * from sysman.e;
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+32233      sdjl
+04         D部门
+05         E部门
+77         sdflsk
+22         tt
+
+已选择7行。
+
+SQL> delete from sysman.e;
+delete from sysman.e
+                   *
+第 1 行出现错误:
+ORA-01031: 权限不足
+
+
+SQL> conn / as sysdba
+已连接。
+SQL> alter user test default tablespace excample;
+alter user test default tablespace excample
+*
+第 1 行出现错误:
+ORA-00959: 表空间 'EXCAMPLE' 不存在
+
+
+SQL>  alter user test default tablespace example;
+
+用户已更改。
+
+SQL> alter user test default tablespace users;
+
+用户已更改。
+
+SQL> alter user test default tablespace example;
+
+用户已更改。
+
+SQL> alter user test identified by dashi;
+
+用户已更改。
+
+SQL> conn test/dashi
+已连接。
+SQL> conn / as sysdba
+已连接。
+SQL> alter user test account lock;
+
+用户已更改。
+
+SQL> conn test/dashi
+ERROR:
+ORA-28000: the account is locked
+
+
+警告: 您不再连接到 ORACLE。
+SQL> alter user test account unlock;
+SP2-0640: 未连接
+SQL> conn /as sysdba
+已连接。
+SQL> alter user test account unlock;
+
+用户已更改。
+
+SQL> conn test/dashi
+已连接。
+SQL> conn / as sysdba
+已连接。
+SQL> alter user test identified by qiaoyu
+  2  ;
+
+用户已更改。
+
+SQL> conn test/qiaoyu
+已连接。
+SQL> conn /as sysdba
+已连接。
+SQL> create user qqq identified by qqq123
+  2  default tablespace example;
+
+用户已创建。
+
+SQL> conn qqq/qqq123
+ERROR:
+ORA-01045: user QQQ lacks CREATE SESSION privilege; logon denied
+
+
+警告: 您不再连接到 ORACLE。
+SQL> conn /as sysdba
+已连接。
+SQL> grant connect to qqq;
+
+授权成功。
+
+SQL> alter user qqq account unlock;
+
+用户已更改。
+
+SQL> conn qqq/qqq123
+已连接。
+SQL> alter user qqq account lock;
+alter user qqq account lock
+*
+第 1 行出现错误:
+ORA-01031: 权限不足
+
+
+SQL> conn /as sysdba
+已连接。
+SQL> alter user qqq account lock;
+
+用户已更改。
+
+SQL> conn qqq/qqq123
+ERROR:
+ORA-28000: the account is locked
+
+
+警告: 您不再连接到 ORACLE。
+SQL> conn test/qiaoyu
+已连接。
+SQL> conn /as sysdba
+已连接。
+SQL> alter user qqq account unlock;
+
+用户已更改。
+
+SQL> grant select on sysman.e to qqq;
+
+授权成功。
+
+SQL> conn qqq/qqq123
+已连接。
+SQL> select * from sysman.e;
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+32233      sdjl
+04         D部门
+05         E部门
+77         sdflsk
+22         tt
+
+已选择7行。
+
+SQL> conn /as sysdba
+已连接。
+SQL> grant select on sysman.e to test with grant option;
+
+授权成功。
+
+SQL> conn test/qiaoyu
+已连接。
+SQL> grant select on sysman.e to qqq;
+
+授权成功。
+
+SQL> conn qqq/qqq123
+已连接。
+SQL> select * from sysman.e;
+
+ID         NAME
+---------- ----------
+01         A部门
+02         B部门
+32233      sdjl
+04         D部门
+05         E部门
+77         sdflsk
+22         tt
+
+已选择7行。
+
+SQL> conn /as sysdba
+已连接。
+SQL> grant all on sysman.e to test with grant option;
+
+授权成功。
+
+SQL> grant execute on sysmam.d to test;
+grant execute on sysmam.d to test
+                        *
+第 1 行出现错误:
+ORA-04042: 过程, 函数, 程序包或程序包体不存在
+
+
+SQL> conn test/qiaoyu
+已连接。
+SQL> create user abc identified by abc;
+create user abc identified by abc
+                              *
+第 1 行出现错误:
+ORA-01031: 权限不足
+
+
+SQL> conn /as sysdba
+已连接。
+SQL> grant create user to test;
+
+授权成功。
+
+SQL> conn test/qiaoyu
+已连接。
+SQL> create user abc identified by abc;
+
+用户已创建。
+
+SQL> drop user abc;
+drop user abc
+*
+第 1 行出现错误:
+ORA-01031: 权限不足
+
+
+SQL> conn /as sysdba
+已连接。
+SQL> grant drop user to test;
+
+授权成功。
+
+SQL> conn test/qiaoyu
+已连接。
+SQL> drop user abc;
+^C
+C:\Documents and Settings\user>sqlplus sys/dashi as sysdba
+
+SQL*Plus: Release 10.2.0.1.0 - Production on 星期四 3月 22 13:40:47 2007
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+连接到:
+Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> conn test/qiaoyu
+已连接。
+SQL> create user abc identified by abc;
+
+用户已创建。
+
+SQL> drop user abc;
+
+用户已删除。
+
+SQL> grant create user to qqq;
+grant create user to qqq
+*
+第 1 行出现错误:
+ORA-01031: 权限不足
+
+
+SQL> conn /as sysdba
+已连接。
+SQL> grant create user to test with admin option;
+
+授权成功。
+
+SQL> conn test/qiaoyu
+已连接。
+SQL> grant create user to qqq;
+
+授权成功。
+
+SQL> conn qqq/qqq123;
+已连接。
+SQL> create user abc identified by abc;
+
+用户已创建。
+
+SQL> create user abc identified by abc;
+create user abc identified by abc
+            *
+第 1 行出现错误:
+ORA-01920: 用户名 'ABC' 与另外一个用户名或角色名发生冲突
+
+
+SQL> revoke all on sysman.d from test;
+
+撤销成功。
+
+SQL> revoke all on sysman.e from test;
+
+撤销成功。
+
+SQL> revoke create user from test;
+revoke create user from test
+*
+第 1 行出现错误:
+ORA-01031: 权限不足
+
+
+SQL> conn /as sysdba
+已连接。
+SQL> revoke all on sysman.d from test;
+
+撤销成功。
+
+SQL> revoke all on sysman.e from test;
+
+撤销成功。
+
+SQL>  revoke create user from test;
+
+撤销成功。
+
+SQL> conn qqq/qqq123
+已连接。
+SQL> create user idjks identified by dddd;
+
+用户已创建。
+
+SQL> conn /as sysdba
+已连接。
+SQL> create role myrole;
+
+角色已创建。
+
+SQL> grant select on sysman.d to myrole;
+
+授权成功。
+
+SQL> grant mysole to test;
+grant mysole to test
+      *
+第 1 行出现错误:
+ORA-01919: 角色 'MYSOLE' 不存在
+
+
+SQL> grant myrole to test;
+
+授权成功。
+
+SQL> conn test/qiaoyu
+已连接。
+SQL> select * from sysman.d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         32233
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+121        sdkjfls               22
+0111       abc        man        22
+01         A部门
+02         B部门
+03         C部门
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+04         D部门
+05         E部门
+
+已选择13行。
+
+SQL> conn /as sysdba
+已连接。
+SQL> grant myrole to qqq;
+
+授权成功。
+
+SQL> connect qqq/qqq123
+已连接。
+SQL> select * from sysman.d;
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+001        赵1        男         01
+002        钱2        男         02
+003        孙3        男         32233
+004        李4        女         04
+005        周5        女         55
+121        sdkjfls               77
+121        sdkjfls               22
+0111       abc        man        22
+01         A部门
+02         B部门
+03         C部门
+
+EID        ENAME      SEX        ID
+---------- ---------- ---------- ----------
+04         D部门
+05         E部门
+
+已选择13行。
+
+SQL> conn qqq/qqq123
+已连接。
+SQL> conn qqq/dkjfslk
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+警告: 您不再连接到 ORACLE。
+SQL> conn qqq/djfls
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+SQL> conn qqq/lskdfei
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+SQL> conn qqq/qqq123
+已连接。
+SQL> conn qqq/kdjflsk
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+警告: 您不再连接到 ORACLE。
+SQL> conn qqq/djflsjk
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+SQL> conn qqq/kjdlfsjf
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+SQL> conn qqq/djlskf
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+SQL> conn qqq/djflsjfe
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+SQL> 我此时应用刚刚设置的myprofile概要文件，它的作用是只充许错全登录失败三次。
+SP2-0734: 未知的命令开头 "我此时应用..." - 忽略了剩余的行。
+SQL> conn qqq/kdjflskj
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+SQL> qqq/djlfsk
+SP2-0042: 未知命令 "qqq/djlfsk" - 其余行忽略。
+SQL> qqq/kjdfoiie
+SP2-0734: 未知的命令开头 "qqq/kjdfoi..." - 忽略了剩余的行。
+SQL> qqq/dkjfie
+SP2-0042: 未知命令 "qqq/dkjfie" - 其余行忽略。
+SQL> conn qqq/kdjflskei
+ERROR:
+ORA-28000: the account is locked
+
+
+SQL> 上了锁！
+SP2-0042: 未知命令 "上了锁！" - 其余行忽略。
+SQL> conn qqq/qqq
+ERROR:
+ORA-28000: the account is locked
+
+
+SQL> conn qqq/qqq123
+ERROR:
+ORA-28000: the account is locked
+
+
+SQL> 即使密码对了，也不让连！
+SP2-0734: 未知的命令开头 "即使密码对..." - 忽略了剩余的行。
+SQL> 我刚刚解锁了！
+SP2-0734: 未知的命令开头 "我刚刚解锁..." - 忽略了剩余的行。
+SQL> conn qqq/kjdslfs
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+SQL> conn qqq/qqq123
+已连接。
+SQL>
